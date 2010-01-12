@@ -31,7 +31,15 @@ This will prompt you for a commit message.  Yes, I'm being picky about
       should further explain the changes (if such explanation is
       needed).
 
-That's it - you're done.
+Now push your changes to the remote repo:
+  git push
+
+You will probably need to add this to .git/config file inside the cloned repo:
+
+  [branch "master"]
+	remote = origin
+	merge = refs/heads/master
+
 
 If you add a new file to the repo for whatever reason, then be sure to
   add it to git's version control:
