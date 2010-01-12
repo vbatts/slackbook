@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+  "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
+
+<book>
+
+<bookinfo>
+  <title>The Slack Book</title>
+</bookinfo>
+
+<!-- Preface -->
+<xi:include
+  href="preface.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 1 -->
+<!-- Introduction to Slackware -->
+<xi:include
+  href="chapter_01.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 2 -->
+<!-- Installation -->
+<xi:include
+  href="chapter_02.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 3 -->
+<!-- Booting -->
+<xi:include
+  href="chapter_03.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 4 -->
+<!-- Basic Shell Commands -->
+<xi:include
+  href="chapter_04.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 5 -->
+<!-- The Bourne Again Shell -->
+<xi:include
+  href="chapter_05.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 6 -->
+<!-- X Windows -->
+<xi:include
+  href="chapter_06.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 7 -->
+<!-- Printing -->
+<xi:include
+  href="chapter_07.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 8 -->
+<!-- Users & Groups -->
+<xi:include
+  href="chapter_08.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 9 -->
+<!-- Filesystem Permissions -->
+<xi:include
+  href="chapter_09.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 10 -->
+<!-- Filesystems -->
+<xi:include
+  href="chapter_10.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 11 -->
+<!-- Vi -->
+<xi:include
+  href="chapter_11.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 12 -->
+<!-- Emacs -->
+<xi:include
+  href="chapter_12.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 13 -->
+<!-- Networking -->
+<xi:include
+  href="chapter_13.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 14 -->
+<!-- Wireless Networking -->
+<xi:include
+  href="chapter_14.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 15 -->
+<!-- Nasic Network Commands -->
+<xi:include
+  href="chapter_15.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 16 -->
+<!-- Package Management -->
+<xi:include
+  href="chapter_16.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 17 -->
+<!-- Keeping Up With -stable -->
+<xi:include
+  href="chapter_17.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+<!-- Chapter 18 -->
+<!-- Kernel -->
+<xi:include
+  href="chapter_18.xml"
+  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+</book>

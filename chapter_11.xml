@@ -1,0 +1,334 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
+
+<chapter>
+<title><application>vi</application></title>
+
+<section>
+<title>What is <application>vi</application>?</title>
+
+<para>
+Scattered all around your computer are thousands of text files. To a
+new user, this may seem inconsequential, but almost everything in
+Slackware Linux uses a plain-text file for configuration. This allows
+users to make changes to the system quickly, easily, and intuitively.
+In chapter 5, we looked at a few commands such as
+<application>cat</application> and <application>less</application> that
+can be used to read these files, but what if we want to make changes to
+them? For that, we need a text editor, and
+<application>vi</application> is up to the task.
+</para>
+
+<para>
+In short, <application>vi</application> is one of the oldest and most
+powerful text editors still used today. It's beloved by system
+administrators, programmers, hobbiests, and others the world over. In
+fact, nearly this entire book was written using
+<application>vi</application>; only the next chapter on
+<application>emacs</application> was written with that editor.
+</para>
+
+<para>
+A little further explanation is needed to learn exactly what
+<application>vi</application> is today though, as Slackware Linux
+technically doesn't include <application>vi</application>. Rather,
+Slackware includes two vi "clones", <application>elvis</application>(1)
+and <application>vim</application>(1). These clones add many additional
+features to vi such as syntax highlighting, binary editing modes, and
+network support. We won't go too deeply into all these details. By
+default, if you execute <application>vi</application> on Slackware
+Linux, you'll be using <application>elvis</application>, so all
+examples in this chapter will assume that is what you are using. If
+you've used another Linux distribution before, you may be more familiar
+with <application>vim</application>. If so, you might wish to change
+the symlink for <filename>/usr/bin/vi</filename> to point to
+<filename>/usr/bin/vim</filename>, or add an alias to your shell's
+startup scripts. <application>vim</application> is generally considered
+to be more feature-rich than <application>elvis</application>, but
+<application>elvis</application> is a much smaller program and contains
+more features than most users will ever need.
+</para>
+
+<para>
+<application>vi</application> is very powerful, but also somewhat
+cumbersome and challening for a new user to learn. However, mastering 
+<application>vi</application> is an important skill for any
+self-respecting system administrator to learn, as 
+<application>vi</application> is included on nearly every Linux
+distribution, every BSD system, and every UNIX system in existance. 
+It's even included in Mac OS X.
+Once you've learned <application>vi</application>, you'll not have to
+learn another text editor to work on any of these systems. In fact,
+<application>vi</application> clones have even been ported to Microsoft Windows
+systems, so you can use it there too.
+</para>
+
+</section>
+
+<section>
+<title>The Different Modes of <application>vi</application></title>
+
+<para>
+New users are often frustrated when using <application>vi</application>
+for the first time. When invoked without any arguments, 
+<application>vi</application> will display a screen something like
+this.
+</para>
+
+<screen>
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+                                     Command
+</screen>
+
+<para>
+At this point, the user will being typing and expect the keys he
+presses to appear in the document. Instead, something really strange
+happens. The reason for this is simple. <application>vi</application>
+has different operation "modes". There is a command mode and an insert
+mode. Command mode is the default; in this mode, each keystroke
+performs a particular action such as moving the cursor around, deleting
+text, yanking (copying) text, searching, etc.
+</para>
+
+
+</section>
+
+<section>
+<title>Opening, Saving, and Quitting</title>
+
+<para>
+Ok, so you've decided that you want to learn how to use 
+<application>vi</application>. The first thing to do is learn how to
+open and save files. Opening files is actually pretty easy. Simply type
+the filename as an argument on the command-line and 
+<application>vi</application> will happily load it for you. For
+example, <userinput>vi chapter_11.xml</userinput> will open the file
+<filename>chapter_11.xml</filename> and load its content onto the
+screen, simple enough. But what if we've finished with one document and
+wish to save it? We can do that in command mode using the <arg>:w</arg>
+command. When in command mode, pressing the <keycap>:</keycap> key
+temporarily positions the cursor on the very bottom line of the window
+and allows you to enter special commands. (This is technically known as
+ex-mode after the venerable <application>ex</application> application
+which we will not document here.) The command to save your current work
+is <arg>:w</arg>. Once this is done, <application>vi</application> will
+write your changes to the buffer back into the file. If you wish to
+open another document, simply use the <arg>:e other_document</arg>
+command and <application>vi</application> will happily open it for you.
+If you've made changes to the buffer but haven't saved it yet,
+<arg>:e</arg> will fail and print a warning message on the bottom line.
+You can bypass this with the <arg>:e!</arg> command. Most ex-mode
+commands in <application>vi</application> can be "forced" by adding
+<keycap>!</keycap> to them. This tells <application>vi</application>
+that you want to abandon any changes you've made to the buffer and open
+the other document immediately.
+</para>
+
+<para>
+But what if I don't like my changes and want to quit or start over?
+That's easily done as well. Executing the <arg>:e!</arg> command
+without any arguments will re-open the current document from the
+beginning. Quitting <application>vi</application> is as simple as
+running the <arg>:q</arg> command if you haven't made any changes to
+the buffer, or <arg>:q!</arg> if you'd like to quit and abandon those
+changes.
+</para>
+
+</section>
+
+<section>
+<title>Moving Around</title>
+
+<para>
+Moving around in <application>vi</application> is perhaps the hardest
+thing for a new user to learn. <application>vi</application> does not
+traditionally use the directional arrow keys for cursor movement,
+although in Slackware Linux that is an option. Rather, movement is
+simply another command issued in command-mode. The reason for this is
+rather simple. <application>vi</application> actually predates the
+inclusion of directional arrow keys on keyboards. Thus,
+movement of the cursor had to be accomplished by using the few
+keys available, so the right-hand "home row" keys of
+<keycap>h</keycap>, <keycap>j</keycap>, <keycap>k</keycap>, and
+<keycap>l</keycap> were chosen. These keys will move the cursor about
+whenever <application>vi</application> is in command mode. Here's a
+short table to help you remember how they work.
+</para>
+
+<table pgwide="0">
+<title>vi cursor movement</title>
+<tgroup cols="2">
+  <thead>
+    <row>
+      <entry>Command</entry>
+      <entry>Result</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>h</entry>
+      <entry>Move the cursor one character left.</entry>
+    </row>
+    <row>
+      <entry>j</entry>
+      <entry>Move the cursor one line down</entry>
+    </row>
+    <row>
+      <entry>k</entry>
+      <entry>Move the cursor one line up</entry>
+    </row>
+    <row>
+      <entry>l</entry>
+      <entry>Move the cursor one character right</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+<para>
+Moving around is a little more powerful than that though. Like many
+command keys, these movement keys accept numerical arguments. For
+example, <keycap>10j</keycap> will move the cursor down 10 lines. You
+can also move to the end or beginning of the current line with
+<keycap>$</keycap> and <keycap>^</keycap>, respectively.
+</para>
+
+</section>
+
+<section>
+<title>Editing A Document</title>
+
+<para>
+Now that we're able to open and save documents, as well as move around
+in them, it's time to learn how to edit them. The primary means of
+editing is to enter insert mode using either the <keycap>i</keycap> or
+<keycap>a</keycap> command keys.  These either insert text at the
+cursor's current location, or append it after the cursor's current
+location. Once into insert mode, you can type any text normally and it
+will be placed into your document.  You can return to command mode in
+order to save your changes by pressing the <keycap>ESC</keycap> key.
+</para>
+
+</section>
+
+<section>
+<title><application>vi</application> Cheat Sheet</title>
+
+<para>
+Since <application>vi</application> can be difficult to learn, I've
+prepared a short cheat sheat that should help you with the basics until
+you begin to feel comfortable.
+</para>
+
+<table pgwide="0">
+<title>vi Cheat Sheet</title>
+<tgroup cols="2" title="Movement">
+  <thead>
+    <row>
+      <entry>Command</entry>
+      <entry>Result</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>h</entry>
+      <entry>Move the cursor one character left.</entry>
+    </row>
+    <row>
+      <entry>j</entry>
+      <entry>Move the cursor one line down</entry>
+    </row>
+    <row>
+      <entry>k</entry>
+      <entry>Move the cursor one line up</entry>
+    </row>
+    <row>
+      <entry>l</entry>
+      <entry>Move the cursor one character right</entry>
+    </row>
+    <row>
+      <entry>10j</entry>
+      <entry>Move the cursor ten lines down</entry>
+    </row>
+    <row>
+      <entry>G</entry>
+      <entry>Move to the end of the file</entry>
+    </row>
+    <row>
+      <entry>^</entry>
+      <entry>Move to the beginning of the line</entry>
+    </row>
+    <row>
+      <entry>$</entry>
+      <entry>Move to the end of the line</entry>
+    </row>
+    <row>
+      <entry>dd</entry>
+      <entry>Remove a line</entry>
+    </row>
+    <row>
+      <entry>5dd</entry>
+      <entry>Remove 5 lines</entry>
+    </row>
+    <row>
+      <entry>r</entry>
+      <entry>Replace a single character</entry>
+    </row>
+    <row>
+      <entry>R</entry>
+      <entry>Replace multiple characters</entry>
+    </row>
+    <row>
+      <entry>x</entry>
+      <entry>Delete a character</entry>
+    </row>
+    <row>
+      <entry>X</entry>
+      <entry>Delete the previous character</entry>
+    </row>
+    <row>
+      <entry>u</entry>
+      <entry>Undo the last action</entry>
+    </row>
+    <row>
+      <entry>:s'old'new'g</entry>
+      <entry>Replace all occurances of 'old' with 'new'</entry>
+    </row>
+    <row>
+      <entry>/asdf</entry>
+      <entry>Locate next occurance of asdf</entry>
+    </row>
+    <row>
+      <entry>:q</entry>
+      <entry>Quit (without saving)</entry>
+    </row>
+    <row>
+      <entry>:w</entry>
+      <entry>Save the current document</entry>
+    </row>
+    <row>
+      <entry>:w file</entry>
+      <entry>Save the current document as 'file'</entry>
+    </row>
+    <row>
+      <entry>:x</entry>
+      <entry>Save and quit</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+</section>
+
+</chapter>

@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
+
+<chapter>
+<title>The X Window System</title>
+
+<section>
+<title>What Is (And Isn't) X</title>
+
+<para>
+Eons ago computer terminals came with a screen and a keyboard and not
+much else. Mice hadn't come into common use and everything was menu
+driven. Then came the Graphical User Interface (GUI) and the world was
+changed. Today users are accustomed to moving a mouse around a screen,
+clicking on icons and running tasks with fancy images and animation,
+but UNIX systems predated this and so GUIs were added almost as an
+afterthought. For many years, Linux and its UNIX brethren were
+primarily used without graphics of any sort, but today it is perhaps
+more common than not for users to prefer their Linux computers come
+with shiney, flashy, clickable GUIs, and all these GUIs run on
+<application>X</application>(7).
+</para>
+
+<para>
+So what is X? Is it the desktop with the icons? Is it the menus? Is it
+the window manager? Does it mark the spot? The answer to all these is a
+resounding "no". There are many parts to a GUI, but X is the most
+fundamental. X is that application that receives input from the mouse,
+keyboard, and possibly other devices. X is that application that tells
+the graphics card what to do. In short, X is the application that talks
+to your computer's hardware from graphical purposes; all other
+graphical applications simply talk to X.
+</para>
+
+<para>
+Let's stop for a moment and talk about nomenclature. X is just one of a
+dozen names that you may encounter. It is also called X11, the X Window
+System, X Window, X11R6, X Version 11, and several others. Whatever
+you hear it called, simply understand that the speakers are referring
+to X.
+</para>
+
+</section>
+
+<section>
+<title>Configuring the X Server</title>
+
+<para>
+As powerful as Slackware Linux is, configuring X can be daunting and
+is often one of the first real challenges a new user faces. Don't be
+overly concerned if you find this a bit difficult. While many changes
+have been made over the years that make this much easier, there are
+still computers out there that don't properly auto-detect, or you'll
+wish to make some change to some setting and it might not be immediately
+apparent what to do. Just remember that when I started using X, it was
+far more primitive than it is today, took far more work to configure,
+and often crashed without telling the user what was wrong. If I and
+thousands of others got this working back then, you can do it today.
+Fortunately, Slackware includes a default configuration file that works
+for most computers by using the VESA standard. This offers only the
+most basic functions and may not allow your graphics card to operate at
+its full potential. You may be limited to low resolutions, fewer
+colors, and <application>X</application> will be slower. Still, this is
+an option for users, particularly those who only want to occassionally
+run <application>X</application>. You can try it out now simply by
+running <application>startx</application>(1) from a command prompt.
+</para>
+
+<para>
+There are many ways to configure <application>X</application>, but the
+easiest is to use <application>xorgsetup</application>. This will attempt
+to probe probe your computer's hardware and write a working xorg.conf
+file. This option is not garaunteed to work; there are some platforms
+that it is known not to work with, and there are probably others as
+well. Still, it is worth trying first as it is the quickest and least
+complicated for a new user to attempt.
+</para>
+
+<para>
+The second most popular way to configure <application>X</application>
+on your system is the handy <application>xorgconfig</application>(1).
+This application asks you a series of questions about your computer's
+hardware and writes out a config file based on your choices. Unless you
+know exactly what your hardware is, we recommend that you try
+<application>xorgsetup</application> first.
+</para>
+
+<para>
+Lastly, you can manually configure your <application>X</application>
+server by modifying <filename>/etc/X11/xorg.conf</filename> with a text
+editor. This is not normally a task for the faint of heart, but is
+often the easiest way to make minor changes.
+</para>
+
+</section>
+
+<section>
+<title>Choosing a Window Manager</title>
+
+<para>
+Slackware Linux includes many different window managers and desktop
+environments. Window managers are the applications responsible for
+painting application windows on the screen, resizing these windows, and
+similar tasks. Desktop environments include a window manager, but also
+add task bars, menus, icons, and more. Slackware includes both the KDE
+and XFCE desktop environments and several additional window managers.
+Which you use is entirely your own decision, but in general, window
+managers tend to be faster than desktop environments and more suitable
+to older systems with less memory and slower processors. Desktop
+environments will be more comfortable for users accustomed to Microsoft
+Windows.
+</para>
+
+<para>
+LIST OF DE'S AND WINDOW MANAGERS.
+FILL THIS IN!!!!
+FILL THIS IN!!!!
+FILL THIS IN!!!!
+FILL THIS IN!!!!
+FILL THIS IN!!!!
+FILL THIS IN!!!!
+FILL THIS IN!!!!
+FILL THIS IN!!!!
+FILL THIS IN!!!!
+FILL THIS IN!!!!
+FILL THIS IN!!!!
+FILL THIS IN!!!!
+</para>
+
+<para>
+The easiest way to choose a window manager is
+<application>xwmconfig</application>(1), included with Slackware Linux.
+This application allows a user to choose what window manager to run
+with <application>startx</application>. 
+</para>
+
+</section>
+
+<section>
+<title>Setting Up A Graphical Login</title>
+
+<para>
+By default, when you boot your Slackware Linux system you are presented
+with a login prompt on a virtual terminal. This is more than adequate
+for most people's needs. If you need to run commandline applications,
+you may login and do so right away. If you want to run X, simply executing
+<application>startx</application> will do that for you nicely.
+But suppose you almost exclusively
+use your system for graphical duties like many laptop owners? Wouldn't
+it be nice for Slackware to take you straight into a GUI? Fortunately,
+there's an easy way to do just that.
+</para>
+
+<para>
+Slackware uses the System V init system which allows the administrator
+to boot into or change to different runlevels, which are really just
+different "states" the computer can be in. In fact, shutting down the
+computer is really only a case of changing to a runlevel which
+accomplishes just that. Runlevels can be rather complicated, so we
+won't delve into them any further than necessary.
+</para>
+
+<para>
+Runlevels are configured in <filename>inittab</filename>(5).
+The most common ones are
+runlevel 3 (Slackware's default) and runlevel 4 (GUI). In order to tell
+Slackware to boot to a GUI screen, simply open
+<filename>/etc/inittab</filename> with your
+favorite editor of choice. (You may wish to refer to one of the
+chapters on <application>vi</application> or
+<application>emacs</application> at this point.) Near the top, you'll
+see the relevant entries. 
+</para>
+
+<screen>
+# These are the default runlevels in Slackware:
+#   0 = halt
+#   1 = single user mode
+#   2 = unused (but configured the same as runlevel 3)
+#   3 = multiuser mode (default Slackware runlevel)
+#   4 = X11 with KDM/GDM/XDM (session managers)
+#   5 = unused (but configured the same as runlevel 3)
+#   6 = reboot
+
+# Default runlevel. (Do not set to 0 or 6)
+id:3:initdefault:
+</screen>
+
+<para>
+In this file (along with most configuration files) anything following a
+hash symbol # is a comment and not interpreted by init(8). Don't worry
+if you don't understand everything about inittab, as many veteran users
+don't either. The only line we are interested in is the last on above.
+Simply change the 3 to a 4 and reboot.
+</para>
+
+<screen>
+# These are the default runlevels in Slackware:
+#   0 = halt
+#   1 = single user mode
+#   2 = unused (but configured the same as runlevel 3)
+#   3 = multiuser mode (default Slackware runlevel)
+#   4 = X11 with KDM/GDM/XDM (session managers)
+#   5 = unused (but configured the same as runlevel 3)
+#   6 = reboot
+
+# Default runlevel. (Do not set to 0 or 6)
+id:4:initdefault:
+</screen>
+
+</section>
+
+</chapter>

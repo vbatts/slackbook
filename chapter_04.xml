@@ -1,0 +1,430 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
+
+<chapter>
+<title>Basic Shell Commands</title>
+
+<!-- ls, cd, mkdir, touch, rmdir, rm, file -->
+
+<para>
+So you've installed Slackware and you're staring at a terminal prompt,
+what now?  Now would be a good time to learn about the basic command
+line tools.  And since you're staring at a blinking curser, you
+probably need a little assistance in knowing how to get around, and
+that is what this chapter is all about.
+</para>
+
+<section>
+<title>System Documentation</title>
+
+<para>
+Your Slackware Linux system comes with lots of built-in documentation
+for nearly every installed application.  Perhaps the most common method
+of reading system documentation is by using the
+<application>man</application>(1).  <application>man</application>
+(short for manual) will bring up the included man-page for any
+application, system call, configuration file, or library you tell it
+too.  For example, <userinput>man man</userinput> will bring up the
+man-page for <application>man</application> itself.
+</para>
+
+<para>
+Unfortunately, you may not always know what application you need to use
+for the task at hand.  Thankfully, <application>man</application> has
+built-in search abilities.  Using the <arg>-k</arg> switch
+will cause <application>man</application> to search for every man-page
+that matches your search terms.
+</para>
+
+<para>
+The man-pages are organized into groups or sections by their content
+type.  For example, section 1 is for user applications.
+<application>man</application> will search each section in order and
+display the first match it finds.  Sometimes you will find that a
+man-page exists in more than one section for a given entry.  In that
+case, you will need to specify the exact section to look in.  In this
+book, all applications and a number of other things will have a number
+on their right-hand side in parenthesis.  This number is the man page
+section where you will find information on that tool.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>man -k printf</userinput>
+printf               (1)  - format and print data
+printf               (3)  - formatted output conversion
+<prompt>darkstar:~$ </prompt><userinput>man 3 printf</userinput>
+</screen>
+
+<table pgwide="0" frame="none">
+<title>Man Page Sections</title>
+<tgroup cols="2">
+  <thead>
+    <row>
+      <entry>Section</entry>
+      <entry align="right">Contents</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>1</entry>
+      <entry align="right">User Commands</entry>
+    </row>
+    <row>
+      <entry>2</entry>
+      <entry align="right">System Calls</entry>
+    </row>
+    <row>
+      <entry>3</entry>
+      <entry align="right">C Library Calls</entry>
+    </row>
+    <row>
+      <entry>4</entry>
+      <entry align="right">Devices</entry>
+    </row>
+    <row>
+      <entry>5</entry>
+      <entry align="right">File Formats / Protocols</entry>
+    </row>
+    <row>
+      <entry>6</entry>
+      <entry align="right">Games</entry>
+    </row>
+    <row>
+      <entry>7</entry>
+      <entry align="right">Conventions / Macro Packages</entry>
+    </row>
+    <row>
+      <entry>8</entry>
+      <entry align="right">System Administration</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section>
+<title>Dealing with Files and Directories</title>
+
+
+<section>
+<title><application>Listing Files and Directory Contents</application></title>
+
+<para>
+<application>ls</application>(1) is used to list files and directories,
+their permissions, size, type, inode number, owner and group, and
+plenty of additional information.  For example, let's list what's in
+the <filename>/</filename> directory for your new Slackware Linux system.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ls /</userinput>
+bin/   dev/  home/  lost+found/  mnt/  proc/  sbin/  sys/  usr/
+boot/  etc/  lib/   media/       opt/  root/  srv/   tmp/  var/
+</screen>
+
+<para>Notice that each of the listings is a directory.  These are
+easily distinguished from regular files due to the trailing /; standard
+files do not have a suffix.  Additionally, executable files will have an
+asterisk suffix.  But <application>ls</application> can do so much
+more.  To get a view of the permissions of a file or directory, you'll
+need to do a "long list".
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ls -l /home/alan/Desktop</userinput>
+-rw-r--r-- 1 alan users 15624161 2007-09-21 13:02 9780596510480.pdf
+-rw-r--r-- 1 alan users  3829534 2007-09-14 12:56 imgscan.zip
+drwxr-xr-x 3 alan root       168 2007-09-17 21:01 ipod_hack/
+drwxr-xr-x 2 alan users      200 2007-12-03 22:11 libgpod/
+drwxr-xr-x 2 alan users      136 2007-09-30 03:16 playground/
+</screen>
+
+<para>
+A long listing lets you view the permisions, user and group ownership,
+file size, last modified date, and of course, the file name itself.
+Notice that the first two entires are files, and the last three are
+directories.  This is denoted by the very first character on the line.
+Regular files get a "-"; directories get a "d".  There are several
+other file types with their own denominators.  Symbolic links for
+example will have an "l".
+</para>
+
+<para>
+Lastly, we'll show you how to list dot-files, or hidden files.  Unlike
+other operating systems such as Microsoft Windows, there is no special
+property that differentiates "hidden" files from "unhidden" files.  A
+hidden file simply begins with a dot.  To display these files along
+with all the others, you just need to pass the <arg>-a</arg> argument to
+<application>ls</application>.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ls -a</userinput>
+.xine/    .xinitrc-backup  .xscreensaver  .xsession-errors  SBo/
+.xinitrc  .xinitrc-xfce    .xsession      .xwmconfig/       Shared/
+</screen>
+
+<para>
+You also likely noticed that your files and directories appear in
+different colors.  Many of the enhanced features of
+<application>ls</application> such as these colors or the trailing
+characters indicating file-type are special features of the
+<application>ls</application> program that are turned on by passing
+various arguments.  As a convienience, Slackware sets up
+<application>ls</application> to use many of these optional arguments
+by default.  These are controlled by the LS_OPTIONS and LS_COLORS
+environment variables.  We will talk more about environment variables
+in chapter 5.
+</para>
+
+</section>
+
+<section>
+<title>Moving Around the Filesystem</title>
+
+<para>
+<application>cd</application> is the command used to change
+directories.  Unlike most other commands, <application>cd</application>
+is actually not it's own program, but is a shell built-in.  Basically,
+that means <application>cd</application> does not have its own man
+page.  You'll have to check your shell's documentation for more details
+on the <application>cd</application> you may be using.  For the most
+part though, they all behave the same.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>cd /</userinput>
+<prompt>darkstar:/$</prompt><userinput>ls</userinput>
+bin/   dev/  home/  lost+found/  mnt/  proc/  sbin/  sys/  usr/
+boot/  etc/  lib/   media/       opt/  root/  srv/   tmp/  var/
+<prompt>darkstar:/$</prompt><userinput>cd /usr/local</userinput>
+<prompt>darkstar:/usr/local$</prompt>
+</screen>
+
+<para>
+Notice how the prompt changed when we changed directories?  The default
+Slackware shell does this as a quick, easy way to see your current
+directory, but this is not actually a function of
+<application>cd</application>.  If your shell doesn't operate in this
+way, you can easily get your current working directory with the
+<application>pwd</application>(1) command.  (Most UNIX shells have
+configurable prompts that can be coaxed into providing this same
+functionality.  In fact, this is another convience setup in the default
+shell for you by Slackware.)
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>pwd</userinput>
+/usr/local
+</screen>
+
+</section>
+
+<section>
+<title>File and Directory Creation and Deletion</title>
+
+<para>
+While most applications can and will create their own files and
+directories, you'll often want to do this on your own.  Thankfully,
+it's very easy using <application>touch</application>(1) and
+<application>mkdir</application>(1).
+</para>
+
+<para>
+<application>touch</application> actually modifies the timestamp on a
+file, but if that file doesn't exist, it will be created.
+</para>
+
+<screen><prompt>darkstar:~/foo$ </prompt><userinput>ls -l</userinput>
+-rw-r--r-- 1 alan users 0 2008-01-18 15:01 bar1
+<prompt>darkstar:~/foo$ </prompt><userinput>touch bar2</userinput>
+-rw-r--r-- 1 alan users 0 2008-01-18 15:01 bar1
+-rw-r--r-- 1 alan users 0 2008-01-18 15:05 bar2
+<prompt>darkstar:~/foo$ </prompt><userinput>touch bar1</userinput>
+-rw-r--r-- 1 alan users 0 2008-01-18 15:05 bar1
+-rw-r--r-- 1 alan users 0 2008-01-18 15:05 bar2
+</screen>
+
+<para>
+Note how <filename>bar2</filename> was created in our second command,
+and the third command simpl updated the timestamp on
+<filename>bar1</filename>
+</para>
+
+<para>
+<application>mkdir</application> is used for (obviously enough) making
+directories.  <userinput>mkdir foo</userinput> will create the
+directory "foo" within the current working directory.  Additionally,
+you can use the <arg>-p</arg> argument to create any
+missing parent directories.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>mkdir foo</userinput>
+<prompt>darkstar:~$ </prompt><userinput>mkdir /slack/foo/bar/</userinput>
+mkdir: cannot create directory `/slack/foo/bar/': No such file or directory
+<prompt>darkstar:~$ </prompt><userinput>mkdir -p /slack/foo/bar/</userinput>
+</screen>
+
+<para>
+In the latter case, <application>mkdir</application> will first create
+"/slack", then "/slack/foo", and finally "/slack/foo/bar".  If you
+failed to use the <arg>-p</arg> argument,
+<application>man</application> would fail to create "/slack/foo/bar"
+unless the first two already existed, as you saw in the example.
+</para>
+
+<para>
+Removing a file is as easy as creating one.  The
+<application>rm</application>(1) will remove a file (assuming of course
+that you have permission to do this).  There are a few very common
+arguments to <application>rm</application>.  The first is
+<arg>-f</arg> and is used to force the removal of a file
+that you may lack explicit permission to delete.  The
+<arg>-r</arg> argument will remove directories and their
+contents recursively.
+</para>
+
+<para>
+There is another tool to remove directories, the humble
+<application>rmdir</application>(1).  <application>rmdir</application>
+will only remove directories that are empty, and complain noisely about
+those that contain files or sub-directories.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ls</userinput>
+foo_1/ foo_2/
+<prompt>darkstar:~$ </prompt><userinput>ls foo_1</userinput>
+bar_1
+<prompt>darkstar:~$ </prompt><userinput>rmdir foo_1</userinput>
+rmdir: foo/: Directory not empty
+<prompt>darkstar:~$ </prompt><userinput>rm foo_1/bar</userinput>
+<prompt>darkstar:~$ </prompt><userinput>rmdir foo_1</userinput>
+<prompt>darkstar:~$ </prompt><userinput>ls foo_2</userinput>
+bar_2/
+<prompt>darkstar:~$ </prompt><userinput>rm -fr foo_2</userinput>
+<prompt>darkstar:~$ </prompt><userinput>ls</userinput>
+</screen>
+
+</section>
+
+</section>
+
+<section>
+<title>Reading Documents</title>
+
+<para>
+Traditionally, UNIX and UNIX-like operating systems are filled with
+text files that at some point in time the system's users are going to
+want to read.  Naturally, there are plenty of ways of reading these
+files, and we'll show you the most common ones.
+</para>
+
+<para>
+In the early days, if you just wanted to see the contents of a file
+(any file, whether it was a text file or some binary program) you would
+use <application>cat</application>(1) to view them.
+<application>cat</application> is a very simple program, which takes
+one or more files, concatenates them (hence the name) and sends them to
+the standard output, which is usually your terminal screen.  This was
+fine when the file was small and wouldn't scroll off the screen, but
+inadequate for larger files as it had no built-in way of moving within
+a document and reading it a paragraph at a time.  Today,
+<application>cat</application> is still used quite extensively, but
+predominately in scripts or for joining two or more files into one.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>cat /etc/slackware-version</userinput>
+Slackware 12.0.0
+</screen>
+
+<para>
+Given the limitations of <application>cat</application> some very
+intelligent people sat down and began to work on an application to let
+them read documents one page at a time.  Naturally, such applications
+began to be known as "pagers".  One of the earliest of these was
+<application>more</application>(1), named because it would let you see
+"more" of the file whenever you wanted.  <application>more</application>
+will display the first few lines of a text file until your screen is
+full, then pause.  Once you've read through that screen, you can
+proceed down one line by pressing ENTER, or an entire screen by
+pressing SPACE.  <application>more</application> is also capable of
+searching through a text file for keywords.  Once you've displayed a
+file in <application>more</application>, simply press the / key and
+enter a keyword.  Upon pressing ENTER, the text will scroll until it
+finds the next match.  This is clearly a big improvement over
+<application>cat</application>, but still suffers from a serious flaw:
+<application>more</application> is not able to scroll back up through
+the file to allow you to read something you might have missed.  Clearly
+a better solution is called for.
+</para>
+
+<para>
+In order to address the short-comings of
+<application>more</application>, a new pager was developed and
+ironically dubbed <application>less</application>(1).
+<application>less</application> is a very powerful pager that supports
+all of the functions of <application>more</application> while adding
+lots of additional features.  To begin with,
+<application>less</application> allows you to use your arrow keys to
+controll movement within the document.  Due to its popularity, many
+Linux distributions have begun to exclude
+<application>more</application> in favor of
+<application>less</application>.  Slackware includes both.  Moreover,
+Slackware also includes a handy little pre-processor for
+<application>less</application> called
+<filename>lesspipe.sh</filename>.  This allows a user to exectute
+<application>less</application> on a number of non-text files.
+<filename>lesspipe.sh</filename> will generate text output from running
+a command on these files, and display it in
+<application>less</application>.
+</para>
+
+</section>
+
+<section>
+<title>Linking</title>
+
+<para>
+Links are a method of referring to one file by more than one name.  By
+using the <application>ln</application>(1) application, a user can
+reference one file with more than one name.  The two files are not
+carbon-copies of one another, but rather are the exact same file, just
+with a different name.  To remove the file entirely, all of its names
+must be deleted.  (This is actually the result of the way that
+<application>rm</application> and other tools like it work.  Rather
+than remove the contents of the file, they simply remove the reference
+to the file, freeing that space to be re-used.
+<application>ln</application> will create a second reference or "link"
+to that file.)
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ln /etc/slackware-version foo</userinput>
+<prompt>darkstar:~$ </prompt><userinput>cat foo</userinput>
+Slackware 12.0.0
+<prompt>darkstar:~$ </prompt><userinput>ls -l /etc/slackware-version foo</userinput>
+-rw-r--r-- 1 root root 17 2007-06-10 02:23 /etc/slackware-version
+-rw-r--r-- 1 root root 17 2007-06-10 02:23 foo
+</screen>
+
+<para>
+Another type of link exists, the symlink.  Symlinks, rather than being
+another reference to the same file, are actually a special kind of file
+in their own right.  These symlinks point to another file or directory.
+The primary advantage of symlinks is that they can refer to directories
+as well as files, and they can span multiple filesystems.  These are
+created with the <arg>-s</arg> argument.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ln -s /etc/slackware-version foo</userinput>
+<prompt>darkstar:~$ </prompt><userinput>cat foo</userinput>
+Slackware 12.0.0
+<prompt>darkstar:~$ </prompt><userinput>ls -l /etc/slackware-version foo</userinput>
+-rw-r--r-- 1 root root 17 2007-06-10 02:23 /etc/slackware-version
+lrwxrwxrwx 1 root root 22 2008-01-25 04:16 foo -> /etc/slackware-version
+</screen>
+
+<para>
+When using symlinks, remember that if the original file is deleted,
+your symlink is useless; it simply points at a file that doesn't exist
+anymore.
+</para>
+
+</section>
+
+</chapter>

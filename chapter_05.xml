@@ -1,0 +1,439 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
+
+<chapter>
+<title>The Bourne Again Shell</title>
+
+<section>
+<title>What Is A Shell?</title>
+
+<para>
+Yeah, what exactly is a shell?  Well, a shell is basically a
+command-line user environment.  In essence, it is an application that
+runs when the user logs in and allows him to run additional
+applications.  In some ways it is very similar to a graphical user
+interface, in that it provides a framework for executing commands and
+launching programs.  There are many shells included with a full install
+of Slackware, but in this book we're only going to discuss
+<application>bash</application>(1), the Bourne Again Shell. Advanced
+users might want to consider using the powerful
+<application>zsh</application>(1), and users familiar with older UNIX
+systems might appreciate <application>ksh</application>. The truly
+masochistic might choose the <application>csh</application>, but new
+users should stick to <application>bash</application>.
+</para>
+
+</section>
+
+<section>
+<title>Environment Variables</title>
+
+<para>
+All shells make certain tasks easier for the user by keeping track of
+things in environment variables.  An environment variable is simply a
+shorter name for some bit of information that the user wishes to store
+and make use of later.  For example, the environment variable PS1 tells
+<application>bash</application> how to format its prompt.  Other
+variables may tell applications how to run.  For example, the LESSOPEN
+variable tells <application>less</application> to run that handy
+<filename>lesspipe.sh</filename> preprocessor we talked about, and
+LS_OPTIONS tuns on color for <application>ls</application>.
+</para>
+
+<para>
+Setting your own envirtonment variables is easy.
+<application>bash</application> includes two built-in functions for
+handling this: <application>set</application> and
+<application>export</application>.  Additionally, an environment
+variable can be removed by using <application>unset</application>.
+(Don't panic if you accidently unset an environment variable and don't
+know what it would do.  You can reset all the default variables by
+logging out of your terminal and logging back in.)  You can reference a
+variable by placing a dollar sign ($) in front of it.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>set FOO=bar</userinput>
+<prompt>darkstar:~$ </prompt><userinput>echo $FOO</userinput>
+bar
+</screen>
+
+<para>
+The primary difference between <application>set</application> and
+<application>export</application> is that
+<application>export</application> will (naturally) export the variable
+to any sub-shells.  (A sub-shell is simply another shell running inside
+a parent shell.)  You can easily see this behavior when working with
+the PS1 variable that controls the <application>bash</application>
+prompt.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>set PS1='FOO '</userinput>
+<prompt>darkstar:~$ </prompt><userinput>export PS1='FOO '</userinput>
+<prompt>FOO </prompt>
+</screen>
+
+<para>
+There are many important environment variables that
+<application>bash</application> and other shells use, but one of the
+most important ones you will run across is PATH.  PATH is simply a list
+of directories to search through for applications.  For example,
+<application>top</application> is located at
+<application>/usr/bin/top</application>(1).  You could run it simply by
+specifying the complete path to it, but if
+<filename>/usr/bin</filename> is in your PATH variable,
+<application>bash</application> will check there if you don't specify a
+complete path one your own.  You will most likely first notice this
+when you attempt to run a program that is not in your PATH as a normal
+user, for instance, <application>ifconfig</application>(8).
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ifconfig</userinput>
+bash: ifconfig: command not found
+<prompt>darkstar:~$ </prompt><userinput>echo $PATH</userinput>
+/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:/usr/games:/opt/www/htdig/bin:.
+</screen>
+
+<para>
+Above, you see a typical PATH for a mortal user.  You can change it on
+your own the same as any other environment variable.  If you login as
+root however, you'll see that root has a different PATH.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>su -</userinput>
+Password: 
+<prompt>darkstar:~# </prompt><userinput>echo $PATH</userinput>
+/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:/usr/games:/opt/www/htdig/bin
+</screen>
+
+</section>
+
+<section>
+<title>Wildcards</title>
+
+<para>
+Wildcards are special characters that tell the shell to match certain
+criteria.  If you have experience with DOS, you'll recognize * as a
+wildcard that matches anything.  <application>bash</application> makes
+use of this wildcard and several others to enable you to easily define
+exactly what you want to do.
+</para>
+
+<para>
+This first and most common of these is, of course, *.  The asterisk
+matches any character or combination of characters, including none.
+Thus <userinput>b*</userinput> would match any files named b, ba, bab,
+babc, bcdb, and so forth.  Slightly less common is the ?.  This
+wildcard matches one instance of any character, so
+<userinput>b?</userinput> would match ba and bb, but not b or bab.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>touch b ba bab</userinput>
+<prompt>darkstar:~$ </prompt><userinput>ls *</userinput>
+b ba bab
+<prompt>darkstar:~$ </prompt><userinput>ls b?</userinput>
+ba
+</screen>
+
+<para>
+No, the fun doesn't stop there!  In addition to these two we also have
+the bracket pair "[ ]" which allows us to fine tune exactly what we
+want to match.  Whenever <application>bash</application> see the
+bracket pair, it substitues the contents of the bracket.  Any
+combination of letters or numbers may be specified in the bracket as
+long as they are comma seperacted.  Additionally, ranges of numbers and
+letters may be specified as well.  This is probably best shown by
+example.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ls a[1-4,9]</userinput>
+a1 a2 a3 a4 a9
+</screen>
+
+<para>
+Since Linux is case-sensitive, capital and lower-case letters are
+treated differently.  All capital letters come before all lower-case
+letters in "alphabetical" order, so when using ranges of capital and
+lower-case letters, make sure to get them right.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ls 1[W-b]</userinput>
+1W 1X 1Y 1Z 1a 1b
+<prompt>darkstar:~$ </prompt><userinput>ls 1[w-B]</userinput>
+/bin/ls: cannot access 1[b-W]: No such file or directory
+</screen>
+
+<para>
+In the second example, 1[b-W] isn't a valid range, so the shell treats
+it as a filename, and since that file doesn't exist,
+<application>ls</application> tells you so.
+</para>
+
+</section>
+
+<section>
+<title>Tab Completion</title>
+
+<para>
+Still think there's entirely too much work involved with using
+wildcards?  You're right.  There's an even easier way when you're
+dealing with long filenames: tab completion.  Tab completion enables
+you to type just enough of the filename to uniquely identify it, then
+by hitting the TAB key, <application>bash</application> will fill in
+the rest for you.  Even if you haven't typed in enough text to uniquely
+identify a filename, the shell will fill in as much as it can for you.
+Hitting TAB a second time will make it display a list of all possible
+matches for you.
+</para>
+
+</section>
+
+<section>
+<title>Input and Output Redirection</title>
+
+<para>
+One of the defining features of Linux and other UNIX-like operating
+systems is the number of small, relatively simple applications and the
+ability to stack them together to create complex systems.  This is
+achieved by redirecting the output of one program to another, or by
+drawing input from a file or second program.
+</para>
+
+<para>
+To get started, we're going to show you how to redirect the output of a
+program to a file.  This is easily done with the '>' character.  When
+<application>bash</application> sees the '>' character, it redirects
+all of the standard output (also known as stdout) to whatever file name
+follows.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>echo foo</userinput>
+foo
+<prompt>darkstar:~$ </prompt><userinput>echo foo > /tmp/bar</userinput>
+<prompt>darkstar:~$ </prompt><userinput>cat /tmp/bar</userinput>
+foo
+</screen>
+
+<para>
+In this example, we show you what <application>echo</application> would
+do if its stdout was not redirected to a file, then we re-direct it to
+the <filename>/tmp/bar</filename> file.  If <filename>/tmp/bar</filename>
+does not exist, it is created and the output from
+<application>echo</application> is placed within it.  If
+<filename>/tmp/bar</filename> did exist, then its contents are
+over-written.  This might not be the best idea if you want to keep
+those contents in place.  Thankfully, <application>bash</application>
+supports '>>' which will append the output to the file.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>echo foo</userinput>
+foo
+<prompt>darkstar:~$ </prompt><userinput>echo foo > /tmp/bar</userinput>
+<prompt>darkstar:~$ </prompt><userinput>cat /tmp/bar</userinput>
+foo
+<prompt>darkstar:~$ </prompt><userinput>echo foo2 >> /tmp/bar</userinput>
+<prompt>darkstar:~$ </prompt><userinput>cat /tmp/bar</userinput>
+foo
+foo2
+</screen>
+
+<para>
+You can also re-direct the standard error (or stderr) to a file.  This
+is slightly different in that you must use '2>' instead of just '>'.
+(Since <application>bash</application> can re-direct input, stdout, and
+stderr, each must be uniquely identifiable.  0 is input, 1 is stdout,
+and 2 is stderr.  Unless one of these is specified,
+<application>bash</application> will make its best guess as to what you
+actually meant, and assumed anytime you use '>' you only want to
+redirect stdout.  1> would have worked just as well.)
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>rm bar</userinput>
+rm: cannot remove `bar': No such file or directory
+<prompt>darkstar:~$ </prompt><userinput>rm bar 2> /tmp/foo</userinput>
+<prompt>darkstar:~$ </prompt><userinput>cat /tmp/foo</userinput>
+rm: cannot remove `bar': No such file or directory
+</screen>
+
+<para>
+You may also redirect the standard input (known as stdin) with the
+'&lt;'
+character, though it's not used very often.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>fromdos &lt; dosfile </userinput>
+</screen>
+
+<para>
+Finally, you can actually redirect the output of one program as input
+to another.  This is perhaps the most useful feature of
+<application>bash</application> and other shells, and is accomplished
+using the '|' character.  (This character is referred to as 'pipe'.
+If you here some one talk of piping one program to another, this is
+exactly what they mean.)
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ps auxw | grep getty</userinput>
+root      2632  0.0  0.0   1656   532 tty2     Ss+  Feb21   0:00 /sbin/agetty 38400 tty2 linux
+root      3199  0.0  0.0   1656   528 tty3     Ss+  Feb15   0:00 /sbin/agetty 38400 tty3 linux
+root      3200  0.0  0.0   1656   532 tty4     Ss+  Feb15   0:00 /sbin/agetty 38400 tty4 linux
+root      3201  0.0  0.0   1656   532 tty5     Ss+  Feb15   0:00 /sbin/agetty 38400 tty5 linux
+root      3202  0.0  0.0   1660   536 tty6     Ss+  Feb15   0:00 /sbin/agetty 38400 tty6 linux
+</screen>
+
+</section>
+
+<section>
+<title>Terminals</title>
+
+<para>
+Slackware Linux and other UNIX-like operating systems allow users to
+interact with them in many ways, but the most common, and arguably the
+most useful, is the terminal. In the old days, terminals were keyboards
+and monitors (sometimes even mice) wired into a mainframe or server via
+serial connections. Today however, most terminals are virtual; that is,
+they exist only in software.  Virtual terminals allow users to connect
+to the computer without requiring expensive and often incompatabile
+hardware. Rather, a user needs only to run the software and they are
+presented with a (usually) highly customizable virtual terminal.
+</para>
+
+<para>
+The most common virtual terminals (in that every Slackware Linux machine
+is going to have at least one) are the gettys.
+<application>agetty</application>(8) runs six instances by default on
+Slackware, and allows local users (those who can physically sit down in
+front of the computer and type at the keyboard) to login and run
+applications. Each of these gettys is available on different tty
+devices that are accessible seperately by pressing the
+<keycap>ALT</keycap> key and one of the function keys from
+<keycap>F1</keycap> through <keycap>F6</keycap>. Using these gettys
+allows you to login multiple times, perhaps as different users, and run
+applications in those users' shells silmutaneously. This is most
+commonly done with servers which do not have
+<application>X</application> installed, but can be done on any machine.
+</para>
+
+<para>
+On desktops, laptops, and other workstations where the user prefers a
+graphical interface provided by <application>X</application>, most
+terminals are graphical.  Slackware includes many different graphical
+terminals, but the most commonly used are KDE's
+<application>konsole</application> and XFCE's
+<application>Terminal</application>(1) as well as the old standby,
+xterm(1). If you are using a graphical interface, check your tool bars
+or menus. Each desktop environment or window manager has a virtual
+terminal (often called a terminal emulater), and they are all labelled
+differently. Typically though, you will find them under a "System"
+sub-menu in desktop environments. Executing any of these will give you
+a graphical terminal and automatically run your default shell.
+</para>
+
+</section>
+
+<section>
+<title>Customization</title>
+
+<para>
+By now you should be pretty familiar with
+<application>bash</application> and you may have even noticed some odd
+behavior. For example, when you login at the console, you're presented
+with a prompt that looks a bit like this.
+</para>
+
+<screen><prompt>alan@darkstar:~$ </prompt></screen>
+
+<para>
+However, sometimes you'll see a much less helpful prompt like this one.
+</para>
+
+<screen><prompt>bash-3.1$ </prompt></screen>
+
+<para>
+The cause here is a special environment variable that controls the
+<application>bash</application> prompt. Some shells are considered
+"login" shells and others are "interactive" shells, and both types read
+different configuration files when started. Login shells read
+<filename>/etc/profile</filename> and
+<filename>~/.bash_profile</filename> when executed. Interactive shells
+read <filename>~/.bashrc</filename> instead. This has some advantages
+for power users, but is a common annoyance for many new users who want
+the same environment anytime they execute
+<application>bash</application> and don't care about the difference
+between login and interactive shells. If this applies to you, simply
+edit your own ~/.bashrc file and include the following lines.
+(For more information on
+the different configuration files used, read the INVOCATION section of
+the <application>bash</application> man page.)
+</para>
+
+<screen>
+# ~/.bashrc
+. /etc/profile
+. ~/.bash_profile
+</screen>
+
+<para>
+When using the above, all your login and interactive shells will have
+the same environment settings and behave identically. Now, anytime we
+wish to customize a shell setting, we only have to edit
+<filename>~/.bash_profile</filename> for user-specific changes and
+<filename>/etc/profile</filename> for global settings. Let's start by
+configuring the prompt.
+</para>
+
+<para>
+<application>bash</application> prompts come in all shapes, colors, and
+sizes, and every user has their own preferances. Personally, I prefer
+short and simple prompts that take up a minimum of space, but I've seen
+and used mutli-line prompts many times. One personal friend of mine
+even included ASCII-art in his bash prompt. To change your prompt you
+need only to change your PS1 variable. By default, Slackware attempts
+to configure your PS1 variable thusly:
+</para>
+
+<screen><prompt>darkstar:~$ </prompt>echo $PS1
+\u@\h:\w\$ </screen>
+
+<para>
+Yes, this tiny piece of funny-looking figures controls your
+<application>bash</application> prompt. Basicaly, every character in
+the PS1 variable is included in the prompt, unless it is a escaped by a
+<keycap>\</keycap>, which tells <application>bash</application> to
+interpret it. There are many different escape sequences and we can't
+discuss them all, but I'll explain these.  The first "\u" translates to
+the username of the current user.  "\h" is the hostname of the machine
+the terminal is attached to. "\w" is the current working directory, and
+"\$" displays either a <keycap>#</keycap> or a <keycap>$</keycap> sign,
+depending on whether or not the current user is root.  A complete
+listing of all prompt escape sequences is listed in the
+<application>bash</application> man page under the PROMPTING section.
+</para>
+
+<para>
+Since we've gone through all this trouble to discuss the default
+prompt, I thought I'd take some time to show you a couple example
+prompts and the PS1 variable values needed to use them.
+</para>
+
+<screen><prompt>Wed Jan 14 12:08 AM
+alan@raven:~$ </prompt>echo $PS1
+\d \@\n\u@\h:\w$ 
+<prompt>HOST: raven - JOBS: 0 - TTY: 3
+alan@~/Desktop/sb_3.0:$ </prompt>echo $PS1
+HOST: \H - JOBS: \j - TTY: \l\n\u@\w:\$
+</screen>
+
+<para>
+For even more information on configuring your bash prompt, including
+information on setting up colored prompts, refer to
+<filename>/usr/doc/Linux-HOWTOs/Bash-Prompt-HOWTO</filename>. After
+reading that for a short while, you'll get an idea of just how powerful
+your <application>bash</application> prompts can be. I once even had a
+prompt that gave me up to date weather information such as temperature
+and barometric pressure!
+</para>
+
+</section>
+
+</chapter>

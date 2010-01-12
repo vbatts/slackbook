@@ -1,0 +1,462 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
+
+<chapter>
+<title>Filesystem Permissions</title>
+
+<section>
+<title>Permissions Overview</title>
+
+<para>
+As we've discussed, Slackware Linux is a multi-user operating system.
+Because of this, its filesystems are mutli-user as well. This means
+that every file or directory has a set of permissions that can grant or
+deny privileges to different users. There are three basic permissions
+and three sets of permissions for each file. Let's take a look at an
+example file.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ls -l /bin/ls</userinput>
+-rwxr-xr-x 1 root root 81820 2007-06-08 21:12 /bin/ls
+</screen>
+
+<para>
+Recall from chapter 4 that <application>ls</application> <arg>-l</arg>
+lists the permissions for a file or
+directory along with the user and group that "own" the file. In this
+case, the permissions are rwxr-xr-x, the user is root and the group is
+also root. The permissions section, while grouped together, is really
+three seperate pieces. The first set of three letters are the
+permissions granted to the user that owns the file. The second set of
+three are those granted to the group owner, and the final three are
+permissions for everyone else.
+</para>
+
+<table pgwide="0">
+<title>Permissions of /bin/ls</title>
+<tgroup cols="3">
+  <thead>
+    <row>
+     <entry>Set</entry>
+     <entry>Listing</entry>
+     <entry>Meaning</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>Owner</entry>
+      <entry>rwx</entry>
+      <entry>The owner "root" may read, write, and execute</entry>
+    </row>
+    <row>
+      <entry>Group</entry>
+      <entry>r-x</entry>
+      <entry>The group "root" may read and execute</entry>
+    </row>
+    <row>
+      <entry>Others</entry>
+      <entry>r-x</entry>
+      <entry>Everyone else may read and execute</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+<para>
+The permissions are pretty self explainatory of course, at least for
+files. Read, write, and execute allow you to read a file, write to it,
+or execute it. But what do these permissions mean for directories?
+Simply put, the read permissions grants the ability to list the
+directory's contents (say with <application>ls</application>). The write
+permission grants the ability to create new files in the directory as
+well as delete the entire directory, even if you otherwise wouldn't be
+able to delete some of the other files inside it. The execute
+permission grants the ability to actually enter the directory (with the
+<application>bash</application> built-in command cd for example).
+</para>
+
+<para>
+Let's look at the permissions on a directory now.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ls -ld /home/alan</userinput>
+drwxr-x--- 60 alan users 3040 2008-06-06 17:14 /home/alan/
+</screen>
+
+<para>
+Here we see the permissions on my home directory and its ownership. The
+directory is owned by the user alan and the group users. The user is
+granted all rights (rwx), the group is granted only read and execute
+permissions (r-x), and everyone else is prohibited from doing anything.
+</para>
+
+</section>
+
+<section>
+<title><application>chmod</application>,
+<application>chown</application>, and
+<application>chgrp</application></title>
+
+<para>
+So now that we know what permissions are, how do we change them? And
+for that matter, how do we assign user and group ownership? The answer
+is right here in this section.
+</para>
+
+<para>
+The first tool we'll discuss is the useful
+<application>chown</application>
+(1) command. Using <application>chown</application>, we can (you guessed
+it), change the ownership of a file or
+directory.  <application>chown</application> is historically used only
+to change the user ownership, but can change the group ownership as well.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>ls -l /tmp/foo</userinput>
+total 0
+-rw-r--r-- 1 alan users 0 2008-06-06 22:29 a
+-rw-r--r-- 1 alan users 0 2008-06-06 22:29 b
+<prompt>darkstar:~# </prompt><userinput>chown root /tmp/foo/a</userinput>
+<prompt>darkstar:~# </prompt><userinput>ls -l /tmp/foo</userinput>
+total 0
+-rw-r--r-- 1 root users 0 2008-06-06 22:29 a
+-rw-r--r-- 1 alan users 0 2008-06-06 22:29 b
+</screen>
+
+<para>
+By using a colon after the user account, you may also specify a new
+group account.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>chown root:root /tmp/foo/b</userinput>
+<prompt>darkstar:~# </prompt><userinput> ls -l /tmp/foo</userinput>
+total 0
+-rw-r--r-- 1 root users 0 2008-06-06 22:29 a
+-rw-r--r-- 1 root root  0 2008-06-06 22:29 b
+</screen>
+
+<para>
+<application>chown</application> can also be used recursively to change
+the ownership of all files and directories below a target directory.
+The following command would change all the files under the directory
+<filename>/tmp/foo</filename> to have their ownership set to root:root.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>chown -R root:root /tmp/foo/b</userinput></screen>
+
+<para>
+Specifying a colon and a group name without a user name will simply
+change the group for a file and leave the user ownership intact.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>chown :wheel /tmp/foo/a</userinput>
+<prompt>darkstar:~# </prompt><userinput>ls -l /tmp/foo</userinput>
+ls -l /tmp/foo
+total 0
+-rw-r--r-- 1 root wheel 0 2008-06-06 22:29 a
+-rw-r--r-- 1 root root  0 2008-06-06 22:29 b
+</screen>
+
+<para>
+The younger brother of <application>chown</application> is the
+slightly less useful <application>chgrp</application>(1). This
+command works just like <application>chown</application>, except
+it can only change the group
+ownership of a file. Since <application>chown</application> can
+already do this, why bother with
+<application>chgrp</application>? The answer is simple. Many other
+operating systems use a
+different version of <application>chown</application> that cannot
+change the group ownership, so
+if you ever come across one of those, now you know how.
+</para>
+
+<para>
+There's a reason we discussed changing ownership before changing
+permissions. The first is a much easier concept to grasp. The tool for
+changing permissions on a file or directory is
+<application>chmod</application>(1). The syntax for it
+is nearly identical to that for <application>chown</application>, but
+rather than
+specify a user or group, the administrator must specify either a set of
+octal permissions or a set of alphabetic permissions. Neither one is
+especially easy to grasp the first time. We'll begin with the less
+complicated octal permissions.
+</para>
+
+<para>
+Octal permissions derive their name from being assigned by one of eight
+digits, namely the numbers 0 through 7. Each permissions is assigned a
+number that is a power of 2, and those numbers are added together to
+get the final permissions for one of the permission sets. If this
+sounds confusing, maybe this table will help. 
+</para>
+
+<table pgwide="0">
+<title>Octal Permissions</title>
+<tgroup cols="2">
+  <thead>
+    <row>
+      <entry>Permission</entry>
+      <entry>Meaning</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>Read</entry>
+      <entry>4</entry>
+    </row>
+    <row>
+      <entry>Write</entry>
+      <entry>2</entry>
+    </row>
+    <row>
+      <entry>Execute</entry>
+      <entry>1</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+<para>
+By adding these values together, we can reach any number between 0 and
+7 and specify all possible permission combinations. For example, to
+grant both read and write privilages while denying execute, we would
+use the number 6. The number 3 would grant write and execute
+permissions, but deny the ability to read the file. We must specify a
+number for each of the three sets when using octal permissions. It's
+not possible to specify only a set of user or group permissions this
+way for example.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>ls -l /tmp/foo/a</userinput>
+-rw-r--r-- 1 root root  0 2008-06-06 22:29 a
+<prompt>darkstar:~# </prompt><userinput>chmod 750 /tmp/foo/a</userinput>
+<prompt>darkstar:~# </prompt><userinput>ls -l /tmp/foo/a</userinput>
+-rwxr-x--- 1 root root  0 2008-06-06 22:29 a
+</screen>
+
+<para>
+<application>chmod</application> can also use letter values along with
+<keycap>+</keycap> or <keycap>-</keycap> to grant or deny permissions.
+While this may be easier to
+remember, it's often easier to use the octal permissions. 
+</para>
+
+<table pgwide="0">
+<title>Alphabetic Permissions</title>
+<tgroup cols="2">
+  <thead>
+    <row>
+      <entry>Permission</entry>
+      <entry>Letter Value</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>Read</entry>
+      <entry>r</entry>
+    </row>
+    <row>
+      <entry>Write</entry>
+      <entry>w</entry>
+    </row>
+    <row>
+      <entry>Execute</entry>
+      <entry>x</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+<table pgwide="0">
+<title>Alphabetic Users and Groups</title>
+<tgroup cols="2">
+  <thead>
+    <row>
+      <entry>Accounts Affected</entry>
+      <entry>Letter Value</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>User/Owner</entry>
+      <entry>u</entry>
+    </row>
+    <row>
+      <entry>Group</entry>
+      <entry>g</entry>
+    </row>
+    <row>
+      <entry>Others/World</entry>
+      <entry>o</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+<para>
+To use the letter values with <application>chmod</application>, you
+must specify which set to use them with, either "u" for user, "g" for
+group, and "o" for all others. You must also specify whether you are
+adding or removing permissions with the "+" and "-" signs. Multiple
+sets can be changed at once by seperating each with a comma.
+</para>
+
+<screen><prompt>darkstar:/tmp/foo# </prompt><userinput>ls -l</userinput>
+total 0
+-rw-r--r-- 1 alan users 0 2008-06-06 23:37 a
+-rw-r--r-- 1 alan users 0 2008-06-06 23:37 b
+-rw-r--r-- 1 alan users 0 2008-06-06 23:37 c
+-rw-r--r-- 1 alan users 0 2008-06-06 23:37 d
+<prompt>darkstar:/tmp/foo# </prompt><userinput>chmod u+x a</userinput>
+<prompt>darkstar:/tmp/foo# </prompt><userinput>chmod g+w b</userinput>
+<prompt>darkstar:/tmp/foo# </prompt><userinput>chmod u+x,g+x,o-r c</userinput>
+<prompt>darkstar:/tmp/foo# </prompt><userinput>chmod u+rx-w,g+r,o-r d</userinput>
+<prompt>darkstar:/tmp/foo# </prompt><userinput>ls -l</userinput>
+-rwxr--r-- 1 alan users 0 2008-06-06 23:37 a*
+-rw-rw-r-- 1 alan users 0 2008-06-06 23:37 b
+-rwxr-x--- 1 alan users 0 2008-06-06 23:37 c*
+-r-xr----- 1 alan users 0 2008-06-06 23:37 d*
+</screen>
+
+<para>
+Which you prefer to use is entirely up to you. There are places where
+one is better than the other, so a real Slacker will know both inside
+out.
+</para>
+
+</section>
+
+<section>
+<title>SUID, SGID, and the "Sticky" Bit</title>
+
+<para>
+We're not quite done with permissions just yet. There are three other
+"special" permissions in addition to those mentioned above. They are
+SUID, SGID, and the sticky bit. When a file has one or more of these
+permissions set, it behaves in special ways. The SUID and SGID
+permissions change the way an application is run, while the sticky bit
+restricts deletion of files. These permissions are applied with
+<application>chmod</application>
+like read, write, and execute, but with a twist.
+</para>
+
+<para>
+SUID and SGID stand for "Set User ID" and "Set Group ID" respectively.
+When an application with one of these bits is set, the application runs
+with the user or group ownership permissions of that application
+regardless of what user actually 
+executed it. Let's take a look at a common SUID application, the humble
+<application>passwd</application> and the files it modifies.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>ls -l /usr/bin/passwd \
+  /etc/passwd \
+  /etc/shadow</userinput>
+-rw-r--r-- 1 root root    1106 2008-06-03 22:23 /etc/passwd
+-rw-r----- 1 root shadow   627 2008-06-03 22:22 /etc/shadow
+-rws--x--x 1 root root   34844 2008-03-24 16:11 /usr/bin/passwd*
+</screen>
+
+<para>
+Notice the permissions on <application>passwd</application>. Instead of
+an <keycap>x</keycap> in the user's execute slot, we have an
+<keycap>s</keycap>. This tells us that
+<application>passwd</application> is a SUID program, and when we run
+it, the process will run as the user "root" rather than as the user
+that actually executed it. The reason for this is readily apparent as
+soon as you look at the two files it modifies. Neither
+<filename>/etc/passwd</filename> nor <filename>/etc/shadow</filename>
+are writeable by anyone other than root. Since users need to change
+their personal information, <application>passwd</application> must be
+run as root in order to modify those files.
+</para>
+
+<para>
+So what about the sticky bit? The sticky bit restricts the ability to
+move or delete files and is only ever set on directories. Non-root
+users cannot move or delete any files under a directory with the sticky
+bit set unless they are the owner of that file. Normally anyone with
+write permission to the file can do this, but the sticky bit prevents
+it for anyone but the owner (and of course, root). Let's take a look at
+a common "sticky" directory. 
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>ls -ld /tmp</userinput>
+drwxrwxrwt 1 root root   34844 2008-03-24 16:11 /tmp
+</screen>
+
+<para>
+Naturally, being a directory for the storage of temporary files sytem
+wide, <filename>/tmp</filename> needs to be readable, writeable, and
+executable by anyone and everyone. Since any user is likely to have a
+file or two stored here at any time, it only makes good sense to
+prevent other users from deleting those files, so the sticky bit has
+been set. You can see it by the presence of the <keycap>t</keycap> in
+place of the <keycap>x</keycap> in the world permissions section.
+</para>
+
+<table pgwide="0">
+<title>SUID, SGID, and "Sticky" Permissions</title>
+<tgroup cols="3">
+  <thead>
+    <row>
+     <entry>Permission Type</entry>
+     <entry>Octal Value</entry>
+     <entry>Letter Value</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>SUID</entry>
+      <entry>4</entry>
+      <entry>s</entry>
+    </row>
+    <row>
+      <entry>SGID</entry>
+      <entry>2</entry>
+      <entry>s</entry>
+    </row>
+    <row>
+      <entry>Sticky</entry>
+      <entry>1</entry>
+      <entry>t</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+<para>
+When using octal permissions, you must specify an additional leading
+octal value. For example, to recreate the permission on
+<filename>/tmp</filename>, we would use 1777. To recreate those
+permissions on <filename>/usr/bin/passwd</filename>, we would use 4711.
+Essentially, any time this leading fourth octet isn't specified,
+<application>chmod</application> assumes its value to be 0.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>chmod 1777 /tmp</userinput>
+<prompt>darkstar:~# </prompt><userinput>chmod 4711 /usr/bin/passwd</userinput>
+</screen>
+
+<para>
+Using the alphabetic permission values is slightly different. Assuming
+the two files above have permissions of 0000 (no permissions at all),
+here is how we would set them. 
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>chmod ug+rwx,o+rwt /tmp</userinput>
+<prompt>darkstar:~# </prompt><userinput>chmod u+rws,go+x /usr/bin/passwd</userinput>
+</screen>
+
+
+
+
+
+
+
+</section>
+
+</chapter>

@@ -1,0 +1,391 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
+
+<chapter>
+<title>Booting</title>
+
+<para>
+Ok, now that you've gotten Slackware installed on your system, you
+should learn exactly what controls the boot sequence of your machine,
+and how to fix it should you manage to break it somehow. Use Linux long
+enough, and sooner or later you will make a mistake that breaks your
+bootloader. Fortunately, this doesn't require a re-install to fix. Unlike
+many other operating systems that hide the underlying details of how they
+work, Linux (and in particular, Slackware) gives you full control over
+the boot process. Simply by editing a configuration file or two and
+re-running the boot-loader installer, you can quickly and easily change
+(or break) your system. Slackware even makes it easy to dual-boot
+between multiple operating systems such as other Linux distributions or
+Microsoft Windows.
+</para>
+
+<section>
+<title><application>mkinitrd</application></title>
+
+<para>
+Before we go any further, a quick discussion on the Linux kernel is
+warranted. Slackware Linux includes several different kernels. While
+they are all compiled from the same source code, and hence are the
+"same", they are not identical. Depending on your architecture and
+Slackware version, the installer may have loaded your system with
+several kernels. There are kernels for single-processor
+systems and kernels for multi-processor systems. In the old days, there
+were tons of kernels for installing on different kinds of hard drive
+controllers. More importantly for our discussion, there are "huge"
+kernels and "generic" kernels.
+</para>
+
+<para>
+If you look inside your <filename>/boot</filename> directory, you'll
+see the various kernels installed on your system.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>ls -l /boot/vmlinuz*</userinput>
+/boot/vmlinuz-huge-2.6.29.4      /boot/vmlinuz-generic-2.6.29.4
+</screen>
+
+<para>
+Here you can see that I have two kernels installed,
+<filename>vmlinuz-huge-2.6.29.4</filename> and
+<filename>vmlinuz-generic-2.6.29.4</filename>. Each Slackware release
+includes different kernel versions and sometimes even slightly
+different names, so don't be alarmed if what you see doesn't exactly
+match what I have listed here.
+</para>
+
+<para>
+Huge kernels are exactly what you might think; they're huge. These
+kernels are built to support nearly every conceivable computer
+Slackware is supported on. They most certainly contain support for
+hardware your machine does not, and never will, have. These are
+included for several reasons, but the most important perhaps is in use
+by the installer. These are the kernels the Slackware installation
+disks run. If you chose to let the installer configure your bootloader
+for you, it chooses to use these kernels due to the incredible variety
+of hardware they support. By contrast, the generic kernels support very
+little hardware without the use of external modules. If you want to use
+one of the generic kernels, you'll need to make use of something called
+an initrd, and the tool to make them,
+<application>mkinitrd</application>(8).
+</para>
+
+<para>
+So why should you use a generic kernel? Currently the Slackware
+development team recommends use of a generic kernel for a variety of
+reasons. Perhaps the most obvious is size. The huge kernels are
+currently about twice the size of the generic kernels before they are
+uncompressed and loaded into memory. If you are running an older
+machine, or one with some small ammount of RAM, you will appreciate the
+savings the generic kernels offer you. Other reasons are somewhat more
+difficult to quantify. Conflicts between drivers included in the huge
+kernels do appear from time-to-time, and generally speaking, the huge
+kernels do not perform as well as the generic ones. Also, by using the
+generic kernels, special arguments can be passed to hardware drivers
+seperately, rather than requiring these options be passed on the kernel
+command line. Some of the tools included with Slackware work better if
+your kernel uses some drivers as modules rather than "hard-coding" them
+into the kernel. If you're having trouble understanding this, don't be
+alarmed, just think "huge kernel: good, generic kernel: better".
+</para>
+
+<para>
+Unfortunately, using the generic kernels isn't as straight-forward as
+using the huge kernels. In order for the generic kernel to boot your
+system, you must also usually include a few basic modules in an
+initird. Modules are pieces of compiled kernel code that can be
+inserted or removed from a running kernel. This makes the system
+somewhat more flexible at the cost of a tiny bit of added complexity.
+You might find it easier to think of modules as device drivers, at
+least for this section. Typically you will need to add the module for
+whatever filesystem you chose to use for your root partition during the
+installer. If your root partition is located on a SCSI disk or RAID
+controller, you'll need to load those modules as well.  Finally, if
+you're using software RAID, disk encryption, or LVM, you'll also need
+to create an initrd whether you're using the generic kernel or not.
+</para>
+
+<para>
+initrds are compressed <application>cpio</application>(1) archives, so
+creating them isn't very straightforward.  Fortunately for you,
+Slackware includes a tool that makes this very easy,
+<application>mkinitrd</application>. A full discussion of
+<application>mkinitrd</application> is a bit beyond the scope of this
+book, but we'll show you all the highlights. For a more complete
+explanation, check the manpage or run
+<application>mkinitrd</application> with the <arg>--help</arg>
+argument.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>mkinitrd --help</userinput>
+mkinitrd creates an initial ramdisk (actually an initramfs cpio+gzip
+archive) used to load kernel modules that are needed to mount the
+root filesystem, or other modules that might be needed before the
+root filesystem is available.  Other binaries may be added to the
+initrd, and the script is easy to modify.  Be creative.  :-)
+.... many more lines deleted ....
+</screen>
+
+<para>
+When using <application>mkinitrd</application>, you'll need to know a
+few items of information: your root partition, your root filesystem,
+any hard disk controllers you're using, and whether or not you're using
+LVM, software RAID, or disk encryption. Unless you're using some kind
+of SCSI controller (and have your root partition loaded on the SCSI
+controller), you should only need to know your root filesystem and
+partition type. Assuming you've booted into your Slackware installation
+using the huge kernel, you can easily find this information with the
+<application>mount</application> command.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>mount</userinput>
+/dev/sda1 on / type ext4 (rw,barrier=1,data=ordered)
+proc on /proc type proc (rw)
+sysfs on /sys type sysfs (rw)
+usbfs on /proc/bus/usb type usbfs (rw)
+/dev/sda2 on /home type jfs (rw)
+tmpfs on /dev/shm type tmpfs (rw)
+</screen>
+
+<para>
+In the example provided, you can see that the root partition is located
+on <filename>/dev/sda1</filename> and is an ext4 type partition. If we
+want to create an initrd for this system, we simply need to tell this
+information to <application>mkinird</application>.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>mkinitrd -f ext4 -r /dev/sda1</userinput>
+</screen>
+
+<para>
+Note that in most cases, <application>mkinitrd</application> is smart
+enough to determine this information on its own, but it never hurts to
+specify it manually. Now that we've created out initrd, we simply need
+to tell LILO where to find it. We'll focus on that in the next section.
+</para>
+
+<para>
+Looking up all those different options for
+<application>mkinitrd</application> or worse, memorizing them, can be a
+real pain though, especially if you try out different kernels
+consistently. This became tedious for the Slackware development team,
+so they came up with a simple configuration file,
+<filename>mkinitrd.conf</filename>(5). You can find a sample file that
+can be easily customized for your system under the
+<filename>/etc</filename> directory. Here's mine.
+</para>
+
+<screen># mkinitrd.conf.sample
+# See "man mkinitrd.conf" for details on the syntax of this file
+#
+SOURCE_TREE="/boot/initrd-tree"
+CLEAR_TREE="0"
+OUTPUT_IMAGE="/boot/initrd.gz"
+KERNEL_VERSION="$(uname -r)"
+#KEYMAP="us"
+MODULE_LIST="ext3:ext4:jfs"
+#LUKSDEV="/dev/hda1"
+ROOTDEV="/dev/raven/64root"
+ROOTFS="ext4"
+#RESUMEDEV="/dev/hda2"
+#RAID="0"
+LVM="1"
+#WAIT="1"
+</screen>
+
+<para>
+For a complete description of each of these lines and what they do,
+you'll need to consulte the man page for
+<filename>mkinitrd.conf</filename>. Once each of these is setup, you
+need only run <application>mkinitrd</application> with the
+<arg>-F</arg> argument. A proper initrd file will be constructed and
+installed for you, without you having to remember all those obscure
+arguments.
+</para>
+
+</section>
+
+<section>
+<title>LILO</title>
+
+<para>
+LILO is the Linux Loader, and currently the default boot loader
+installed with Slackware Linux. If you've used other Linux
+distributions before, you may be more familiar with GRUB. If you prefer
+to use it, you can easily find it in the <filename>extra/</filename>
+directory on one of your Slackware CDs. Since LILO is the default
+Slackware bootloader however, we'll focus exclusively on it.
+</para>
+
+<para>
+Configuring LILO can be a little daunting for new users, so Slackware
+comes with a special setup tool, <application>liloconfig</application>.
+Normally, <application>liloconfig</application> is first run by the
+installer, but you can run it at anytime from a terminal.
+</para>
+
+<para>
+FILL THIS IN!!!!  Picture of liloconfig
+</para>
+
+<para>
+<application>liloconfig</application> has two modes of operation:
+simple and expert. The simple mode tries to automatically configure
+lilo for you. If Slackware is the only operating system installed on
+your computer, the simple mode will almost always do the right thing
+quickly and easily. It is also very good at detecting Windows
+installations and adding them to the <filename>lilo.conf</filename>
+file so that you can choose which operating system to boot when you
+turn your computer on.
+</para>
+
+<para>
+In order to use expert mode, you'll need to know Slackware's root
+partition. You can also setup other linux operating systems if you know
+their root partitions, but this may not work as well as you'd expect.
+<application>liloconfig</application> will try to boot each linux
+operating system with Slackware's kernel, and this is probably not what
+you want. Fortunately, setting up Windows partitions in expert mode is
+trivial. One hint when using expert mode. You should almost always
+install LILO to the Master Boot Record (MBR). Once upon a time, it was
+recommended to install the boot loader onto the root partition and set
+that partition as bootable. Today, LILO has matured greatly and is safe
+to install on the MBR. In fact, you will encounter fewer problems if
+you do so.
+</para>
+
+<para>
+<application>liloconfig</application> is a great way to quickly setup
+your boot loader, but if you really need to know what's going on you'll
+need to look at LILO's configuration file,
+<filename>lilo.conf</filename>(5) under the <filename>/etc</filename>
+directory. The <filename>lilo.conf</filename> file is seperated into
+several sections. At the top you'll find a global section where you
+specify things like where to install LILO (generally the MBR), any
+special images or screens to show on boot, and the timeout after which
+LILO will boot the default operating system. Here's what the global
+section of my lilo.conf file looks like in part.
+</para>
+
+<screen># LILO configuration file
+
+boot = /dev/sda
+  bitmap = /boot/slack.bmp
+  bmp-colors = 255,0,255,0,255,0
+  bmp-table = 60,6,1,16
+  bmp-timer = 65,27,0,255
+
+append=" vt.default_utf8=0"
+prompt
+timeout = 50
+
+# VESA framebuffer console @ 1024x768x256
+vga = 773
+.... many more lines ommitted ....
+</screen>
+
+<para>
+For a complete listing of all the possible LILO options, you should
+consult the man page for <filename>lilo.conf</filename>. In brief,
+we'll discuss the most common in this document.
+</para>
+
+<para>
+The first thing that should draw your attention is the boot line. This
+determines where the bootloader is installed. In order to install the
+the MBR of your hard drive, you simply list the hard drive's device
+entry on this line. In my case, I'm using a SATA hard drive that shows
+up as SCSI device <filename>/dev/sda</filename>. If you're using an IDE
+drive, you will probably have to use <filename>/dev/hda</filename>. In
+order to install to the boot block of a partition, you'll have to list
+the partition's device entry. For example, if you are installing to the
+first partition on the only SATA hard drive in your computer, you would
+probably use <filename>/dev/sda1</filename>.
+</para>
+
+<para>
+The prompt option simply tells LILO to ask (prompt) you for which
+operating system to boot.  Operating systems are each listed in their
+own section deeper in the file. We'll get to them in a minute. The
+timeout option tells LILO how long to wait (in tenths of seconds)
+before booting the default OS. In my case, this is 5 seconds. Some
+systems seem to take a very long time to display the boot screen, so
+you may need to use a larger timeout value than I have set. This is in
+part why the simple LILO installation method utilizes a very long
+timeout (somewhere around 2 whole minutes). The append line in my case
+was setup by <application>liloconfig</application>. You may (and
+probably should) see something similar when looking at your own
+<filename>lilo.conf</filename>. I won't go into the details of why this
+line is needed, so you're just going to have to trust me that things
+work better if it is present. :^)
+</para>
+
+<para>
+Now that we've looked into the global section, let's take a look at the
+operating systems section. Each linux operating system section begins
+with an "image" line. Microsoft Windows operating systems are specified
+with an "other" line. Let's take a look at a sample
+<filename>lilo.conf</filename> that boots both Slackware and Microsoft
+Windows.
+</para>
+
+<screen># LILO configuration file
+... global section ommitted ....
+# Linux bootable partition config begins
+image = /boot/vmlinuz-generic-2.6.29.4
+  root = /dev/raven/64root
+  initrd = /boot/initrd.gz
+  label = Slackware64
+  read-only
+# Linux bootable partition config ends
+# Windows bootable partition config begins
+other = /dev/sda3
+  label = Windows
+  table = /dev/sda
+# Windows bootable partition config ends
+</screen>
+
+<para>
+For Linux operating systems like Slackware, the image line specifies
+which kernel to boot. In this case, we're booting
+<filename>/boot/vmlinuz-generic-2.6.29.4</filename>. The remaining
+sections are pretty self-explainatory. The tell LILO where to find the
+root filesystem, what initrd (if any) to use, and to initially mount
+the root filesystem read-only. That initrd line is very important for
+anyone running a generic kernel, or using LVM or software RAID. It
+tells LILO (and the kernel) where to find the initrd you created using
+<application>mkinitrd</application>.
+</para>
+
+<para>
+Once you've gotten your <filename>lilo.conf</filename> setup for your
+machine, simply run <application>lilo</application>(8) to install it.
+Unlike GRUB and other bootloaders, LILO requires you re-run
+<application>lilo</application> anytime you make changes to its
+configuration file in order for those changes to be installed.
+</para>
+
+
+<screen><prompt>darkstar:~# </prompt><userinput>lilo</userinput>
+Warning: LBA32 addressing assumed
+Warning: '/proc/partitions' does not match '/dev' directory structure.
+    Name change: '/dev/dm-0' -> '/dev/raven/swap'
+Warning: Name change: '/dev/dm-1' -> '/dev/raven/root'
+Warning: Name change: '/dev/dm-2' -> '/dev/raven/home'
+Warning: Name change: '/dev/dm-3' -> '/dev/raven/src'
+Warning: Name change: '/dev/dm-4' -> '/dev/raven/64root'
+Added Slackware *
+Added Backup
+6 warnings were issued.
+</screen>
+
+<para>
+Don't be scared by many of the warnings you may see when running
+<application>lilo</application>. In my case, most of these warnings are
+issued by the use of LVM. Unless you see a fatal error, things should
+be just fine.
+</para>
+
+</section>
+
+</chapter>

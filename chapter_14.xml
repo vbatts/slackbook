@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
+
+<chapter>
+<title>Wireless Networking</title>
+
+<section>
+<title><application>iwconfig</application></title>
+
+<para>
+Wireless networking is somewhat more complicated than traditional wired
+networking, and requires additional tools for setup. Slackware includes
+a diverse collection of wireless networking tools to allow you to
+configure your wireless network interface card (WNIC) at the most basic
+level. We won't cover everything here, but should give you a solid
+foundation to get up and running quickly.  The first tool we are going
+to look at is <application>iwconfig</application>(8). When run without
+any argument, <application>iwconfig</application> displays the current
+wireless information on any and all NICs on your computer.
+</para>
+
+
+<screen><prompt>darkstar:~# </prompt><userinput>iwconfig</userinput>
+lo        no wireless extensions.
+
+eth0      no wireless extensions.
+
+wmaster0  no wireless extensions.
+
+wlan0     IEEE 802.11abgn  ESSID:"nest"  
+          Mode:Managed  Frequency:2.432 GHz  Access Point:
+00:13:10:EA:4E:BD   
+          Bit Rate=54 Mb/s   Tx-Power=17 dBm   
+          Retry min limit:7   RTS thr:off   Fragment thr=2352 B   
+          Encryption key:off
+          Power Management:off
+          Link Quality=100/100  Signal level:-42 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:0   Missed beacon:0
+
+tun0      no wireless extensions.
+</screen>
+
+<para>
+Unlike wired networks, wireless networks are "fuzzy". Their borders are
+hard to define, and multiple networks may overlap one another. In order
+to avoid confusion, each wireless network has (hopefully) unique
+identifiers. The two most basic identifiers are the Extended Service
+Set Identifier (ESSID) and the channel or frequency for radio
+transmission. The ESSID is simply a name that identifies the wireless
+network in question; you may have heard it referred to as the network
+name or something similar. Typical wireless networks operate on 11
+different frequencies. In order to connect to even the most basic
+wireless network, you will have to setup these two pieces of
+information, and possibly others, before setting up things like the
+WNIC's IP address. Here you can see that my ESSID is set to "nest" and
+my laptop is transmitting at 2.432 GHz. This is all that is required to
+connect to an unencrypted wireless LAN. (For any of you out there
+expecting to come to my house and use my unencrypted wireless, you
+should know that you'll have to break a 2048-bit SSL key before the
+access point will let you communicate with my LAN.)
+</para>
+
+</section>
+
+<section>
+<title>Wired Equivilant Protection (or Lack Thereof)</title>
+
+<para>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</para>
+
+</section>
+
+<section>
+<title>WPA</title>
+
+<para>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</para>
+
+</section>
+
+<section>
+<title>rc.inet1.conf revisited</title>
+
+</section>
+
+</chapter>

@@ -1,0 +1,50 @@
+General
+
+* Aim to update references to kernel versions and Slackware versions to those used in the most recent release of Slackware. I've seen kernel 2.6.29.4 and Slackware 12.0.0 for instance.
+
+* cron
+
+* more extensive CLI apps like v2.0
+
+Chapter 3. Booting
+* Section 'mkinitrd'
+
+* /usr/share/mkinitrd_command_generator.sh
+
+  "Now that we've created out initrd" -> "Now that we've created our initrd"
+  "most of these warnings are issued by the use of LVM" << I think that at this point of the book, people will be scared off by the unfamiliar 'LVM' and listing "/dev/raven/64root" as a root device may be confusing to people who expect something like "/dev/sda1". Better to discuss LVM later on.
+
+Chapter 4. Basic Shell Commands
+* Table 4.1. Man Page Sections
+
+  Add Section 9 "kernel API description"
+  Add Section n "New" - typically used for Tcl/Tk man pages
+
+Chapter 6. X Windows
+
+* Section 'configuring the X server'
+
+  "The second most popular way to configure X on your system is the handy xorgconfig(1)." << Factually, this is no longer true. The xorgconfig and xorgcfg utilities have been removed as per Slackware 13.0.  What you *should* mention is that the X in Slackware will auto-configure itself if a xorg.conf file is missing (or will automatically configure components for any sections that are missing from an existing xorg.conf using the information it receives from the HAL daemon)
+
+Chapter 8. Users and Groups
+
+* Section 'Other User and Group Tools'
+
+  You could mention the tool here that is most sought after in IRC and forums: the "gpasswd" program whicl allows you to add a user to one additional group without touching on your current group management (remember that "usermod -G" will not retain your current group membership while "gpasswd -a" will).
+
+Chapter 10. Working with Filesystems
+
+* Section 'Local Filesystem Types'
+
+  Do not forget to mention ext4.
+
+* Section 'Network Filesystems' / 'NFS'
+
+  You could mention here how the command "showmount -e <remote_server> " allows you to find out exactly what NFS exports a remote server has made available.
+
+Chapter 11. vi
+
+* Table 11.2. vi Cheat Sheet
+
+  You should really add "dw" (delete a word - and store it in the copybuffer)  "yw" (copy a word to the copy buffer), "yy" (copy a line to the copy buffer) and "p" (paste the content of the copybuffer at the cursor's location)
+
