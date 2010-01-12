@@ -1,0 +1,45 @@
+First, you'll probably want to set something like these in your environment:
+
+  # Set some git environment variables
+  export GIT_AUTHOR_NAME='Robby Workman'
+  export GIT_COMMITTER_NAME='Robby Workman'
+  export GIT_COMMITTER_EMAIL="rworkman@slackware.com"
+  export GIT_AUTHOR_EMAIL="rworkman@slackware.com"
+
+Making changes to the repo is easy.  Open the file in your editor, make your
+  changes, and save them.
+  IMPORTANT: for the sake of easy log reading and (if needed) reverting of
+  changes, edit one file, commit that, and then move on.  Try to avoid
+  commits that touch multiple files.
+
+Once you've finished an edit, commit the changes:
+  git commit <filename>
+
+This will prompt you for a commit message.  Yes, I'm being picky about
+  this, but commit messages should have this format:
+
+  One line summary of the commit, not to exceed 68 characters
+
+    Notice the blank line above.  These lines are optional, but
+      they should also wrap at 68 characters or less, so as to
+      make for "pretty" patchsets over email.  Granted, I know
+      that won't be an issue for us, but let's create a good set
+      of habits, right?  :)
+
+   Anyway, all indentation is preserved as is in the commit log,
+      so use it as desired.  These lines, in case it's not clear,
+      should further explain the changes (if such explanation is
+      needed).
+
+That's it - you're done.
+
+If you add a new file to the repo for whatever reason, then be sure to
+  add it to git's version control:
+    git add <newfile>
+
+If you want to see the commit history, do "git log" -- that will pipe the
+  commit log into a pager.
+
+If you want to see the diff between two commits, then do this:
+  git diff <shasum_of_first_commit> <shasum_of_other_commit>
+
