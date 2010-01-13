@@ -15,43 +15,43 @@ Linux distribution.  Slackware's focus on making a clean, simple Linux
 distribution that is as UNIX-like as possible makes it a natural choice
 for those people who really want to learn about Linux and other
 UNIX-like operating systems.  Slackware's simplicity makes it ideal for
-those users who want to create their own custom systems.  And of course,
-Slackware is great in its own right as a desktop, workstation, or server.
+those users who want to create their own custom systems.  Of course,
+Slackware is great in its own right as a desktop, workstation, or server
+as well.
 </para>
 
 </section>
 
 <section>
-<title>Differences with other Linux Distributions</title>
+<title>Differences Compared to Other Linux Distributions</title>
 
 <para>
 There are a great number of differences between Slackware and other
 main-stream distributions such as Red Hat, Debian, and Ubuntu.  Perhaps
 the greatest difference is the lack of "hand-holding" that Slackware
-will do for the administrator.  Many of these other distributions ship
-with graphical configuration tools for all manner of services.  In many
-cases these configuration tools are the preferred method of setting up
-applications on these systems and will over-write any changes you make
-to the config files via other means.  These tools often make it easy
+will do for the administrator.  Many of those other distributions ship
+with custom graphical configuration tools for all manner of services.  In 
+many cases, these configuration tools are the preferred method of setting
+up applications on these systems and will overwrite any changes you make
+to the configuration files via other means.  These tools often make it easy
 (or at least possible) for a rookie with no in-depth understanding of
-his system to setup basic services; however, they also make it
-difficult to do anything too out of the ordinary.  In contrast,
-Slackware expects you, the system administrator, to do these tasks on
-your own.  Slackware provides no general purpose setup tools beyond
-those included with the source code published by up-stream developers.
-This means there is often a somewhat steeper learning curve associated
-with Slackware, even for those users familiar with other Linux
-distributions, but also makes it much easier to do whatever you want
-with your operating system.
+his system to setup basic services; however, they also make it difficult
+to do anything too out of the ordinary.  In contrast, Slackware expects 
+you, the system administrator, to do these tasks on your own.  
+Slackware provides no general purpose setup tools beyond those included 
+with the source code published by upstream developers.  This means there 
+is often a somewhat steeper learning curve associated with Slackware, even 
+for those users familiar with other Linux distributions, but also makes it 
+much easier to do whatever you want with your operating system.
 </para>
 
 <para>
 Also, you may hear users of other distributions say that Slackware has
 no package management system.  This is completely and obviously false.
 Slackware has always had package management (see Chapter 16 for more
-information).  What it does not have is automatic dependency
-resolution.  Rather, Slackware's package tools trade dependency
-management for simplicity, ease-of-use, and reliability.
+information).  What it does not have is automatic dependency resolution -
+Slackware's package tools trade dependency management for simplicity, 
+ease-of-use, and reliability.
 </para>
 
 </section>
@@ -60,33 +60,31 @@ management for simplicity, ease-of-use, and reliability.
 <title>Licensing</title>
 
 <para>
-Each piece of Slackware (indeed of all Linux distributions) is
-developed by different people or teams of people, and each group has
-their own ideas about what it means to be "free".  Because of this
+Each piece of Slackware (this is true of all Linux distributions) is
+developed by different people (or teams of people), and each group has
+their own ideas about what it means to be "free".  Because of this,
 there are literally dozens and dozens of different licenses granting
 you different permissions regarding their use or distribution.
 </para>
 
 <para>
-Perhaps the most popular license in use within the Free Software
-community is the GNU General Public License.  
-The GPL was created by the Free Software
-Foundation which actively works to create and distribute software that
-contains the basic freedoms they fill are basic rights.  Indeed, this
-is the very group that coined the term "Free Software".  The GPL
-imposes no restrictions on the use of software.  In fact, you don't
-even have to accept the terms of the license in order to use the
-software, but you are not allowed to distribute the software or your
-changes to it without abiding by the terms of the license agreement.  A
-great many software projects shipped with Slackware from the Linux
-kernel itself to the Samba project are released under the terms of the
-GPL.
+Probably the most popular license in use within the Free Software
+community is the GNU General Public License.  The GPL was created by 
+the Free Software Foundation, which actively works to create and distribute 
+software that guarantees the freedoms which they believe are basic rights. 
+In fact, this is the very group that coined the term "Free Software."  
+The GPL imposes no restrictions on the use of software.  In fact, you don't 
+even have to accept the terms of the license in order to use the software, 
+but you are not allowed to distribute the software or any changes to it 
+without abiding by the terms of the license agreement.  A large number of
+software projects shipped with Slackware, from the Linux kernel itself to 
+the Samba project, are released under the terms of the GPL.
 </para>
 
 <para>
 Another very common license is the BSD license, which is arguably "more
-free" than the GPL, but imposes no restrictions on derivative works.
-The BSD license simply requires that the copyright remain intact, along
+free" than the GPL but imposes no restrictions on derivative works.
+The BSD license simply requires that the copyright remain intact along
 with a simple disclaimer.  Many of the utilities specific to Slackware
 are licensed with a BSD-style license.
 </para>
