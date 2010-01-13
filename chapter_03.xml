@@ -214,19 +214,20 @@ you having to remember all those obscure arguments.
 <title>LILO</title>
 
 <para>
-LILO is the Linux Loader, and currently the default boot loader
-installed with Slackware Linux. If you've used other Linux
-distributions before, you may be more familiar with GRUB. If you prefer
-to use it, you can easily find it in the <filename>extra/</filename>
-directory on one of your Slackware CDs. Since LILO is the default
-Slackware bootloader however, we'll focus exclusively on it.
+LILO is the Linux Loader and is currently the default boot loader
+installed with Slackware Linux.  If you've used other Linux
+distributions before, you may be more familiar with GRUB.  If you prefer
+to use GRUB instead, you can easily find it in the 
+<filename>extra/</filename> directory on one of your Slackware CDs. 
+However, since LILO is the default Slackware bootloader, we'll focus 
+exclusively on it.
 </para>
 
 <para>
 Configuring LILO can be a little daunting for new users, so Slackware
-comes with a special setup tool, <application>liloconfig</application>.
+comes with a special setup tool called <application>liloconfig</application>.
 Normally, <application>liloconfig</application> is first run by the
-installer, but you can run it at anytime from a terminal.
+installer, but you can run it at any time from a terminal.
 </para>
 
 <para>
@@ -235,40 +236,40 @@ FILL THIS IN!!!!  Picture of liloconfig
 
 <para>
 <application>liloconfig</application> has two modes of operation:
-simple and expert. The simple mode tries to automatically configure
-lilo for you. If Slackware is the only operating system installed on
-your computer, the simple mode will almost always do the right thing
-quickly and easily. It is also very good at detecting Windows
-installations and adding them to the <filename>lilo.conf</filename>
-file so that you can choose which operating system to boot when you
+simple and expert.  The "simple" mode tries to automatically configure
+lilo for you.  If Slackware is the only operating system installed on
+your computer, the "simple" mode will almost always do the right thing
+quickly and easily.  It is also very good at detecting Windows
+installations and adding them to <filename>/etc/lilo.conf</filename>
+so that you can choose which operating system to boot when you
 turn your computer on.
 </para>
 
 <para>
-In order to use expert mode, you'll need to know Slackware's root
-partition. You can also setup other linux operating systems if you know
-their root partitions, but this may not work as well as you'd expect.
+In order to use "expert" mode, you'll need to know Slackware's root
+partition.  You can also setup other linux operating systems if you know
+their root partitions, but this may not work as well as you expect.
 <application>liloconfig</application> will try to boot each linux
 operating system with Slackware's kernel, and this is probably not what
-you want. Fortunately, setting up Windows partitions in expert mode is
-trivial. One hint when using expert mode. You should almost always
-install LILO to the Master Boot Record (MBR). Once upon a time, it was
+you want.  Fortunately, setting up Windows partitions in expert mode is
+trivial.  One hint when using expert mode: you should almost always
+install LILO to the Master Boot Record (MBR).  Once upon a time, it was
 recommended to install the boot loader onto the root partition and set
-that partition as bootable. Today, LILO has matured greatly and is safe
-to install on the MBR. In fact, you will encounter fewer problems if
+that partition as bootable.  Today, LILO has matured greatly and is safe
+to install on the MBR.  In fact, you will encounter fewer problems if
 you do so.
 </para>
 
 <para>
 <application>liloconfig</application> is a great way to quickly setup
-your boot loader, but if you really need to know what's going on you'll
-need to look at LILO's configuration file,
+your boot loader, but if you really need to know what's going on, you'll
+need to look at LILO's configuration file:
 <filename>lilo.conf</filename>(5) under the <filename>/etc</filename>
-directory. The <filename>lilo.conf</filename> file is seperated into
-several sections. At the top you'll find a global section where you
+directory.  <filename>/etc/lilo.conf</filename> is separated into
+several sections.  At the top, you'll find a "global" section where you
 specify things like where to install LILO (generally the MBR), any
 special images or screens to show on boot, and the timeout after which
-LILO will boot the default operating system. Here's what the global
+LILO will boot the default operating system.  Here's what the global
 section of my lilo.conf file looks like in part.
 </para>
 
@@ -291,47 +292,46 @@ vga = 773
 
 <para>
 For a complete listing of all the possible LILO options, you should
-consult the man page for <filename>lilo.conf</filename>. In brief,
-we'll discuss the most common in this document.
+consult the man page for <filename>lilo.conf</filename>.  We'll 
+briefly discuss the most common options in this document.
 </para>
 
 <para>
-The first thing that should draw your attention is the boot line. This
-determines where the bootloader is installed. In order to install the
-the MBR of your hard drive, you simply list the hard drive's device
-entry on this line. In my case, I'm using a SATA hard drive that shows
-up as SCSI device <filename>/dev/sda</filename>. If you're using an IDE
-drive, you will probably have to use <filename>/dev/hda</filename>. In
-order to install to the boot block of a partition, you'll have to list
-the partition's device entry. For example, if you are installing to the
-first partition on the only SATA hard drive in your computer, you would
-probably use <filename>/dev/sda1</filename>.
+The first thing that should draw your attention is the "boot" line.  This
+determines where the bootloader is installed.  In order to install to
+the Master Boot Record (MBR) of your hard drive, you simply list the hard 
+drive's device entry on this line.  In my case, I'm using a SATA hard drive 
+that shows up as a SCSI device <filename>/dev/sda</filename>.  In order
+to install to the boot block of a partition, you'll have to list the 
+partition's device entry.  For example, if you are installing to the first 
+partition on the only SATA hard drive in your computer, you would probably 
+use <filename>/dev/sda1</filename>.
 </para>
 
 <para>
-The prompt option simply tells LILO to ask (prompt) you for which
+The "prompt" option simply tells LILO to ask (prompt) you for which
 operating system to boot.  Operating systems are each listed in their
-own section deeper in the file. We'll get to them in a minute. The
+own section deeper in the file.  We'll get to them in a minute.  The
 timeout option tells LILO how long to wait (in tenths of seconds)
-before booting the default OS. In my case, this is 5 seconds. Some
+before booting the default OS.  In my case, this is 5 seconds.  Some
 systems seem to take a very long time to display the boot screen, so
-you may need to use a larger timeout value than I have set. This is in
+you may need to use a larger timeout value than I have set.  This is in
 part why the simple LILO installation method utilizes a very long
-timeout (somewhere around 2 whole minutes). The append line in my case
-was setup by <application>liloconfig</application>. You may (and
+timeout (somewhere around 2 whole minutes).  The append line in my case
+was set up by <application>liloconfig</application>.  You may (and
 probably should) see something similar when looking at your own
-<filename>lilo.conf</filename>. I won't go into the details of why this
-line is needed, so you're just going to have to trust me that things
+<filename>/etc/lilo.conf</filename>. I won't go into the details of why 
+this line is needed, so you're just going to have to trust me that things
 work better if it is present. :^)
 </para>
 
 <para>
 Now that we've looked into the global section, let's take a look at the
-operating systems section. Each linux operating system section begins
-with an "image" line. Microsoft Windows operating systems are specified
+operating systems section.  Each linux operating system section begins
+with an "image" line.  Microsoft Windows operating systems are specified
 with an "other" line. Let's take a look at a sample
-<filename>lilo.conf</filename> that boots both Slackware and Microsoft
-Windows.
+<filename>/etc/lilo.conf</filename> that boots both Slackware and 
+Microsoft Windows.
 </para>
 
 <screen># LILO configuration file
@@ -352,22 +352,23 @@ other = /dev/sda3
 
 <para>
 For Linux operating systems like Slackware, the image line specifies
-which kernel to boot. In this case, we're booting
+which kernel to boot.  In this case, we're booting
 <filename>/boot/vmlinuz-generic-2.6.29.4</filename>. The remaining
-sections are pretty self-explainatory. The tell LILO where to find the
+sections are pretty self-explainatory.  They tell LILO where to find the
 root filesystem, what initrd (if any) to use, and to initially mount
-the root filesystem read-only. That initrd line is very important for
-anyone running a generic kernel, or using LVM or software RAID. It
+the root filesystem read-only.  That initrd line is very important for
+anyone running a generic kernel or using LVM or software RAID.  It
 tells LILO (and the kernel) where to find the initrd you created using
 <application>mkinitrd</application>.
 </para>
 
 <para>
-Once you've gotten your <filename>lilo.conf</filename> setup for your
+Once you've gotten <filename>/etc/lilo.conf</filename> set up for your
 machine, simply run <application>lilo</application>(8) to install it.
 Unlike GRUB and other bootloaders, LILO requires you re-run
 <application>lilo</application> anytime you make changes to its
-configuration file in order for those changes to be installed.
+configuration file, or else the new (changed) bootloader image will 
+not be installed, and those changes will not be reflected.
 </para>
 
 
@@ -386,8 +387,8 @@ Added Backup
 
 <para>
 Don't be scared by many of the warnings you may see when running
-<application>lilo</application>. In my case, most of these warnings are
-issued by the use of LVM. Unless you see a fatal error, things should
+<application>lilo</application>.  In my case, most of these warnings are
+issued by the use of LVM.  Unless you see a fatal error, things should
 be just fine.
 </para>
 
