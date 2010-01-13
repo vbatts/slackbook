@@ -6,13 +6,13 @@
 <title>Installation</title>
 
 <para>
-Slackware's installation is a bit more simplistic than many other Linux
-distributions use, and is very reminiscent of installing one of the
+Slackware's installation is a bit more simplistic than that of many/most
+ other Linux distributions, and is very reminiscent of installing one of the
 varieties of BSD operating systems.  If you're familiar with those, you
 should feel right at home.  If you've never installed Slackware or used
 a distribution that makes use of a non-graphical installer, you may
 feel a bit overwhelmed.  Don't panic.  The installation is very easy
-once you understand it, and works on just about any x86 platform.
+once you understand it, and it works on just about any x86 platform.
 </para>
 
 <para>
@@ -20,10 +20,10 @@ The latest versions of Slackware Linux are distributed on DVD or CD
 media, but Slackware can be installed in a variety of other ways.  This
 book will only focus on the most common way: installing via optical
 media.  In order to install Slackware, you'll need at least an Intel
-486 or equivilant CPU, but we recommend you obtain a 586 or better CPU
-if at all possible.  Slackware can be pared down to run on as little as
-32 MB of RAM (or even less), but with the size of the 2.6 kernel and
-user-space applications, you will find yourself having a much easier
+486 (or equivalent) or x86_64 CPU, but we recommend you obtain a 586 
+or better CPU if at all possible.  Slackware can be pared down to run 
+on as little as 32 MB of RAM, but with the size of the 2.6 kernel and
+userspace applications, you will find yourself having a much easier
 time if you have a minimum of 64 MB of RAM.  If you wish to use
 anything older than these, you might want to obtain an older copy of
 Slackware which will perform better with fewer CPU Megahertz and less
@@ -50,12 +50,12 @@ FILL THIS IN!  FILL THIS IN!
 
 <para>
 Unlike many other Linux distributions, Slackware does not make use of a
-graphical disk partitioning tool in its installer.  Rather, Slackware
+graphical disk partitioning tool in its installer; rather, Slackware
 makes use of <application>fdisk</application>(8) and
-<application>cfdisk</application>(8), both console tools.
+<application>cfdisk</application>(8), both of which are console tools.
 <application>cfdisk</application> is a curses-based partitioning tool
-while <application>fdisk</application> is not.  Whichever you choose to
-use should only rarely matter.  In this book, we'll only discuss
+while <application>fdisk</application> is not.  Which one you decide 
+to use should only rarely matter.  In this book, we'll only discuss
 <application>fdisk</application>.
 </para>
 
@@ -63,12 +63,12 @@ use should only rarely matter.  In this book, we'll only discuss
 In order to partition your hard drive, you'll first need to know how to
 identify it.  In Linux, all hardware is identified by a special file
 called a device file.  These are all (typically) located in the
-<filename>/dev</filename> directory.  If your hard drive is IDE, you
-will most likely find it as <filename>/dev/hda</filename>; however,
-many hard drives today including SATA disks are identified as SCSI
-devices by the kernel.  If you don't know what your hard drive is
-identified in Linux as, <application>fdisk</application> can help you
-out.
+<filename>/dev</filename> directory.  Hard drives, both the older IDE
+(PATA) and Serial ATA (SATA) disks are identified as SCSI devices by 
+the kernel, and as such, they'll be assigned a device node such as 
+<filename>/dev/sda</filename>.  If you don't know which device node is
+assigned to your hard drive, <application>fdisk</application> can help you
+find out.
 </para>
 
 <screen><prompt>root@slackware:/# </prompt><userinput>fdisk -l</userinput>
@@ -81,13 +81,13 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 <para>
 Here, you can see that my system has a hard drive located at
 <filename>/dev/sda</filename> that is 72.7 GB in size.  You can also
-see some additional info about this hard drive.  (In my case, this is
-actually three SCSI hard drives on a hardware RAID controller that
-makes them appear as a single drive.)  The <arg>-l</arg> argument to
+see some additional information about this hard drive (in my case, this 
+is actually three SCSI hard drives on a hardware RAID controller that
+makes them appear as a single drive).  The <arg>-l</arg> argument to
 <application>fdisk</application> tells it to display the hard drives
-and all the partitions it finds on those drives, but won't make any
+and all the partitions it finds on those drives, but it won't make any
 changes to the disks.  In order to actually partition our drives, we'll
-have to tell <application>fdisk</application> what drive to operate on.
+have to tell <application>fdisk</application> the drive on which to operate.
 </para>
 
 <screen><prompt>root@slackware:/# </prompt><userinput>fdisk /dev/sda</userinput>
@@ -103,11 +103,11 @@ Command (m for help):
 </screen>
 
 <para>
-Now we've told fdisk what disk we wish to partition and it has dropped
+Now we've told fdisk what disk we wish to partition, and it has dropped
 us into command mode after printing an annoying warning message.  The
-1024 cylinder limit has not been a problem for some time, and
+1024 cylinder limit has not been a problem for quite some time, and
 Slackware's boot loader will have no trouble booting disks larger than
-this.  Typing <arg>m</arg> and hitting ENTER will print out a helpful
+this.  Typing <arg>m</arg> and pressing ENTER will print out a helpful
 message telling you what to do with <application>fdisk</application>.
 </para>
 
@@ -124,18 +124,18 @@ FILL THIS IN!  FILL THIS IN!
 </screen>
 
 <para>
-Now that we know what commands will do what, it's time to begin to
-partition our drive.  At a minimum, you will need a single
-<filename>/</filename> partition and should create a swap partition.
-You might also want to make a seperate <filename>/home</filename>
+Now that we know what commands will do what, it's time to begin partitioning
+our drive.  At a minimum, you will need a single <filename>/</filename> 
+partition, and you should also create a swap partition.
+You might also want to make a separate <filename>/home</filename>
 partition for storing user files (this will make it easier to upgrade
-later, or install a different Linux operating system by keeping all of
-your users' files on a seperate partition).  So, let's go ahead and
+later or to install a different Linux operating system by keeping all of
+your users' files on a separate partition).  Therefore, let's go ahead and
 make three partitions.  The command to create a new partition is
-<arg>n</arg> (which you would have noticed if you read the help).
+<arg>n</arg> (which you noticed when you read the help).
 </para>
 
-<screen>Command: (me for help): <userinput>n</userinput>
+<screen>Command: (m for help): <userinput>n</userinput>
 Command action
    e   extended
    p   primary partition (1-4)
@@ -155,7 +155,7 @@ Last cylinder or +size or +sizeM or +sizeK (975-8841, default 8841): <userinput>
 </screen>
 
 <para>
-Here we have created two partitions.  The first is 8GB in size and the
+Here we have created two partitions.  The first is 8GB in size, and the
 second is only 1GB.  We can view our existing partitions with the
 <arg>p</arg> command.
 </para>
@@ -176,7 +176,7 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 Both of these partitions are of type "83" which is the standard Linux
 filesystem.  We will need to change <filename>/dev/sda2</filename> to
 type "82" in order to make this a swap partition.  We will do this with
-the <arg>t</arg> command.
+the <arg>t</arg> argument to <application>fdisk</application>.
 </para>
 
 <screen>Command (m for help): <userinput>t</userinput>
@@ -199,13 +199,16 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 virtual memory by the Linux kernel.  If for some reason you run out of
 RAM, the kernel will move the contents of some of the RAM to swap in
 order to prevent a crash.  The size of your swap partition is up to
-you.  A great many people have participated have participated in a
-great many flamewars on the size of swap partitions, but a good rule of
-thumb is to make your swap partition about twice the size of your
-system's RAM.  Since my machine has only 512MB of RAM, I decided to
-make my swap partition 1GB.  You may wish to experiment with your swap
-partition's size and see what works best for you, but generally there
-is no harm in having "too much" swap.
+you.  A great many people have participated in a great many flamewars 
+on the size of swap partitions, but a good rule of thumb is to make your 
+swap partition about twice the size of your system's RAM.  Since my machine 
+has only 512MB of RAM, I decided to make my swap partition 1GB.  You may 
+wish to experiment with your swap partition's size and see what works best 
+for you, but generally there is no harm in having "too much" swap.
+That being said, there's generally no good reason to follow this "rule of
+thumb" if you have a *lot* of RAM (e.g. more than 2 GB).  If you plan to
+use hibernation (suspend to disk), you will need to have at least as much
+swap space as you have physical memory (RAM), so keep that in mind.
 </para>
 
 <para>
@@ -232,12 +235,12 @@ Now it's time to finish up and write these changes to disk.
 The partition table has been altered!
 
 Calling ioctl() to re-read partition table.
-Synching disks.
+Syncing disks.
 <prompt>root@slackware:/# </prompt>
 </screen>
 
 <para>
-At this point, we are through partitioning our disks and are ready to
+At this point, we are done partitioning our disks and are ready to
 begin the <application>setup</application> program.  However, if you
 have created any extended partitions, you may wish to reboot once to
 ensure that they are properly read by the kernel.
