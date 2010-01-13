@@ -200,8 +200,9 @@ LVM="1"
 
 <para>
 For a complete description of each of these lines and what they do,
-you'll need to consult the man page for <filename>mkinitrd.conf</filename>. 
-Once each of these is setup, you need only run 
+you'll need to consult the man page for <filename>mkinitrd.conf</filename>.
+Copy the sample file to to <filename>/etc/mkinitrd.conf</filename> and
+edit it as desired.  Once it is setup properly, you need only run 
 <application>mkinitrd</application> with the <arg>-F</arg> argument. 
 A proper initrd file will be constructed and installed for you without 
 you having to remember all those obscure arguments.
