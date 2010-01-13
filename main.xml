@@ -98,7 +98,7 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
 <!-- Chapter 15 -->
-<!-- Nasic Network Commands -->
+<!-- Basic Network Commands -->
 <xi:include
   href="chapter_15.xml"
   xmlns:xi="http://www.w3.org/2001/XInclude"/>
