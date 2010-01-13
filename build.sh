@@ -1,5 +1,9 @@
 #!/bin/sh
 STYLE_SHEET="/usr/share/xml/docbook/xsl-stylesheets-1.75.1/html/docbook.xsl"
+if [ ! -r "$STYLE_SHEET" ] ; then
+  STYLE_SHEET=$(find /usr/share/xml -name docbook.xsl | grep /html/)
+  echo using $STYLE_SHEET instead
+fi
 
 xsltproc \
   -xinclude \

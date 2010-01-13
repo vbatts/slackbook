@@ -196,6 +196,7 @@ ROOTFS="ext4"
 #RAID="0"
 LVM="1"
 #WAIT="1"
+</prompt>
 </screen>
 
 <para>
