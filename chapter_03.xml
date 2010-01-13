@@ -8,16 +8,16 @@
 <para>
 Ok, now that you've gotten Slackware installed on your system, you
 should learn exactly what controls the boot sequence of your machine,
-and how to fix it should you manage to break it somehow. Use Linux long
-enough, and sooner or later you will make a mistake that breaks your
-bootloader. Fortunately, this doesn't require a re-install to fix. Unlike
+and how to fix it should you manage to break it somehow.  If you use Linux 
+long enough, sooner or later you will make a mistake that breaks your
+bootloader.  Fortunately, this doesn't require a reinstall to fix.  Unlike
 many other operating systems that hide the underlying details of how they
 work, Linux (and in particular, Slackware) gives you full control over
-the boot process. Simply by editing a configuration file or two and
-re-running the boot-loader installer, you can quickly and easily change
-(or break) your system. Slackware even makes it easy to dual-boot
-between multiple operating systems such as other Linux distributions or
-Microsoft Windows.
+the boot process.  Simply by editing a configuration file or two and
+re-running the bootloader installer, you can quickly and easily change
+(or break) your system.  Slackware even makes it easy to dual-boot
+multiple operating systems, such as other Linux distributions or Microsoft 
+Windows.
 </para>
 
 <section>
@@ -25,15 +25,15 @@ Microsoft Windows.
 
 <para>
 Before we go any further, a quick discussion on the Linux kernel is
-warranted. Slackware Linux includes several different kernels. While
-they are all compiled from the same source code, and hence are the
-"same", they are not identical. Depending on your architecture and
-Slackware version, the installer may have loaded your system with
-several kernels. There are kernels for single-processor
-systems and kernels for multi-processor systems. In the old days, there
-were tons of kernels for installing on different kinds of hard drive
-controllers. More importantly for our discussion, there are "huge"
-kernels and "generic" kernels.
+warranted.  Slackware Linux includes at least two, but sometimes more,
+different kernels.  While they are all compiled from the same source 
+code, and hence are the "same", they are not identical.  Depending on 
+your architecture and Slackware version, the installer may have loaded 
+your system with several kernels.  There are kernels for single-processor 
+systems and kernels for multi-processor systems (on 32bit Slackware).
+In the old days, there were lots of kernels for installing on many different 
+kinds of hard drive controllers.  More importantly for our discussion, 
+there are "huge" kernels and "generic" kernels.
 </para>
 
 <para>
@@ -41,77 +41,80 @@ If you look inside your <filename>/boot</filename> directory, you'll
 see the various kernels installed on your system.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>ls -l /boot/vmlinuz*</userinput>
-/boot/vmlinuz-huge-2.6.29.4      /boot/vmlinuz-generic-2.6.29.4
+<screen><prompt>darkstar:~# </prompt><userinput>ls -1 /boot/vmlinuz*</userinput>
+/boot/vmlinuz-huge-2.6.29.4
+/boot/vmlinuz-generic-2.6.29.4
 </screen>
 
 <para>
 Here you can see that I have two kernels installed,
 <filename>vmlinuz-huge-2.6.29.4</filename> and
-<filename>vmlinuz-generic-2.6.29.4</filename>. Each Slackware release
+<filename>vmlinuz-generic-2.6.29.4</filename>.  Each Slackware release
 includes different kernel versions and sometimes even slightly
 different names, so don't be alarmed if what you see doesn't exactly
 match what I have listed here.
 </para>
 
 <para>
-Huge kernels are exactly what you might think; they're huge. These
-kernels are built to support nearly every conceivable computer
-Slackware is supported on. They most certainly contain support for
-hardware your machine does not, and never will, have. These are
-included for several reasons, but the most important perhaps is in use
-by the installer. These are the kernels the Slackware installation
-disks run. If you chose to let the installer configure your bootloader
-for you, it chooses to use these kernels due to the incredible variety
-of hardware they support. By contrast, the generic kernels support very
-little hardware without the use of external modules. If you want to use
-one of the generic kernels, you'll need to make use of something called
-an initrd, and the tool to make them,
-<application>mkinitrd</application>(8).
+Huge kernels are exactly what you might think; they're huge.  However,
+that does NOT mean that they have all of the possible drivers and such
+compiled into them.  Instead, these kernels are made to boot (and run) on
+every conceivable computer on which Slackware is supported (there may very
+well be a few out there that won't boot/work with them though).  They most 
+certainly contain support for hardware your machine does not (and never 
+will) have, but that shouldn't concern you.  These kernels are included for 
+several reasons, but probably the most important is their use by Slackware's
+installer - these are the kernels that the Slackware installation disks run. 
+If you chose to let the installer configure your bootloader for you, it 
+chooses to use these kernels due to the incredible variety of hardware they 
+support.  In contrast, the generic kernels support very little hardware 
+without the use of external modules.  If you want to use one of the generic 
+kernels, you'll need to make use of something called an initrd, which is
+created using the <application>mkinitrd</application>(8) utility.
 </para>
 
 <para>
-So why should you use a generic kernel? Currently the Slackware
+So why should you use a generic kernel?  Currently the Slackware
 development team recommends use of a generic kernel for a variety of
-reasons. Perhaps the most obvious is size. The huge kernels are
+reasons.  Perhaps the most obvious is size.  The huge kernels are
 currently about twice the size of the generic kernels before they are
-uncompressed and loaded into memory. If you are running an older
+uncompressed and loaded into memory.  If you are running an older
 machine, or one with some small ammount of RAM, you will appreciate the
-savings the generic kernels offer you. Other reasons are somewhat more
-difficult to quantify. Conflicts between drivers included in the huge
-kernels do appear from time-to-time, and generally speaking, the huge
-kernels do not perform as well as the generic ones. Also, by using the
+savings the generic kernels offer you.  Other reasons are somewhat more
+difficult to quantify.  Conflicts between drivers included in the huge
+kernels do appear from time to time, and generally speaking, the huge
+kernels may not perform as well as the generic ones.  Also, by using the
 generic kernels, special arguments can be passed to hardware drivers
 seperately, rather than requiring these options be passed on the kernel
-command line. Some of the tools included with Slackware work better if
-your kernel uses some drivers as modules rather than "hard-coding" them
-into the kernel. If you're having trouble understanding this, don't be
-alarmed, just think "huge kernel: good, generic kernel: better".
+command line.  Some of the tools included with Slackware work better if
+your kernel uses some drivers as modules rather than statically building
+them into the kernel.  If you're having trouble understanding this, don't
+be alarmed: just think "huge kernel = good, generic kernel = better".
 </para>
 
 <para>
-Unfortunately, using the generic kernels isn't as straight-forward as
-using the huge kernels. In order for the generic kernel to boot your
-system, you must also usually include a few basic modules in an
-initird. Modules are pieces of compiled kernel code that can be
-inserted or removed from a running kernel. This makes the system
-somewhat more flexible at the cost of a tiny bit of added complexity.
-You might find it easier to think of modules as device drivers, at
-least for this section. Typically you will need to add the module for
-whatever filesystem you chose to use for your root partition during the
-installer. If your root partition is located on a SCSI disk or RAID
-controller, you'll need to load those modules as well.  Finally, if
-you're using software RAID, disk encryption, or LVM, you'll also need
-to create an initrd whether you're using the generic kernel or not.
+Unfortunately, using the generic kernels isn't as straightforward as
+using the huge kernels.  In order for the generic kernel to boot your
+system, you must also include a few basic modules in an initird. 
+Modules are pieces of compiled kernel code that can be inserted or removed 
+from a running kernel (ideally using <application>modprobe</application>(8).
+This makes the system somewhat more flexible at the cost of a tiny bit of 
+added complexity.  You might find it easier to think of modules as device 
+drivers, at least for this section.  Typically you will need to add the 
+module for whatever filesystem you chose to use for your root partition 
+during the installer, and if your root partition is located on a SCSI disk 
+or RAID controller, you'll need to add those modules as well.  Finally, if 
+you're using software RAID, disk encryption, or LVM, you'll also need to 
+create an initrd regardless of whether you're using the generic kernel or not.
 </para>
 
 <para>
-initrds are compressed <application>cpio</application>(1) archives, so
-creating them isn't very straightforward.  Fortunately for you,
-Slackware includes a tool that makes this very easy,
-<application>mkinitrd</application>. A full discussion of
+An initrd is a compressed <application>cpio</application>(1) archive, so
+creating one isn't very straightforward.  Fortunately for you, Slackware 
+includes a tool that makes this very easy:
+<application>mkinitrd</application>.  A full discussion of
 <application>mkinitrd</application> is a bit beyond the scope of this
-book, but we'll show you all the highlights. For a more complete
+book, but we'll show you all the highlights.  For a more complete
 explanation, check the manpage or run
 <application>mkinitrd</application> with the <arg>--help</arg>
 argument.
@@ -130,12 +133,13 @@ initrd, and the script is easy to modify.  Be creative.  :-)
 When using <application>mkinitrd</application>, you'll need to know a
 few items of information: your root partition, your root filesystem,
 any hard disk controllers you're using, and whether or not you're using
-LVM, software RAID, or disk encryption. Unless you're using some kind
-of SCSI controller (and have your root partition loaded on the SCSI
+LVM, software RAID, or disk encryption.  Unless you're using some kind
+of SCSI controller (and have your root partition located on the SCSI
 controller), you should only need to know your root filesystem and
-partition type. Assuming you've booted into your Slackware installation
+partition type.  Assuming you've booted into your Slackware installation
 using the huge kernel, you can easily find this information with the
-<application>mount</application> command.
+<application>mount</application> command or by viewing the contents of
+<filename>/proc/mounts</filename>.
 </para>
 
 <screen><prompt>darkstar:~# </prompt><userinput>mount</userinput>
@@ -151,7 +155,7 @@ tmpfs on /dev/shm type tmpfs (rw)
 In the example provided, you can see that the root partition is located
 on <filename>/dev/sda1</filename> and is an ext4 type partition. If we
 want to create an initrd for this system, we simply need to tell this
-information to <application>mkinird</application>.
+information to <application>mkinitrd</application>.
 </para>
 
 <screen><prompt>darkstar:~# </prompt><userinput>mkinitrd -f ext4 -r /dev/sda1</userinput>
@@ -160,8 +164,8 @@ information to <application>mkinird</application>.
 <para>
 Note that in most cases, <application>mkinitrd</application> is smart
 enough to determine this information on its own, but it never hurts to
-specify it manually. Now that we've created out initrd, we simply need
-to tell LILO where to find it. We'll focus on that in the next section.
+specify it manually. Now that we've created our initrd, we simply need
+to tell LILO where to find it.  We'll focus on that in the next section.
 </para>
 
 <para>
@@ -171,11 +175,12 @@ real pain though, especially if you try out different kernels
 consistently. This became tedious for the Slackware development team,
 so they came up with a simple configuration file,
 <filename>mkinitrd.conf</filename>(5). You can find a sample file that
-can be easily customized for your system under the
-<filename>/etc</filename> directory. Here's mine.
+can be easily customized for your system at 
+<filename>/etc/mkinitrd.conf.sample</filename> directory. Here's mine.
 </para>
 
-<screen># mkinitrd.conf.sample
+<screen>
+<prompt>darkstar:~# >/prompt><userinput>cat /etc/mkinitrd.conf.sample</userinput>
 # See "man mkinitrd.conf" for details on the syntax of this file
 #
 SOURCE_TREE="/boot/initrd-tree"
@@ -195,12 +200,11 @@ LVM="1"
 
 <para>
 For a complete description of each of these lines and what they do,
-you'll need to consulte the man page for
-<filename>mkinitrd.conf</filename>. Once each of these is setup, you
-need only run <application>mkinitrd</application> with the
-<arg>-F</arg> argument. A proper initrd file will be constructed and
-installed for you, without you having to remember all those obscure
-arguments.
+you'll need to consult the man page for <filename>mkinitrd.conf</filename>. 
+Once each of these is setup, you need only run 
+<application>mkinitrd</application> with the <arg>-F</arg> argument. 
+A proper initrd file will be constructed and installed for you without 
+you having to remember all those obscure arguments.
 </para>
 
 </section>
