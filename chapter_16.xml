@@ -35,11 +35,15 @@ voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 <title><application>slackpkg</application></title>
 
 <para>
-the <application>slackpkg</application> is an automated tool for
+  The <application>slackpkg</application> is an automated tool for
 management of Slackware Linux Packages. It was in /extra for 
 the release of slackware-12.1, and since the release of 
 slackware-12.2 it is included in the ap/ series of a base 
 installation.
+</para>
+<para>
+  For more information see the <application>man</application> pages for
+slackpkg(8) and slackpkg.conf(5).
 </para>
 <para>
 Homepage: <ulink url="http://www.slackpkg.org/">http://www.slackpkg.org/</ulink>
