@@ -1,0 +1,3 @@
+http://opensource.bureau-cornavin.com/crash-course/en/links.html#AEN896
+http://l10n.kde.org/docs/doc-primer/docbook-reference.html
+http://wiki.docbook.org/topic
