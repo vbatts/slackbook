@@ -32,14 +32,17 @@ voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 </section>
 
 <section>
-<title><application>pkgtool</application></title>
+<title><application>slackpkg</application></title>
 
 <para>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+the <application>slackpkg</application> is an automated tool for
+management of Slackware Linux Packages. It was in /extra for 
+the release of slackware-12.1, and since the release of 
+slackware-12.2 it is included in the ap/ series of a base 
+installation.
+</para>
+<para>
+Homepage: <ulink url="http://www.slackpkg.org/">http://www.slackpkg.org/</ulink>
 </para>
 
 </section>
