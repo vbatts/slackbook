@@ -5,16 +5,236 @@
 <chapter>
 <title>Basic Networking Commands</title>
 
+<para>
+So you've finally managed to setup your network connection, now what?
+How do you know that it's working? How do you know that you set it up
+correctly? And just what do you do now that it's setup? Well this
+chapter is for you.
+</para>
+
 <section>
 <title>Network Diagnostic Tools</title>
 
 <para>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Slackware Linux includes a great many networking tools for
+troubleshooting and diagnosing network connection troubles, or just for
+seeing what's out there on the network. Most of these tools are
+command-line tools, so you can run them from a virtual terminal or in a
+console window on your graphical desktop. A few of them even have
+graphical front-ends, but we're going to deal almost exclusively with
+command-line tools for now.
 </para>
+
+<section>
+<title>ping</title>
+
+<para>
+<application>ping</application>(8) is a handy tool for determining if a
+computer is operational on your network or on the Internet at large.
+You can think of as a type of sonar for computers. By using it, you
+send out a "ping" and listen for an echo to determine if another
+computer or network device is listening. By default,
+<application>ping</application> checks for the remote computer once per
+second indefinitely, but you can change the interval between checks and
+the total number of checks easily, just check the man page. You can
+terminate the application at any time with
+<keycap>CTRL</keycap>-<keycap>c</keycap>. When
+<application>ping</application> is finished, it displays a handy
+summary of its activity. <application>ping</application> is very useful
+for determining if a computer on your network or the Internet is
+available, but some systems block the packets
+<application>ping</application> sends, so sometimes a system may be
+functioning properly, but still not send replies.
+</para>
+
+
+<screen><prompt>darkstar:~# </prompt><userinput>ping -c 3 www.slackware.com</userinput>
+64 bytes from slackware.com (64.57.102.34): icmp_seq=1 ttl=47 time=87.1 ms
+64 bytes from slackware.com (64.57.102.34): icmp_seq=2 ttl=47 time=86.2 ms
+64 bytes from slackware.com (64.57.102.34): icmp_seq=3 ttl=47 time=86.7 ms
+
+--- slackware.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2004ms
+rtt min/avg/max/mdev = 86.282/86.718/87.127/0.345 ms
+</screen>
+
+</section>
+
+<section>
+<title>traceroute</title>
+
+<para>
+<application>traceroute</application>(8) is a handy tool for determining
+what route your packets take to reach some other computer. It's mainly
+of use for determining which computers are "near" or "far" from you.
+This distance isn't strictly geographical, as your Internet Service
+Provider may route traffic from your computer in strange ways.
+<application>traceroute</application> shows you each router between
+your computer and any other machine you wish to connect to.
+Unfortunately, many providers, firewalls, and routers will block
+<application>traceroute</application> so you might not get a complete
+picture when using it. Still, it remains a handy tool for network
+troubleshooting.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>traceroute www.slackware.com</userinput>
+traceroute to slackware.com (64.57.102.34), 30 hops max, 46 byte
+packets
+ 1  gw.ctsmacon.com (192.168.1.254)  1.468 ms  2.045 ms  1.387 ms
+ 2  10.0.0.1 (10.0.0.1)  7.642 ms  8.019 ms  6.006 ms
+ 3  68.1.8.49 (68.1.8.49)  10.446 ms  9.739 ms  7.003 ms
+ 4  68.1.8.69 (68.1.8.69)  11.564 ms  6.235 ms  7.971 ms
+ 5  dalsbbrj01-ae0.r2.dl.cox.net (68.1.0.142)  43.859 ms  43.287 ms
+44.125 ms
+ 6  dpr1-ge-2-0-0.dallasequinix.savvis.net (204.70.204.146)  41.927 ms
+58.247 ms  44.989 ms
+ 7  cr2-tengige0-7-5-0.dallas.savvis.net (204.70.196.29)  42.577 ms
+46.110 ms  43.977 ms
+ 8  cr1-pos-0-3-3-0.losangeles.savvis.net (204.70.194.53)  78.070 ms
+76.735 ms  76.145 ms
+ 9  bpr1-ge-3-0-0.LosAngeles.savvis.net (204.70.192.222)  77.533 ms
+108.328 ms  120.096 ms
+10  wiltel-communications-group-inc.LosAngeles.savvis.net
+(208.173.55.186)  79.607 ms  76.847 ms  75.998 ms
+11  tg9-4.cr01.lsancarc.integra.net (209.63.113.57)  84.789 ms  85.436
+ms  85.575 ms
+12  tg13-1.cr01.sntdcabl.integra.net (209.63.113.106)  87.608 ms
+84.278 ms  86.922 ms
+13  tg13-4.cr02.sntdcabl.integra.net (209.63.113.134)  87.284 ms
+85.924 ms  86.102 ms
+14  tg13-1.cr02.rcrdcauu.integra.net (209.63.114.169)  85.578 ms
+85.285 ms  84.148 ms
+15  209.63.99.166 (209.63.99.166)  84.515 ms  85.424 ms  85.956 ms
+16  208.186.199.158 (208.186.199.158)  86.557 ms  85.822 ms  86.072 ms
+17  sac-main.cwo.com (209.210.78.20)  88.105 ms  87.467 ms  87.526 ms
+18  slackware.com (64.57.102.34)  85.682 ms  86.322 ms  85.594 ms
+</screen>
+</section>
+
+<section>
+<title>telnet</title>
+
+<para>
+Once upon a time, <application>telnet</application>(1) was the greatest
+thing since sliced bread. Basically, <application>telnet</application>
+opens an unencrypted network connection between two computers and hands
+control of the session to the user rather than some other application.
+Using <application>telnet</application>, people could connect to shells
+on other computers and execute commands as if they were physically
+present. Due to its unencrypted nature this is no longer recommended;
+however, <application>telnet</application> is still used for this
+purpose by many devices.
+</para>
+
+<para>
+Today, <application>telnet</application> is put to better use as a
+network diagnostic tool. Because it passes control of the session
+directly to the user, it can be used for a great variety of testing
+purposes. As long as you know what ASCII commands to send to the
+receiving computer, you can do any number of activies, such as read web
+pages or check your e-mail. Simply inform
+<application>telnet</application> what network port to use, and you're
+all set.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>telnet www.slackware.com 80</userinput>
+Trying 64.57.102.34...
+Connected to www.slackware.com.
+Escape character is '^]'.
+<userinput>HEAD / HTTP/1.1
+Host: www.slackware.com
+</userinput>
+HTTP/1.1 200 OK
+Date: Thu, 04 Feb 2010 18:01:35 GMT
+Server: Apache/1.3.27 (Unix) PHP/4.3.1
+Last-Modified: Fri, 28 Aug 2009 01:30:27 GMT
+ETag: "61dc2-5374-4a973333"
+Accept-Ranges: bytes
+Content-Length: 21364
+Content-Type: text/html
+</screen>
+
+</section>
+
+<section>
+<title>ssh</title>
+
+<para>
+As we mentioned, <application>telnet</application> may be useful as a
+diagnostic tool, but its unencrypted nature makes it a security concern
+for shell access. Thankfully, there's the secure shell protocol. Nearly
+every Linux, UNIX, and BSD distribution today makes use of OpenSSH, or
+<application>ssh</application>(1) for short. It is one of the most
+commonly used network tools today and makes use of the strongest
+cryptographic techniques. <application>ssh</application> has many
+features, configuration options, and neat hacks, enough to fill its own
+book, so we'll only go into the basics here.  Simply run
+<application>ssh</application> with the user name and the host and
+you'll be connected to it quickly and safely. If this is the first time
+you are connecting to this computer, <application>ssh</application>
+will ask you to confirm your desire, and make a local copy of the
+encryption key to use. Should this key later change,
+<application>ssh</application> will warn you and refuse to connect
+because it is possible that some one is attempting to hijack the
+connection using what is known as a man-in-the-middle attack.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>ssh alan@slackware.com</userinput>
+alan@slackware.com's password: <userinput>secret</userinput>
+<prompt>alan@slackware.com:~$ </prompt>
+</screen>
+
+<para>
+The user and hostname are in the same form used by e-mail addresses.
+If you leave off the username part, <application>ssh</application> will
+use your current username when establishing the connection.
+</para>
+
+</section>
+
+<section>
+<title>tcpdump</title>
+
+<para>
+So far all the tools we've looked at have focused on making connections
+to other computers, but now we're going to look at the traffic itself.
+<application>tcpdump</application>(1) (which must be run as root)
+allows us to few all or part of the network traffic originating or
+received by our computer. <application>tcpdump</application> displays
+the raw data packets in a variety of ways with all the network headers
+intact. Don't be alarmed if you don't understand everything it
+displays, <application>tcpdump</application> is a tool for professional
+network engineers and system administrators. By default, it probes the
+first network card it finds, but if you have multiple interfaces,
+simply use the <arg>-i</arg> argument to specify which one you're
+interested in.  You can also limit the data displayed using expressions
+and change the manner in which it is displayed, but that is best
+explained by the man page and other reference material.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>tcpdump -i wlan0</userinput>
+tcpdump: verbose output suppressed, use -v or -vv for full protocol
+decode
+listening on wlan0, link-type EN10MB (Ethernet), capture size 96 bytes
+13:22:28.221985 IP gw.ctsmacon.com.microsoft-ds > 192.168.1.198.59387:
+Flags [P.], ack 838190560, win 3079, options [nop,nop,TS val 1382697489
+ecr 339048583], length 164WARNING: Short packet. Try increasing the
+snap length by 140
+SMB PACKET: SMBtrans2 (REPLY)
+
+13:22:28.222392 IP 192.168.1.198.59387 > gw.ctsmacon.com.microsoft-ds:
+Flags [P.], ack 164, win 775, options [nop,nop,TS val 339048667 ecr
+1382697489], length 134WARNING: Short packet. Try increasing the snap
+length by 110
+SMB PACKET: SMBtrans2 (REQUEST)
+</screen>
+
+</section>
+
+<section>
+<title>nmap</title>
+
+</section>
 
 </section>
 
