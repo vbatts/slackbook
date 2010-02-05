@@ -48,3 +48,9 @@ Chapter 11. vi
 
   You should really add "dw" (delete a word - and store it in the copybuffer)  "yw" (copy a word to the copy buffer), "yy" (copy a line to the copy buffer) and "p" (paste the content of the copybuffer at the cursor's location)
 
+Chapter 15. Basic Networking Commands
+
+* Section 'Web Browsers'
+
+  Should we include curl along with the others?
+
