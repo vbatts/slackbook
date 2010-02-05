@@ -292,16 +292,92 @@ general purpose Internet scanners.
 
 </section>
 
-<section>
-<title>Web Browsers</title>
+<section><title>Web Browsers</title>
 
 <para>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Slackware includes a variety of web browsers. If you're using a
+graphical desktop, you'll find Firefox, Seamonkey, and others you may
+already be familiar with, but what about console access? Fortunately,
+there are a number of capable web browsers here as well.
 </para>
+
+<section><title>lynx</title>
+
+<para>
+The oldest console-based web browser included with Slackware is
+definitely <application>lynx</application>(1), a very capable if
+somewhat limited web browser.  <application>lynx</application> does not
+support frames, javascript, or pictures; it is strictly a text web
+browser. Navigation is performed using your keyboard's arrow keys and
+optionally, a mouse. While it lacks many features that other browsers
+support, <application>lynx</application> is one of the fastest web
+browsers you'll ever use for gathering information. For example, the
+<arg>-dump</arg> argument sends the formatted web page directly to the
+console, which can then be piped to other programs.
+</para>
+
+<para>
+PIC OF LYNX IN ACTION.
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+</para>
+
+</section>
+
+<section><title>links</title>
+
+<para>
+A more feature-rich alternative is the popular
+<application>links</application>(1), a console-based web browser that
+supports frames and has better table rendering than
+<application>lynx</application>. Like its predecessor,
+<application>links</application> is navigated with the arrow keys, and
+the use of a mouse is supported.  Unlike,
+<application>lynx</application> it also includes a handy menu (simply
+click on the top line with your mouse to activate) and generally
+formats web pages better.
+</para>
+
+<para>
+PIC OF LINKS IN ACTION.
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+FILL THIS IN!!!!!!!
+</para>
+
+</section>
+
+<section><title>wget</title>
+
+<para>
+Unlike the other browsers we've looked at,
+<application>wget</application>(1) is non-interactive. Rather than display
+HTTP content, <application>wget</application> downloads it. This takes
+the "browsing" out of the web browser. Unlike the dump modes of other
+browsers, <application>wget</application> does not format its
+downloads; rather it copies the content in its exact form on the web
+server with all tags and binary data in place. It also supports several
+recursive options that can effectively mirror online content to your
+local computer.  <application>wget</application> need not operate
+exclusively on HTTP content; it also supports FTP and several other
+protocols.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>wget ftp://ftp.osuosl.org/pub/slackware/slackware-current/ChangeLog.txt</userinput>
+</screen>
+
+</section>
 
 </section>
 
@@ -309,12 +385,25 @@ voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 <title>FTP Clients</title>
 
 <para>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Lots of data is stored on FTP servers the world over. In fact,
+Slackware Linux was first publically offered via FTP and continues to
+be distributed in this fashion today. Most open source software can be
+downloaded in source code or binary form via FTP, so knowing how to
+retrieve this information is a handy skill.
 </para>
+
+<section><title>ftp</title>
+
+
+</section>
+
+<section><title>ncftp</title>
+
+</section>
+
+<section><title>lftp</title>
+
+</section>
 
 </section>
 
@@ -324,7 +413,7 @@ voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 </section>
 
 <section>
-<title>Remote Access</title>
+<title>rsync</title>
 
 </section>
 
