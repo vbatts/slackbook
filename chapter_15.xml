@@ -199,7 +199,7 @@ use your current username when establishing the connection.
 So far all the tools we've looked at have focused on making connections
 to other computers, but now we're going to look at the traffic itself.
 <application>tcpdump</application>(1) (which must be run as root)
-allows us to few all or part of the network traffic originating or
+allows us to view all or part of the network traffic originating or
 received by our computer. <application>tcpdump</application> displays
 the raw data packets in a variety of ways with all the network headers
 intact. Don't be alarmed if you don't understand everything it
