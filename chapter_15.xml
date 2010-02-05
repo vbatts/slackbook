@@ -234,6 +234,60 @@ SMB PACKET: SMBtrans2 (REQUEST)
 <section>
 <title>nmap</title>
 
+<para>
+Suppose you need to know what network services are running on a
+machine, or multiple machines, or you wish to determine if multiple
+machines are responsive?  You could <application>ping</application>
+each one individually, <application>telnet</application> to each port
+you're interested in, and note every detail, but that's very tedious
+and time consuming. A much easier alternative is to use a port scanner,
+and <application>nmap</application>(1) is just the tool for the job.
+<application>nmap</application> is capable of scanning TCP and UDP
+ports, determining the operating system of a network device, probing
+each located service to determine its specific type, and much much
+more.  Perhaps the simplist way to use <application>nmap</application>
+is to "ping" multiple computers at once. You can use network address
+notation (CIDR) or specify a range of addresses and
+<application>nmap</application> will scan every one and return the
+results to you when it's finished. You can even specify host names as
+you like.
+</para>
+
+<para>
+In order to "ping" hosts, you'll have to use the <arg>-sP</arg>
+argument. The following command instructs
+<application>nmap</application> to "ping" www.slackware.com and the 16
+IP addresses starting at 72.168.24.0 and ending at 72.168.24.15.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>nmap -sP www.slackware.com 72.168.24.0/28</userinput>
+</screen>
+
+<para>
+Should you need to perform a port scan, <application>nmap</application>
+has many options for doing just that. When run without any arguments,
+<application>nmap</application> performs a standard TCP port scan on all
+hosts specified. There are also options to make
+<application>nmap</application> more or less aggressive with its
+scanning to return results quicker or fool intrusion detection
+services. For a full discussion, you should refer to the rather
+exhaustive man page. The following three commands perform a regular
+port scan, a SYN scan, and a "Christmas tree" scan.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>nmap www.example.com</userinput>
+<prompt>darkstar:~# </prompt><userinput>nmap -sS www.example.com</userinput>
+<prompt>darkstar:~# </prompt><userinput>nmap -sX www.example.com</userinput>
+</screen>
+
+<para>
+Be warned! Some Internet Service Providers frown heavily on port
+scanning and may take measures to prevent you from doing it.
+<application>nmap</application> and applications like it are best used
+on your own systems for maintenance and security purposes, not as
+general purpose Internet scanners.
+</para>
+
 </section>
 
 </section>
