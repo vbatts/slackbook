@@ -54,3 +54,7 @@ Chapter 15. Basic Networking Commands
 
   Should we include curl along with the others?
 
+* Section 'NNTP Clients'
+
+  Should we even have this section?  At this time, I'm leaning towards
+  'no'.
