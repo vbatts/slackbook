@@ -3,7 +3,7 @@
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
 <chapter>
-<title>Basic Networking Commands</title>
+<title>Basic Networking Utilities</title>
 
 <para>
 So you've finally managed to setup your network connection, now what?
@@ -394,14 +394,106 @@ retrieve this information is a handy skill.
 
 <section><title>ftp</title>
 
+<para>
+The simplest FTP client included with Slackware is named simply,
+<application>ftp</application>(1) and is a reliable if somewhat simple
+means of sending and retrieving data. <application>ftp</application>
+connects to an FTP server, asks for your username and password, and
+then allows you to put or get data to and from that server.
+<application>ftp</application> has fallen out of favor with more
+experienced users do to a lack of features, but remains a handy tool,
+and much of the documentation you see online will refer you to it.
+</para>
+
+<para>
+Once an FTP session has been initialized, you'll be placed at a prompt
+somewhat like a shell.  From here you can change and list directories
+using the "cd" and "ls" commands, just like a shell.  Additionally, you
+may issue the "put" command to send a file to the server, or a "get"
+command to retrieve data from the server. If you're connecting to a
+public FTP server, you'll want to use the "anonymous" username and
+simply enter your e-mail address (or a fake one) for the password.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>ftp ftp.osuosl.org</userinput>
+Name (ftp.osuosl.org:alan): <userinput>anonymous</userinput>
+331 Please specify the password.
+Password: <userinput>secret</userinput>
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> <userinput>cd pub/slackware/slackware-current/</userinput>
+250 Directory successfully changed.
+ftp> <userinput>get ChangeLog.txt</userinput>
+local: ChangeLog.txt remote: ChangeLog.txt
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for ChangeLog.txt (33967
+bytes).
+226 File send OK.
+33967 bytes received in 0.351 secs (94 Kbytes/sec)
+ftp> <userinput>bye</userinput>
+221 Goodbye.
+</screen>
 
 </section>
 
 <section><title>ncftp</title>
 
+<para>
+<application>ncftp</application>(1) (pronounced nick-f-t-p), is a more
+feature rich successor to <application>ftp</application>, supporting
+tab completion and recursive retrieval. It automatically connects to a
+server as the anonymous user, unless you specify a different username
+on the commandline with the <arg>-u</arg> argument. The primary
+advantage over <application>ftp</application> is the ability to send
+and retrieve multiple files at once with the "mput" and "mget"
+commands. If you pass the <arg>-R</arg> argument to either of them,
+they will recursively put or get data from directories.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>ncftp ftp.osuosl.org</userinput>
+Logging in...                                                                   
+Login successful.
+Logged in to ftp.osuosl.org.                                                    
+ncftp / > <userinput>cd pub/slackware/slackware-current</userinput>
+Directory successfully changed.
+ncftp ...ware/slackware-current > <userinput>mget -R isolinux</userinput>
+isolinux/README.TXT:                                     4.63 kB 16.77 kB/s  
+isolinux/README_SPLIT.TXT:                             788.00 B    5.43 kB/s  
+isolinux/f2.txt:                                       793.00 B    5.68 kB/s  
+isolinux/initrd.img:                                    13.75 MB 837.91 kB/s  
+isolinux/iso.sort:                                      50.00 B  354.50 B/s   
+isolinux/isolinux.bin:                                  14.00 kB 33.99 kB/s  
+isolinux/isolinux.cfg:                                 487.00 B    3.30 kB/s  
+isolinux/message.txt:                                  760.00 B    5.32 kB/s  
+isolinux/setpkg:                                         2.76 kB 19.11 kB/s  
+ncftp ...ware/slackware-current > <userinput>bye</userinput>
+</screen>
+
 </section>
 
 <section><title>lftp</title>
+
+<para>
+The last client we're going to look at is
+<application>lftp</application>(1).  Like
+<application>ncftp</application>, it supports tab completion and
+recursive activity, but has a more friendly license.  Rather than user
+"mget" and "mput", all recursive operations are handled with the
+"mirror" command.  "mirror" has many different options available, so
+I'll have to refer you to the man page and the built-in "help" command
+for complete details.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>lftp ftp.osuosl.org</userinput>
+lftp ftp.osuosl.org:~> <userinput>cd /pub/slackware/slackware-current</userinput>
+cd ok, cwd=/pub/slackware/slackware-current            
+lftp ftp.osuosl.org:/pub/slackware/slackware-current> <userinput>mirror isolinux</userinput>
+Total: 2 directories, 16 files, 1 symlink                                      
+New: 16 files, 1 symlink
+14636789 bytes transferred in 20 seconds (703.7K/s)
+lftp ftp.osuosl.org:/pub/slackware/slackware-current> <userinput>bye</userinput>
+</screen>
 
 </section>
 
@@ -410,10 +502,129 @@ retrieve this information is a handy skill.
 <section>
 <title>NNTP Clients</title>
 
+<para>
+Once upon a time when the Internet was young, before the World Wide Web
+was invented and no one had heard of hyperlinks, everyone retrieved
+their news and information through a service known as Usenet using the
+NNTP protocol. It remains today a useful knowledge base of information
+on an incredible variety of subjects, but if you wish to access this
+information, you're going to need a proper client.  Slackware includes
+a number of NNTP clients with both console and graphical interfaces,
+but we'll only detail the console tools here. Popular graphical news
+readers include <application>knode</application> and
+<application>pan</application>.
+</para>
+
+<section><title>tin</title>
+
+</section>
+
+<section><title>slrn</title>
+
+</section>
+
 </section>
 
 <section>
 <title>rsync</title>
+
+<para>
+Ready to see something cool? Have you ever found yourself needing just
+a handful of files from a large directory, but you're not entirely sure
+which files you already have and which ones you need? You can download
+the entire directory again, but that's duplicating a lot of work. You
+can pick and chose, manually check everything, but that's very tedious.
+Perhaps you've downloaded a large file such as an ISO, but something
+went wrong with the download? It doesn't make sense that you should
+have to pull down the entire file again if only a few bits have been
+corrupted.  Enter <application>rsync</application>(1), a fast and
+versatile copying tool for local and remote files.
+</para>
+
+<para>
+<application>rsync</application> uses a handful of simple, but very
+effective techniques to determine what needs to be changed. By checking
+file size and time stamps, it can determine if two files are different.
+If something has changed, it can determine what bytes are different,
+and simply download that handfull of data rather than an entire file.
+It is truly a marvel of modern technology.
+</para>
+
+<para>
+In its simplist form, <application>rsync</application> connects to an
+rsync protocol server and downloads a list of files and directories,
+along with their sizes, timestamps, and other information. It then
+compares this to the local files (if any) to determine what it needs to
+transfer. Only files that are different will be synced.  Additionally,
+it breaks up large files into smaller chunks and compares those chunks
+using a quick and simple hash function. Any chunks that match are not
+transferred, so the amount of data that must be copied can be
+dramatically reduced.  <application>rsync</application> also supports
+compression, verbose output, file deletion, permission handling, and
+many other options. For a complete list, you'll need to refer to the
+man page, but I've included a small table of some of the more common
+options.
+</para>
+
+<table pgwide="0">
+<title>rsync Arguments</title>
+<tgroup cols="2">
+  <thead>
+    <entry>Argument</entry>
+    <entry>Explaination</entry>
+  </thead>
+  <tbody>
+    <row>
+      <entry>-v</entry>
+      <entry>Increased verbosity</entry>
+    </row>
+    <row>
+      <entry>-c</entry>
+      <entry>Checksum all files rather than relying on file size and timestamp</entry>
+    </row>
+    <row>
+      <entry>-a</entry>
+      <entry>Archive mode (equivilant to -rlptgoD)</entry>
+    </row>
+    <row>
+      <entry>-e</entry>
+      <entry>Specify a remote shell to use</entry>
+    </row>
+    <row>
+      <entry>-r</entry>
+      <entry>Recursive mode</entry>
+    </row>
+    <row>
+      <entry>-u</entry>
+      <entry>Update - skip files that are newer on the receiving end</entry>
+    </row>
+    <row>
+      <entry>-p</entry>
+      <entry>Preserve permissions</entry>
+    </row>
+    <row>
+      <entry>-n</entry>
+      <entry>Dry-run - perform a trial run without making any changes</entry>
+    </row>
+    <row>
+      <entry>-z</entry>
+      <entry>Compress - handy for slow network connections</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+<para>
+Due to the power and versatility of <application>rsync</application>,
+it can be invoked in a number of ways.  The following two examples
+connect to an rsync protocol server to retrieve some information and to
+another server via ssh to encrypt the transmission.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>rsync -avz rsync://ftp.osuosl.org/pub/slackware/slackware-current/ \
+/src/slackware-current/</userinput>
+<prompt>darkstar:~# </prompt><userinput>rsync -e ssh ftp.slackware.com:/home/alan/foo /tmp/foo</userinput>
+</screen>
 
 </section>
 
