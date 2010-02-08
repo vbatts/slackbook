@@ -57,7 +57,13 @@ apparent what to do. Just remember that when I started using X, it was
 far more primitive than it is today, took far more work to configure,
 and often crashed without telling the user what was wrong. If I and
 thousands of others got this working back then, you can do it today.
-Fortunately, Slackware includes a default configuration file that works
+</para>
+
+<para>
+Fortunately, with <application>X.Org 1.6.3</application> an
+<filename>/etc/X11/xorg.conf</filename> does not even need to be
+present for <application>X</application> to attempt a working display,
+further, Slackware includes a default configuration file that works
 for most computers by using the VESA standard. This offers only the
 most basic functions and may not allow your graphics card to operate at
 its full potential. You may be limited to low resolutions, fewer
@@ -84,6 +90,18 @@ This application asks you a series of questions about your computer's
 hardware and writes out a config file based on your choices. Unless you
 know exactly what your hardware is, we recommend that you try
 <application>xorgsetup</application> first.
+</para>
+
+<para>
+Additionally, the <application>X</application> has flags available to 
+let <application>X</application> attempt to detect hardware and render
+an <filename>xorg.conf.new</filename> that should work with the hardware
+present. From a virtual terminal call <command>X -configure</command>,
+and the resulting file will be either <filename>/root/xorg.conf.new</filename>
+or <filename>$HOME/xorg.conf.new</filename>. Before moving this new
+configuration to <filename>/etc/X11/</filename>, it can be tested by 
+calling <command>X -config /root/xorg.conf.new</command>, then you can 
+exit this <application>X</application> session with &lt;CTRL&gt;+&lt;ALT&gt;+&lt;Backspace&gt;.
 </para>
 
 <para>
