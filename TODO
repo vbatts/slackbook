@@ -1,36 +1,71 @@
 General
 
-* Aim to update references to kernel versions and Slackware versions to those used in the most recent release of Slackware. I've seen kernel 2.6.29.4 and Slackware 12.0.0 for instance.
+* Aim to update references to kernel versions and Slackware versions to those 
+  used in the most recent release of Slackware. I've seen kernel 2.6.29.4 and 
+  Slackware 12.0.0 for instance.
 
 * cron
 
 * more extensive CLI apps like v2.0
 
+* no idea where the hell udev is covered in here, but we need to do a bit of
+  talk about it.  Nothing too advanced, and we definitely DO NOT want to 
+  imply that users should have to do much with udev.  All of the asshattery
+  out there with trying to automount shit with udev is, well, asshattery.
+  * need to mention that /etc/udev/rules.d/<somefile> overrides an identically
+    named file in /lib/udev/rules.d/
+  * need to mention persistent rules that are system-generated, especially
+    in reference to how the admin might be misled into thinking that they are
+    causing breakage...
+
+
 Chapter 3. Booting
+
 * Section 'mkinitrd'
 
 * /usr/share/mkinitrd_command_generator.sh
 
   "Now that we've created out initrd" -> "Now that we've created our initrd"
-  "most of these warnings are issued by the use of LVM" << I think that at this point of the book, people will be scared off by the unfamiliar 'LVM' and listing "/dev/raven/64root" as a root device may be confusing to people who expect something like "/dev/sda1". Better to discuss LVM later on.
+  "most of these warnings are issued by the use of LVM" << I think that at 
+    this point of the book, people will be scared off by the unfamiliar 
+    'LVM' and listing "/dev/raven/64root" as a root device may be confusing 
+    to people who expect something like "/dev/sda1". Better to discuss LVM 
+    later on.
+
 
 Chapter 4. Basic Shell Commands
+
 * Table 4.1. Man Page Sections
 
   Add Section 9 "kernel API description"
   Add Section n "New" - typically used for Tcl/Tk man pages
 
+
 Chapter 6. X Windows
 
 * Section 'configuring the X server'
 
-  "The second most popular way to configure X on your system is the handy xorgconfig(1)." << Factually, this is no longer true. The xorgconfig and xorgcfg utilities have been removed as per Slackware 13.0.  What you *should* mention is that the X in Slackware will auto-configure itself if a xorg.conf file is missing (or will automatically configure components for any sections that are missing from an existing xorg.conf using the information it receives from the HAL daemon)
+  "The second most popular way to configure X on your system is the handy 
+  xorgconfig(1)." << Factually, this is no longer true. The xorgconfig and 
+  xorgcfg utilities have been removed as per Slackware 13.0.  What you 
+  *should* mention is that the X in Slackware will auto-configure itself 
+  if a xorg.conf file is missing (or will automatically configure components 
+  for any sections that are missing from an existing xorg.conf using the 
+  information it receives from the HAL daemon)
+  * note that HAL is slated for deprecation and this might be handled by
+    udev directly at some point in the future...
+
 
 Chapter 8. Users and Groups
 
 * Section 'Other User and Group Tools'
 
-  You could mention the tool here that is most sought after in IRC and forums: the "gpasswd" program whicl allows you to add a user to one additional group without touching on your current group management (remember that "usermod -G" will not retain your current group membership while "gpasswd -a" will).
+  You could mention the tool here that is most sought after in IRC and 
+  forums: the "gpasswd" program which allows you to add a user to one 
+  additional group without touching on your current group management 
+  (remember that "usermod -G" will not retain your current group membership 
+  while "gpasswd -a" will).
+
 
 Chapter 10. Working with Filesystems
 
@@ -40,13 +75,20 @@ Chapter 10. Working with Filesystems
 
 * Section 'Network Filesystems' / 'NFS'
 
-  You could mention here how the command "showmount -e <remote_server> " allows you to find out exactly what NFS exports a remote server has made available.
+  You could mention here how the command "showmount -e <remote_server> " 
+  allows you to find out exactly what NFS exports a remote server has made 
+  available.
+
 
 Chapter 11. vi
 
 * Table 11.2. vi Cheat Sheet
 
-  You should really add "dw" (delete a word - and store it in the copybuffer)  "yw" (copy a word to the copy buffer), "yy" (copy a line to the copy buffer) and "p" (paste the content of the copybuffer at the cursor's location)
+  You should really add "dw" (delete a word - and store it in the 
+  copybuffer)  "yw" (copy a word to the copy buffer), "yy" (copy a line to 
+  the copy buffer) and "p" (paste the content of the copybuffer at the 
+  cursor's location)
+
 
 Chapter 15. Basic Networking Commands
 
@@ -56,5 +98,4 @@ Chapter 15. Basic Networking Commands
 
 * Section 'NNTP Clients'
 
-  Should we even have this section?  At this time, I'm leaning towards
-  'no'.
+  Should we even have this section?  At this time, I'm leaning towards 'no'.
