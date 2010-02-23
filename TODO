@@ -40,6 +40,10 @@ Chapter 4. Basic Shell Commands
   Add Section 9 "kernel API description"
   Add Section n "New" - typically used for Tcl/Tk man pages
 
+* Section 'Archive Commands'
+
+  We need to discuss tar somewhere, and this looks like the best place
+  to do it to me.
 
 Chapter 6. X Windows
 
