@@ -5,15 +5,49 @@
 <chapter>
 <title>Package Management</title>
 
+<para>
+Package management is an essential part of any Linux distribution.
+Every piece of software included by Slackware, along with many
+third-party tools are distributed as source code that can be compiled,
+but compiling all those thousands of different applications and
+libraries is tedious and time consuming. That's why many people prefer
+to install pre-compiled software packages. In fact, when you installed
+Slackware, the <application>setup</application> program primarily
+worked by running package management tools on a list of packages. Here
+we'll look at the various tools used for handling Slackware packages.
+</para>
+
 <section>
 <title><application>pkgtool</application></title>
 
 <para>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+The simplest way to perform package maintenance tasks is to invoke
+<application>pkgtool</application>(8), a menu-driven interface to some of
+the other tools.  <application>pkgtool</application> allows you to
+install or remove packages as well as view the contents of those
+packages and the list of currently installed packages in a
+user-friendly ncurses interface.
+</para>
+
+<para>
+PICTURE OF PKGTOOL MAIN SCREEN.
+FILL THIS IN!!!!!!
+FILL THIS IN!!!!!!
+FILL THIS IN!!!!!!
+FILL THIS IN!!!!!!
+FILL THIS IN!!!!!!
+FILL THIS IN!!!!!!
+FILL THIS IN!!!!!!
+FILL THIS IN!!!!!!
+FILL THIS IN!!!!!!
+FILL THIS IN!!!!!!
+FILL THIS IN!!!!!!
+</para>
+
+<para>
+<application>pkgtool</application> is a convenient and easy way to
+perform the most basic tasks, but for more advanced work more flexible
+tools are needed.
 </para>
 
 </section>
@@ -22,11 +56,115 @@ voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 <title>Installing, Removing, and Upgrading Packages</title>
 
 <para>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+While <application>pkgtool</application> scores points for convenience,
+<application>installpkg</application>(8) is much more capable of
+handling odd tasks, such as quickly installing a single package, 
+installing an entire disk set of packages, or scripting an install.
+<application>installpkg</application> takes a list of packages to
+install, and simply installs them without asking any questions. Like
+all Slackware package management tools, it assumes that you know what
+you're doing and doesn't pretend to be smarter than you. In its
+simplest form, <application>installpkg</application> simply takes a
+list of packages to install, and does exactly what you would expect.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>installpkg blackbox-0.70.1-i486-2.txz</userinput>
+Verifying package blackbox-0.70.1-i486-2.txz.
+Installing package blackbox-0.70.1-i486-2.txz:
+PACKAGE DESCRIPTION:
+# blackbox (Blackbox window manager)
+#
+# Blackbox is that fast, light window manager you have been looking for
+# without all those annoying library dependencies.
+#
+# Also included in this package is the bbkeys utility for controlling
+# keyboard shortcut commands from within Blackbox.
+#
+# The Blackbox home page is http://blackboxwm.sourceforge.net
+#
+Package blackbox-0.70.1-i486-2.txz installed.</screen>
+
+<para>
+You can of course install multiple packages at a time, and in fact use
+shell wild cards.  The following installs all of the "N" series
+packages from a mounted CD-ROM.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>installpkg /mnt/cdrom/slackware/n/*.txz</userinput>
+
+<para>
+Removing a package is every bit as easy as installing one. As you might
+expect, the command to do this is
+<application>removepkg</application>(8). Simply tell it which packages
+to remove, and <application>removepkg</application> will check the
+contents of the package database and remove all the files and
+directories for that package with one caveat. If that file is included
+in multiple installed packages, it will be skipped and if a directory
+has new files in it, the directory will be left in place. Because of
+this, removing packages takes a good while longer than installing them.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>removepkg blackbox-0.70.1-i486-2.txz</userinput>
+</screen>
+
+<para>
+Finally, upgrading is just as easy with (you guessed it),
+<application>upgradepkg</application>(8) which first installs a new
+package, then removes whatever files and directories are left-over from
+the old package. One important thing to remember is that
+<application>upgradepkg</application> doesn't check to see if the
+previously installed package has a higher version number than the "new"
+package, so it can also be used to downgrade to older versions.
+</para>
+
+
+
+<screen><prompt>darkstar:~# </prompt><userinput>upgradepkg blackbox-0.70.1-i486-2.txz</userinput>
+
++==============================================================================
+| Upgrading blackbox-0.65.0-x86_64-4 package using
+./blackbox-0.70.1-i486-2.txz
++==============================================================================
+
+Pre-installing package blackbox-0.70.1-i486-2...
+
+Removing package
+/var/log/packages/blackbox-0.65.0-x86_64-4-upgraded-2010-02-23,16:50:51...
+  --> Deleting symlink /usr/share/blackbox/nls/POSIX
+  --> Deleting symlink /usr/share/blackbox/nls/US_ASCII
+  --> Deleting symlink /usr/share/blackbox/nls/de
+  --> Deleting symlink /usr/share/blackbox/nls/en
+  --> Deleting symlink /usr/share/blackbox/nls/en_GB
+...
+Package blackbox-0.65.0-x86_64-4 upgraded with new package
+./blackbox-0.70.1-i486-2.txz.</screen>
+
+<para>
+All of these tools have useful arguments. For example, the
+<arg>--root</arg> to <application>installpkg</application> will install
+packages into an arbitrary directory. The <arg>--dry-run</arg> argument
+will instruct <application>upgradepkg<application> to simply tell you
+what it would attempt without actually making any changes to the
+system. For complete details, you should (as always) refer to the man
+pages.
+</para>
+
+</section>
+
+<section>
+<title>Package Compression Formats</title>
+
+<para>
+We won't go in depth into the details of package formats, but a few
+words should be given here.  In the past, all Slackware packages were
+compressed with the <application>gzip</application>(1) compression
+utility, which was a good compromise between compression speed and
+size.  Recently, new compression schemes have been added and the
+package management tools have been upgraded to handle these. Today,
+official Slackware packages are compressed with the
+<application>xz</application> utility and end with .txz extensions.
+Older packages (and many third party packages) still use the .tgz
+extension.
 </para>
 
 </section>
