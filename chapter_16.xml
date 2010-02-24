@@ -90,7 +90,7 @@ shell wild cards.  The following installs all of the "N" series
 packages from a mounted CD-ROM.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>installpkg /mnt/cdrom/slackware/n/*.txz</userinput>
+<screen><prompt>darkstar:~# </prompt><userinput>installpkg /mnt/cdrom/slackware/n/*.txz</userinput></screen>
 
 <para>
 Removing a package is every bit as easy as installing one. As you might
@@ -143,7 +143,7 @@ Package blackbox-0.65.0-x86_64-4 upgraded with new package
 All of these tools have useful arguments. For example, the
 <arg>--root</arg> to <application>installpkg</application> will install
 packages into an arbitrary directory. The <arg>--dry-run</arg> argument
-will instruct <application>upgradepkg<application> to simply tell you
+will instruct <application>upgradepkg</application> to simply tell you
 what it would attempt without actually making any changes to the
 system. For complete details, you should (as always) refer to the man
 pages.
