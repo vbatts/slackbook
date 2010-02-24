@@ -7,10 +7,6 @@
 <bookinfo>
   <title>The Slack Book</title>
 </bookinfo>
-<copyright>
-  <year>2010</year>
-  <holder>Slackware Linux, Inc.</holder>
-</copyright>
 
 <!-- Preface -->
 <xi:include
