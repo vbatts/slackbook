@@ -429,6 +429,39 @@ other alternatives.
 
 </section>
 
+<section>
+<title>LZMA</title>
+
+<para>
+The latest compression utility added to Slackware is
+<application>xz</application>, which impliments the LZMA compression
+algorithm. This is faster than <application>bzip2</application> and
+often compresses better as well. In fact, its blend of speed and
+compression strength caused it to replace
+<application>gzip</application> as the compression scheme of choice for
+Slackware.  Unfortuantely, <application>xz</application> does not have
+a man page at the time of this writing, so to view available options,
+use the <arg>--help</arg> argument.  Compressing files is accomplished
+with the <arg>-z</arg> argument, and decompression with <arg>-d</arg>.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>xz -z /tmp/large_file</userinput></screen>
+
+</section>
+
+<section>
+<title>tar</title>
+
+<para>
+So great, we know how to compress files using all sorts of programs,
+but none of them can archive files in the way that
+<application>zip</application> does.  That is until now.  The Tape
+Archiver, or <application>tar</application>(1) is the most frequently
+used archival program in Slackware.
+</para>
+
+</section>
+
 </section>
 
 <section>
