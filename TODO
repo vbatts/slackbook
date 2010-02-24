@@ -35,10 +35,9 @@ Chapter 3. Booting
 
 Chapter 4. Basic Shell Commands
 
-* Section 'Archive Commands'
+* Section 'Reading Documents'
 
-  We need to discuss tar somewhere, and this looks like the best place
-  to do it to me. Need to finish this out.
+  Perhaps split this with subsections for cat, more, and less?
 
 Chapter 6. X Windows
 
