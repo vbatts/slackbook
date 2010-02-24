@@ -97,6 +97,14 @@ printf               (3)  - formatted output conversion
       <entry>8</entry>
       <entry align="right">System Administration</entry>
     </row>
+    <row>
+      <entry>9</entry>
+      <entry>Kernel API Descriptions</entry>
+    </row>
+    <row>
+      <entry>n</entry>
+      <entry>"New" - typically used to Tcl/Tk</entry>
+    </row>
   </tbody>
 </tgroup>
 </table>
@@ -300,6 +308,124 @@ bar_2/
 <prompt>darkstar:~$ </prompt><userinput>rm -fr foo_2</userinput>
 <prompt>darkstar:~$ </prompt><userinput>ls</userinput>
 </screen>
+
+</section>
+
+</section>
+
+<section>
+<title>Archive and Compression</title>
+
+<para>
+Everyone needs to package a lot of small files together for easy
+storage from time to time, or perhaps you need to compress very large
+files into a more manageable size? Maybe you want to do both of those
+together? Thankfully there are several tools to do just that.
+</para>
+
+<section>
+<title>zip and unzip</title>
+
+<para>
+You're probably familiar with .zip files. These are compressed files
+that contain other files and directories. While we don't normally use
+these files in the Linux world, they are still commonly used by other
+operating systems, so we occasionally have to deal with them.
+</para>
+
+<para>
+In order to create a zip file, you'll (naturally) use the
+<application>zip</application>(1) command. You can compress either
+files or directories (or both) with <application>zip</application>, but
+you'll have to use the <arg>-r</arg> argument for recursive action in
+order to deal with directories.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>zip -r /tmp/home.zip /home</userinput>
+<prompt>darkstar:~$ </prompt><userinput>zip /tmp/large_file.zip
+/tmp/large_file</userinput></screen>
+
+<para>
+The order of the arguments is very important. The first filename must
+be the zip file to create (if the .zip extension is ommitted,
+<application>zip</application> will add it for you) and the rest are
+files or directories to be added to the zip file.
+</para>
+
+<para>
+Naturally, <application>unzip</application>(1) will decompress a zip
+archive file.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>unzip /tmp/home.zip</userinput></screen>
+
+</section>
+
+<section>
+<title>gzip</title>
+
+<para>
+One of the oldest compression tools included in Slackware is
+<application>gzip</application>(1), a compression tool that is only
+capable or operating on a single file at a time. Whereas
+<application>zip</application> is both a compression and an archival
+tool, <application>gzip</application> is only capable of compression.
+At first glance this seems like a draw-back, but it is really a
+strength. The UNIX philosophy of making small tools that do their small
+jobs well allows them to be combined in myriad ways. In order to
+compress a file (or multiple files), simply pass them as arguments to
+<application>gzip</application>. Whenever
+<application>gzip</application> compresses a file, it adds a .gz
+extension and removes the original file.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>gzip /tmp/large_file</userinput></screen>
+
+<para>
+Decompressing is just as straight-forward with
+<application>gunzip</application> which will create a new uncompressed
+file and delete the old one.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>gunzip /tmp/large_file.gz</userinput>
+<prompt>darkstar:~$ </prompt><userinput>ls /tmp/large_file*</userinput>
+/tmp/large_file</screen>
+
+<para>
+But suppose we don't want to delete the old compressed file, we just
+want to read its contents or send them as input to another program?
+The <application>zcat</application> program will read the gzip file,
+decompress it in memory, and send the contents to the standard output
+(the terminal screen unless it is redirected, see the next chapter for
+more details on output redirection).
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>zcat /tmp/large_file.gz</userinput>
+Wed Aug 26 10:00:38 CDT 2009
+Slackware 13.0 x86 is released as stable!  Thanks to everyone who helped
+make this release possible -- see the RELEASE_NOTES for the credits.
+The ISOs are off to the replicator.  This time it will be a 6 CD-ROM
+32-bit set and a dual-sided 32-bit/64-bit x86/x86_64 DVD.  We're taking
+pre-orders now at store.slackware.com.  Please consider picking up a copy
+to help support the project.  Once again, thanks to the entire Slackware
+community for all the help testing and fixing things and offering
+suggestions during this development cycle.
+</screen>
+
+</section>
+
+<section>
+<title>bzip2</title>
+
+<para>
+One alternative to <application>gzip</application> is the
+<application>bzip2</application>(1) compression utility which works in
+almost the exact same way.  The advantage to
+<application>bzip2</application> is that it boasts greater compression
+strength. Unfortunately, achieving that greater compression is a slow
+process, so <application>bzip2</application> takes longer to run than
+other alternatives.
+</para>
 
 </section>
 
