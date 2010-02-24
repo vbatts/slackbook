@@ -9,31 +9,32 @@
 <title>The -stable Branch</title>
 
 <para>
-Whenever a new version of Slackware is released, it continues to be
-updated should a security vulnerability be found or a nasty bug begin
-to rear its head. For that reason, it's important to keep up with all
-the patches for your version of Slackware. We call this the -stable
-branch. There is also a -current branch where frequent and intrusive
-changes are made, but unless you're willing to work with a broken
-computer and fix things on your own, we recommend you stick with
--stable.
+Whenever a new version of Slackware is released, the Slackware team will,
+as needed, release updated packages to fix serious security vulnerabilities
+and particularly nasty bugs.  Therefore, it's important to keep up with all
+of the patches for your version of Slackware, which is referred to as the
+"-stable" branch.  There is also a "-current" branch, which is where we do
+our development work toward the next stable release (and as such, there are
+often intrusive changes there), but unless you're willing to work with a 
+possibly broken system and are able to fix things on your own, we strongly
+recommend that you stick with the "-stable" branch.
 </para>
 
 <para>
-Since -stable updates aren't distributed on the disks, you'll need to
-obtain them from the Internet. Many people and organizations offer
-mirrors where you can download the entire Slackware tree, or just the
-<filename>patches/</filename> directory in any number of ways. While
-some mirrors offer web access, the most common ways of obtaining
-updates are via ftp and rsync servers. The Slackware project maintains
-a small list of known mirrors organized by country. If you're in doubt
-as to what mirror to use, simply consult <ulink
-url="http://www.slackware.com/getslack/">http://www.slackware.com/getslack/</ulink>
-for suggestions. If you know a major university near you, there's a
-good chance they offer a mirror of numerous open source projects, and
-Slackware may be among them. The only real requirement for a mirror is
-that it be complete, but it's best to use a mirror near where you live
-to achieve the fastest transfer times and use the least amount of
+Since -stable updates aren't distributed on the disks, you'll need to obtain 
+them from the Internet.  Many people and organizations offer mirrors from 
+which you can download the entire Slackware tree (or only the
+<filename>patches/</filename> directory) in any number of ways.  While some 
+mirrors offer web access, the most common ways of obtaining updates are via 
+ftp and/or rsync servers.  The Slackware project maintains a small list 
+(organized by country) of known mirrors.  If you're unsure which mirror you
+should use, simply consult 
+<ulink url="http://www.slackware.com/getslack/">http://www.slackware.com/getslack/</ulink>
+for suggestions.  If you have a major university near you, there's a good 
+chance that they offer a mirror of numerous open source projects, and
+Slackware may be among them.  The only real requirement for a mirror is that 
+it be complete, but usually it's best to use a mirror near where you live in 
+order to achieve the fastest transfer times and use the least amount of 
 Internet resources.
 </para>
 
