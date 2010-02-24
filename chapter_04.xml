@@ -457,8 +457,99 @@ So great, we know how to compress files using all sorts of programs,
 but none of them can archive files in the way that
 <application>zip</application> does.  That is until now.  The Tape
 Archiver, or <application>tar</application>(1) is the most frequently
-used archival program in Slackware.
+used archival program in Slackware. Like other archival programs,
+<application>tar</application> generates a new file that contains other
+files and directories. It does not compress the generated file (often
+called a "tarball") by default; however, the version of
+<application>tar</application> included in Slackware supports a variety
+of compression schemes, including the ones mentioned above.
 </para>
+
+<para>
+Invoking <application>tar</application> can be as easy or as
+complicated as you like. Typically, creating a tarball is done with the
+<arg>-cvzf</arg> arguments.  Let's look at these in depth.
+</para>
+
+<table pgwide="0" frame="none">
+<title>tar Arguments</title>
+<tgroup cols="2">
+  <thead>
+    <row>
+      <entry>Argument</entry>
+      <entry align="right">Meaning</entry>
+    </row>
+  </thead>
+  <tbody>
+    <row>
+      <entry>c</entry>
+      <entry align="right">Create a tarball</entry>
+    </row>
+    <row>
+      <entry>x</entry>
+      <entry align="right">Extract the contents of a tarball</entry>
+    </row>
+    <row>
+      <entry>t</entry>
+      <entry align="right">Display the contents of a tarball</entry>
+    </row>
+    <row>
+      <entry>v</entry>
+      <entry align="right">Be more verbose</entry>
+    </row>
+    <row>
+      <entry>z</entry>
+      <entry align="right">Use gzip compression</entry>
+    </row>
+    <row>
+      <entry>j</entry>
+      <entry align="right">Use bzip2 compression</entry>
+    </row>
+    <row>
+      <entry>J</entry>
+      <entry align="right">Use LZMA compression</entry>
+    </row>
+    <row>
+      <entry>p</entry>
+      <entry align="right">Preserve permissions</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+<para>
+<application>tar</application> requires a bit more precision than other
+applications in the order of its arguments.  The <arg>-f</arg> argument
+must be present when reading or writing to a file for example, and the
+very next thing to follow must be the filename. Consider the following
+examples.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>tar -xvzf /tmp/tarball.tar.gz</userinput>
+<prompt>darkstar:~$ </prompt><userinput>tar -xvfz /tmp/tarball.tar.gz</userinput></screen>
+
+<para>
+Above, the first example works as you would expect, but the second
+fails because <application>tar</application> has been instructed to
+open the <filename>z</filename> file rather than the expected
+<filename>/tmp/tarball.tar.gz</filename>.
+</para>
+
+<para>
+Now that we've got our arguments straightened out, lets look at a few
+examples of how to create and extract tarballs. As we've noted, the
+<arg>-c</arg> argument is used to create tarballs and <arg>-x</arg>
+extracts their contents. If we want to create or extract a compressed
+tarball though, we also have to specify the proper compression to use.
+Naturally, if we don't want to compress the tarball at all, we can
+leave these options out. The following command creates a new tarball
+using the <application>gzip</application> compression alogrithm. While
+it's not a strict requirement, it's also good practice to add the .tar
+extension to all tarballs as well as whatever extension is used by the
+compression algorithm.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>tar -czf /tmp/tarball.tar.gz /tmp/tarball/</userinput></screen>
 
 </section>
 
