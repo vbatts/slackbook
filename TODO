@@ -35,15 +35,10 @@ Chapter 3. Booting
 
 Chapter 4. Basic Shell Commands
 
-* Table 4.1. Man Page Sections
-
-  Add Section 9 "kernel API description"
-  Add Section n "New" - typically used for Tcl/Tk man pages
-
 * Section 'Archive Commands'
 
   We need to discuss tar somewhere, and this looks like the best place
-  to do it to me.
+  to do it to me. Need to finish this out.
 
 Chapter 6. X Windows
 
