@@ -9,11 +9,19 @@
 <title>What Does the Kernel Do?</title>
 
 <para>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+You've probably heard people talking about compiling the kernel or
+building a kernel, but what exactly is the kernel and what does it do?
+The kernel is the center of your computer. It is the foundation for the
+entire operating system. The kernel acts as a bridge between the
+hardware and the applications. This means that the kernel is (usually)
+the sole piece of software responsible for ordering around the hardware
+components of your computer. It is the kernel that instructs the hard
+drive to search for a certain data stream. It is the kernel that
+instructs your network card to transmit rapid changes in voltage. The
+kernel also listens to hardware as well. When the network card detects
+a remote computer sending information, it forwards that information to
+the kernel. This makes the kernel both the single most important piece
+of software on your computer and the most complex.
 </para>
 
 </section>
@@ -22,12 +30,85 @@ voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 <title>Working with Modules</title>
 
 <para>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+The complexity of a modern linux kernel is staggering. The source code
+for the kernel weighs in at nearly 400MB uncompressed. There are
+thousands of developers, hundreds of options, and if everything were
+built together, the kernel would soon pass 100MB in size itself. In
+order to keep the size of the kernel down (as well as the amount of RAM
+needed for the kernel), most of the kernel options are built as
+modules. You can think of these modules as device drivers which can be
+inserted or removed from a running kernel at will. In truth, many of
+them aren't device drivers at all, but contain support for things such
+as network protocols, security measures, and even filesystems. In
+short, nearly any piece of the linux kernel can be built as a loadable
+module.
 </para>
+
+<para>
+It's important to realize that Slackware will automatically handle
+loading most modules for you. When your system boots,
+<application>udevd</application>(8) is started and begins to probe your
+system's hardware. For each device it finds, it loads the proper module
+and created a device node in <filename>/dev</filename>. This usually
+means that you will not need to load any modules in order to use your
+computer, but occasionally this is necessary.
+</para>
+
+<para>
+So what modules are currently loaded on your computer and how do we
+load and unload them? Fortunately we have a full suite of tools for
+handling this. As you might have guessed, the tool for listing modules
+is <application>lsmod</application>(8).
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>lsmod</userinput>
+Module                  Size  Used by
+nls_utf8                1952  1 
+cifs                  240600  2 
+i915                  168584  2 
+drm                   168128  3 i915
+i2c_algo_bit            6468  1 i915
+tun                    12740  1 
+... many more lines ommitted ...
+</screen>
+
+<para>
+In addition to showing you what modules are loaded, it displays the
+size of each module and tells you what other modules are using it.
+</para>
+
+<para>
+There are two applications for loading modules:
+<application>insmod</application>(8) and
+<application>modprobe</application>(8). Both will load modules and
+report any errors (such as loading a module for a device that isn't
+present in your system), but <application>modprobe</application> is
+preferred because it can load any module dependencies. Using either is
+straight-forward.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>insmod ext3</userinput>
+<prompt>darkstar:~# </prompt><userinput>modprobe ext4</userinput>
+<prompt>darkstar:~# </prompt><userinput>lsmod | grep ext</userinput>
+ext4                  239928  1 
+jbd2                   59088  1 ext4
+crc16                   1984  1 ext4
+ext3                  139408  0 
+jbd                    48520  1 ext3
+mbcache                 8068  2 ext4,ext3
+</screen>
+
+<para>
+Removing modules can be a tricky process, and once again we have two
+programs for removing them: <application>rmmod</application>(8) and
+<application>modprobe</application>.  In order to remove a module with
+modprobe, you'll need to use the <arg>-r</arg> argument.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>rmmod ext3</userinput>
+<prompt>darkstar:~# </prompt><userinput>modprobe -r ext4</userinput>
+<prompt>darkstar:~# </prompt><userinput>lsmod | grep ext</userinput>
+</screen>
 
 </section>
 
@@ -35,11 +116,13 @@ voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 <title>Compiling A Kernel and Why to do So</title>
 
 <para>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Most Slackware users will never need to compile a kernel. The huge and
+generic kernels contain virtually all the support you will need.
+However, some users may need to compile a kernel. If your computer
+contains bleeding edge hardware, a newer kernel may offer improved
+support. Sometimes a kernel patch my be available that corrects a
+problem you are experiencing. In these cases a kernel compile is
+probably warranted.
 </para>
 
 </section>
