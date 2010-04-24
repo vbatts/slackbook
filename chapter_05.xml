@@ -78,8 +78,8 @@ There are many important environment variables that
 <application>bash</application> and other shells use, but one of the
 most important ones you will run across is PATH.  PATH is simply a list
 of directories to search through for applications.  For example,
-<application>top</application> is located at
-<application>/usr/bin/top</application>(1).  You could run it simply by
+<application>top</application>(1) is located at
+<application>/usr/bin/top</application>.  You could run it simply by
 specifying the complete path to it, but if
 <filename>/usr/bin</filename> is in your PATH variable,
 <application>bash</application> will check there if you don't specify a
