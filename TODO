@@ -6,6 +6,8 @@ General
 
 * cron
 
+* Process control: ps, top, jobs, kill, etc.
+
 * more extensive CLI apps like v2.0
 
 * no idea where the hell udev is covered in here, but we need to do a bit of
