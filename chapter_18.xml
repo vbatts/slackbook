@@ -122,7 +122,256 @@ However, some users may need to compile a kernel. If your computer
 contains bleeding edge hardware, a newer kernel may offer improved
 support. Sometimes a kernel patch my be available that corrects a
 problem you are experiencing. In these cases a kernel compile is
-probably warranted.
+probably warranted.  Users who simply want the latest and greatest
+version or who believe using a custom compiled kernel will give them
+greater performance can certainly upgrade, but are unlikely to notice
+any major changes. If you still think compiling your own kernel is
+something you want or need to do, this section should walk you through
+the many steps.
+Compiling and installing a kernel is not that difficult, but there are
+a number of mistakes that can be made along the way, many of which can
+prevent your computer from booting and cause major frustration.
+</para>
+
+<para>
+The first step is ensuring you have the kernel source code installed on
+your system.  The kernel source package is included in the "k" disk set
+in the Slackware installer, or you can download another version from
+<ulink url="http://www.kernel.org/">http://www.kernel.org/</ulink>.
+Traditionally, the kernel source is located in
+<filename>/usr/src/linux</filename>, a symbolic link that points to the
+specific kernel release used, but this is by no means set in stone. You
+can place the kernel source code virtually anywhere without
+encountering any problems.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>ls -l /usr/src</userinput>
+lrwxrwxrwx  1 root root   14 2009-07-22 19:59 linux -> linux-2.6.29.6/
+drwxr-xr-x 23 root root 4096 2010-03-17 19:00 linux-2.6.29.6/
+</screen>
+
+<para>
+The most difficult part of any kernel compile is the kernel
+configuration. There are hundreds of options, many of which can
+optionally be compiled into modules. This means there are thousands of
+ways to configure a kernel. Fortunately, there are a few handy tricks
+that can keep you from running into too much trouble.  The kernel
+configuration file is <filename>.config</filename>. If you are very
+brave, you can manually edit this file with a text editor, but I highly
+recommend you use the kernel's built-in tools for manipulating
+<filename>.config</filename>.
+</para>
+
+<para>
+Unless you are very familiar with configuring kernels, you should
+always start with a solid base configuration and modify it. This
+prevents you from skipping an important option that might force you to
+compile the kernel again and again until you get it right.  The best
+kernel <filename>.config</filename> files to start with are those used
+by Slackware's default kernels. You can find them on your Slackware
+install disks or at your favorite mirror in the
+<filename>kernels/</filename> directory.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>mount /mnt/cdrom</userinput>
+<prompt>darkstar:~# </prompt><userinput>cd /mnt/cdrom/kernels</userinput>
+<prompt>darkstar:/mnt/cdrom/kernels# </prompt><userinput>ls</userinput>
+VERSIONS.TXT  huge.s/  generic.s/ speakup.s/
+<prompt>darkstar:/mnt/cdrom/kernels# </prompt><userinput>ls genric.s</userinput>
+System.map.gz  bzImage  config
+</screen>
+
+<para>
+You can replace the default <filename>.config</filename> file easily by
+copying or downloading the <filename>config</filename> file for the
+kernel you wish to use as a base. Here I am using Slackware's
+recommended generic.s kernel for a base, but you may wish to use the
+huge.s config file. The generic kernel builds more things as modules
+and thus creates a smaller kernel image, but it usually requires the
+use of an initrd.
+</para>
+
+<screen><prompt>darkstar:/mnt/cdrom/kernels# </prompt><userinput>cp generic.s/config /usr/src/linux/.config</userinput>
+</screen>
+
+<note><para>
+The Slackware kernel file lacks the "dot" while the kernel
+file includes it. If you forget, or simply copy the
+<filename>config</filename> to <filename>/usr/src</filename> whatever
+<filename>.config</filename> file was already present will be used
+instead.
+</para></note>
+
+<para>
+If you want to use the configuration for the currently running kernel
+as your base, you may be able to locate it at
+<filename>/proc/config.gz</filename>. This is a special kernel-related
+file that includes the entire kernel configuration in a compressed
+format and requires that your kernel was built to support it.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>zcat /proc/config.gz > /usr/src/linux/.config</userinput>
+</screen>
+
+<para>
+Now that we've created a solid base configuration, it's time to make
+any configuration changes we want. The entire kernel build process from
+configuration to compilation is performed with the
+<application>make</application>(1) command and special arguments to it.
+Each argument performs a different function.
+</para>
+
+<para>
+If you are upgrading to a newer kernel release, you will definitely
+want to use the <arg>oldconfig</arg> argument. This will step through
+your base <filename>.config</filename> and look for missing elements
+that usually indicates that the new kernel release contains additional
+options. Since options are added at virtually every kernel release,
+this is generally a good thing to do.
+</para>
+
+<screen><prompt>darkstar:/usr/src/linux# </prompt><userinput>make oldconfig</userinput>
+scripts/kconfig/conf -o arch/x86/Kconfig
+*
+* Restart config...
+*
+*
+* File systems
+*
+Second extended fs support (EXT2_FS) [M/n/y/?] m
+  Ext2 extended attributes (EXT2_FS_XATTR) [N/y/?] n
+  Ext2 execute in place support (EXT2_FS_XIP) [N/y/?] n
+Ext3 journalling file system support (EXT3_FS) [M/n/y/?] m
+  Ext3 extended attributes (EXT3_FS_XATTR) [Y/n/?] y
+    Ext3 POSIX Access Control Lists (EXT3_FS_POSIX_ACL) [Y/n/?] y
+    Ext3 Security Labels (EXT3_FS_SECURITY) [Y/n/?] y
+The Extended 4 (ext4) filesystem (EXT4_FS) [N/m/y/?] (NEW) <userinput>m</userinput>
+</screen>
+
+<para>
+Here you can see that I the new kernel I am compiling has added support
+for a new filesystem: ext4. <arg>oldconfig</arg> has gone through my
+original configuration, kept all the old options exactly as they were
+set, and prompted me on what to do with new options. Typically it is
+save to choose the default option, but you may wish change this.
+<arg>oldconfig</arg> is a very handy tool for presenting you with only
+new configuration options, making it ideal for users who simply have to
+try out the latest kernel release.
+</para>
+
+<para>
+For more serious configuration tasks, there are a multitude of options.
+The linux kernel can be configured in three primary ways. The first is
+<arg>config</arg>, which will step through each and every option one by
+one and ask what you would like to do. This is so tedious that hardly
+anyone ever uses it anymore.
+</para>
+
+<screen><prompt>darkstar:/usr/src/linux# </prompt><userinput>make config</userinput>
+scripts/kconfig/conf arch/x86/Kconfig
+*
+* Linux Kernel Configuration
+*
+*
+* General setup
+*
+Prompt for development and/or incomplete code/drivers (EXPERIMENTAL) [Y/n/?] <userinput>Y</userinput>
+Local version - append to kernel release (LOCALVERSION) [] <userinput>-test</userinput>
+Automatically append version information to the version string (LOCALVERSION_AUTO) [N/y/?] <userinput>n</userinput>
+Support for paging of anonymous memory (swap) (SWAP) [Y/n/?]
+</screen>
+
+<para>
+Fortunately, there are two much easier ways to configure your kernel,
+<arg>menuconfig</arg> and <arg>xconfig</arg>. Both of these create a
+menu-driven program that lets you select and de-select options without
+having to step through each one. <arg>menuconfig</arg> is the most
+commonly used method, and the one I recommend. <arg>xconfig</arg> is
+only useful if you are attempting to compile the kernel from a
+graphical user interface within <application>X</application>. Both are
+so similar however, that we are only going to document
+<arg>menuconfig</arg>.
+</para>
+
+<para>
+Running <userinput>make menuconfig</userinput> from a terminal will
+present you with the friendly curses-driven interface you see below.
+Each kernel section is given its own submenu, and you can navigate with
+the arrow keys.
+</para>
+
+<imagedata fileref="img/make-menuconfig-w.png" format="PNG"/>
+
+<warning><para>
+If you are compiling a kernel that is the same release as the stock
+Slackware kernel, you must set the "Local version" option. This is
+found on the "General setup" submenu. Failure to set this will result
+in your kernel compile over-writing all the modules used by the stock
+kernels. This can quickly render your system unbootable.
+</para></warning>
+
+<para>
+Once you've finished configuring the kernel, it's time to begin
+compiling it. There are many different methods for this, but the most
+reliable is to use <arg>bzImage</arg>. When you pass this argument to
+<application>make</application>, the kernel compilation will begin and
+you will see lots of data scroll through the terminal until either the
+compile process is complete or a fatal error is encountered.
+</para>
+
+<screen><prompt>darkstar:/usr/src/linux# </prompt><userinput>make bzImage</userinput>
+scripts/kconfig/conf -s arch/x86/Kconfig
+  CHK     include/linux/version.h
+  CHK     include/linux/utsrelease.h
+  SYMLINK include/asm -> include/asm-x86
+  CALL    scripts/checksyscalls.sh
+  CC      scripts/mod/empty.o
+  HOSTCC  scripts/mod/mk_elfconfig
+  MKELF   scripts/mod/elfconfig.h
+  HOSTCC  scripts/mod/file2alias.o
+... many hundreds of lines ommitted ...
+</screen>
+
+<para>
+If the process ends in an error, you should check your kernel
+configuration first. Compile errors are usually caused by a fault
+<filename>.config</filename> file. Assuming everything went alright,
+we're still not entirely finished, as we need to build the modules.
+</para>
+
+<screen><prompt>darkstar:/usr/src/linux# </prompt><userinput>make modules</userinput>
+  CHK     include/linux/version.h
+  CHK     include/linux/utsrelease.h
+  SYMLINK include/asm -> include/asm-x86
+  CALL    scripts/checksyscalls.sh
+  HOSTCC  scripts/mod/file2alias.o
+... many thousands of lines omitted ...
+</screen>
+
+<para>
+If both the kernel and the modules compiles finished sucessfully, we're
+ready to install them. The kernel image needs to be copied into a safe
+location, typically the <filename>/boot</filename> directory, and you
+should give it a unique name to avoid overwriting any other kernel
+images located there. Traditionaly kernel images are named
+<filename>vmlinuz</filename> with the kernel release and local version
+appended.
+</para>
+
+<screen><prompt>darkstar:/usr/src/linux# </prompt><userinput>cat arch/x86/boot/bzImage > /boot/vmlinuz-release_number-local_version</userinput>
+<prompt>darkstar:/usr/src/linux# </prompt><userinput>make modules_install</userinput>
+</screen>
+
+<para>
+Once these steps have been completed, you will have a new kernel image
+located under <filename>/boot</filename> and a new kernel modules
+directory under <filename>/lib/modules</filename>. In order to use
+this new kernel, you will need to edit <filename>lilo.conf</filename>,
+create an initrd for it (only if you need to load one or more of this
+kernel's modules to boot), and run <application>lilo</application> to
+update the boot loader. When you reboot, if all went according to plan,
+you should have an option to boot with your newly compiled kernel. If
+something went wrong, you may be spending some time fixing the problem.
 </para>
 
 </section>
