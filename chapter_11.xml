@@ -3,331 +3,498 @@
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
 <chapter>
-<title><application>vi</application></title>
+<title>Working with Filesystems</title>
 
 <section>
-<title>What is <application>vi</application>?</title>
+<title>The Filesystem Hierarchy</title>
 
 <para>
-Scattered all around your computer are thousands of text files. To a
-new user, this may seem inconsequential, but almost everything in
-Slackware Linux uses a plain-text file for configuration. This allows
-users to make changes to the system quickly, easily, and intuitively.
-In chapter 5, we looked at a few commands such as
-<application>cat</application> and <application>less</application> that
-can be used to read these files, but what if we want to make changes to
-them? For that, we need a text editor, and
-<application>vi</application> is up to the task.
+Slackware Linux stores all of its files and directories under a single
+<filename>/</filename> directory, typically referred to as "root". This
+is in stark contract to what you may be familiar with in the form of
+Microsoft Windows. Different hard disk partitions, cdroms, usb flash
+drives, and even floppy disks can all be mounted in directories under
+<filename>/</filename>, but do not have anything like "drive letters".
+The contents of these devices can be found almost anywhere, but there
+are some sane defaults that Slackware sets up for you. For example,
+cd-rw drives are most often found at <filename>/mnt/cd-rw</filename>.
+Here are a few common directories present on nearly all Slackware Linux
+installations, and what you can expect to find there. 
 </para>
 
-<para>
-In short, <application>vi</application> is one of the oldest and most
-powerful text editors still used today. It's beloved by system
-administrators, programmers, hobbiests, and others the world over. In
-fact, nearly this entire book was written using
-<application>vi</application>; only the next chapter on
-<application>emacs</application> was written with that editor.
-</para>
+<table pgwide="0">
+<title>Filesystem Layout</title>
+<tgroup cols="2">
+  <thead>
+    <entry>Directory</entry>
+    <entry>Explaination</entry>
+  </thead>
+  <tbody>
+    <row>
+      <entry>/</entry>
+      <entry>The root directory, under which all others exist</entry>
+    </row>
+    <row>
+      <entry>/bin</entry>
+      <entry>Minimal set of binary programs for all users</entry>
+    </row>
+    <row>
+      <entry>/boot</entry>
+      <entry>The kernel, initrd, and other requirements for booting Slackware</entry>
+    </row>
+    <row>
+      <entry>/etc/</entry>
+      <entry>System configuration files</entry>
+    </row>
+    <row>
+      <entry>/dev</entry>
+      <entry>Collection of special files allowing direct access to hardware</entry>
+    </row>
+    <row>
+      <entry>/home</entry>
+      <entry>User directories where personal files and settings are stored</entry>
+    </row>
+    <row>
+      <entry>/media</entry>
+      <entry>Directory for auto-mounting features in DBUS/HAL</entry>
+    </row>
+    <row>
+      <entry>/mnt</entry>
+      <entry>Places to temporarily mount removable media</entry>
+    </row>
+    <row>
+      <entry>/opt</entry>
+      <entry>Directory where some (typicaly proprietary) software may be installed</entry>
+    </row>
+    <row>
+      <entry>/proc</entry>
+      <entry>Kernel exported filesystem for process information</entry>
+    </row>
+    <row>
+      <entry>/root</entry>
+      <entry>The root user's home directory</entry>
+    </row>
+    <row>
+      <entry>/sbin</entry>
+      <entry>Minimal set of system or superuser binaries</entry>
+    </row>
+    <row>
+      <entry>/srv</entry>
+      <entry>Site-specific data such as web pages served by this system</entry>
+    </row>
+    <row>
+      <entry>/sys</entry>
+      <entry>Special kernel implimentation details</entry>
+    </row>
+    <row>
+      <entry>/tmp</entry>
+      <entry>Directory reserved for temporary files for all users</entry>
+    </row>
+    <row>
+      <entry>/usr</entry>
+      <entry>All non-essential programs, libraries, and shared files</entry>
+    </row>
+    <row>
+      <entry>/var</entry>
+      <entry>Regularly changing data such as log files</entry>
+    </row>
+  </tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section>
+<title>Local Filesystem Types</title>
 
 <para>
-A little further explanation is needed to learn exactly what
-<application>vi</application> is today though, as Slackware Linux
-technically doesn't include <application>vi</application>. Rather,
-Slackware includes two vi "clones", <application>elvis</application>(1)
-and <application>vim</application>(1). These clones add many additional
-features to vi such as syntax highlighting, binary editing modes, and
-network support. We won't go too deeply into all these details. By
-default, if you execute <application>vi</application> on Slackware
-Linux, you'll be using <application>elvis</application>, so all
-examples in this chapter will assume that is what you are using. If
-you've used another Linux distribution before, you may be more familiar
-with <application>vim</application>. If so, you might wish to change
-the symlink for <filename>/usr/bin/vi</filename> to point to
-<filename>/usr/bin/vim</filename>, or add an alias to your shell's
-startup scripts. <application>vim</application> is generally considered
-to be more feature-rich than <application>elvis</application>, but
-<application>elvis</application> is a much smaller program and contains
-more features than most users will ever need.
+The Linux kernel supports a wide variety of filesystems, which allows
+you to choose from a long list of features to tailor to your particular
+need. Fortunately, most of the default filesystem types are adequate
+for any needs you may have. Some filesystems are geared towards
+particular media. For example, the iso9660 filesystem is used almost
+exclusively for CD and DVD media.
 </para>
 
+<section>
+<title>ext2</title>
+
 <para>
-<application>vi</application> is very powerful, but also somewhat
-cumbersome and challening for a new user to learn. However, mastering 
-<application>vi</application> is an important skill for any
-self-respecting system administrator to learn, as 
-<application>vi</application> is included on nearly every Linux
-distribution, every BSD system, and every UNIX system in existance. 
-It's even included in Mac OS X.
-Once you've learned <application>vi</application>, you'll not have to
-learn another text editor to work on any of these systems. In fact,
-<application>vi</application> clones have even been ported to Microsoft Windows
-systems, so you can use it there too.
+ext2 is the oldest filesystem included in Slackware Linux for storing
+data on hard disks. Compared to other filesystems, ext2 is simplistic.
+It is faster than most others for reading and writing data, but does
+not include any journaling capability. This means that after a hard
+crash, the filesystem must be exhaustively checked to discover and
+(hopefully) fix any errors. 
 </para>
 
 </section>
 
 <section>
-<title>The Different Modes of <application>vi</application></title>
+<title>ext3</title>
+<para>
+ext3 is the younger cousin of ext2. It was designed to replace ext2 in
+most situations and shares much the same code-base, but adds journaling
+support. In fact, ext3 and ext2 are so much alike that it is possible
+to convert one to the other on the fly without lose of data. ext3
+enjoys a lot of popularity for these reasons. There are many tools
+available for recovering data from this filesystem in the event of
+catastrophic hardware failure as well. ext3 is a good general purpose
+filesystem with journaling support, but fails to perform as well as
+other journaling filesystems in specific cases. One pitfall to ext3 is
+that the filesystem must still go through this exhaustive check every
+so often. This is done when the filesystem is mounted, usually when the
+computer is booted, and causes an annoying delay.
+</para>
+</section>
+
+<section>
+<title>reiserfs</title>
+<para>
+reiserfs is one of the oldest journaling filesystems for the Linux
+kernel and has been supported by Slackware for many years. It is a very
+fast filesystem particularly well suited for storing, retrieving, and
+writing lots of small files. Unfortunately there are few tools for
+recovering data should you experience a drive failure, and reiserfs
+partitions experience corruption more often than ext3. 
+</para>
+</section>
+
+<section>
+<title>XFS</title>
+<para>
+XFS was contributed to the Linux kernel by SGI and is one of the best
+filesystems for working with large volumes and large files. XFS uses
+more RAM than other filesystems, but if you need to work with large
+files its performance there is well worth the penalty in memory usage.
+XFS is not particularly ill-suited for desktop or laptop use, but
+really shines on a server that handles medium to large size files all
+day long. Like ext3, XFS is a fully journaled filesystem. 
+</para>
+</section>
+
+<section>
+<title>JFS</title>
+<para>
+JFS was contributed to the Linux kernel by IBM and is well known for
+its responsiveness even under extreme conditions. It can span colossal
+volumes making it particularly well-suited for Network Attached Storage
+(NAS) devices. JFS's long history and thorough testing make it one of
+the most reliable journaling filesystems available for Linux. 
+</para>
+</section>
+
+<section>
+<title>iso9660</title>
+<para>
+iso9660 is a filesystem specifically designed for optical media such as
+CDs and DVDs. Since optical disks are read-only media, the linux kernel
+does not even include write support for this filesystem. In order to
+create an iso9660 filesystem, you must use user-land tools like
+<application>mkisofs</application>(8) or
+<application>growisofs</application>(8).
+</para>
+</section>
+
+<section>
+<title>vfat</title>
+<para>
+Sometimes you may need to share data between Windows and Linux
+computers, but can't transfer the files over a network. Instead you
+require a shared hard drive partition or a USB flash drive. The humble
+vfat filesystem is the best choice here since it is supported by the
+largest variety of operating systems. Unfortuantely, being a Microsoft
+designed filesystem, it does not store permissions in the same way as
+traditional Linux filesystems. This means that special options must be
+used to allow multiple users to access data on this filesystem. 
+</para>
+</section>
+
+<section>
+<title>swap</title>
+<para>
+Unlike other filesystems which hold files and directories, swap
+partitions hold virtual memory. This is very useful as it prevents the
+system from crashing should all your RAM be consumed. Instead, the
+kernel copies portions of the RAM into swap and frees them up for other
+applications to use. Think of it as adding virtual memory to your
+computer, very slow virtual memory. swap is typically a fail-safe and
+shouldn't be relied upon for continual use. Add more RAM to your system
+if you find yourself using lots of swap. 
+</para>
+</section>
+
+</section>
+
+<section>
+<title>Using <application>mount</application></title>
 
 <para>
-New users are often frustrated when using <application>vi</application>
-for the first time. When invoked without any arguments, 
-<application>vi</application> will display a screen something like
-this.
+Now that we've learned what (some of) the different filesystems
+available in Linux are, it's time we looked at how to use them. In
+order to read or write data on a filesystem, that filesystem must first
+be mounted. To do this, we (naturally) use
+<application>mount</application>(8). The first thing we must do is
+decide where we want the filesystem located. Recall that there are no
+such things are drive letters denoting filesystems in Linux. Instead,
+all filesystems are mounted on directories. The base filesystem on
+which you install Slackware is always located at <filename>/</filename>
+and others are always located in subdirectories of
+<filename>/</filename>. <filename>/mnt/hd</filename> is a common place
+to temporarily locate a partition, so we'll use that in our first
+example. In order to mount a filesystem's contents, we must tell mount
+what kind of filesystem we have, where to mount it, and any special
+options to use. 
 </para>
 
-<screen>
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-                                     Command
+<screen><prompt>darkstar:~# </prompt><userinput>mount -t ext3 /dev/hda3 /mnt/hd -o ro</userinput>
 </screen>
 
 <para>
-At this point, the user will being typing and expect the keys he
-presses to appear in the document. Instead, something really strange
-happens. The reason for this is simple. <application>vi</application>
-has different operation "modes". There is a command mode and an insert
-mode. Command mode is the default; in this mode, each keystroke
-performs a particular action such as moving the cursor around, deleting
-text, yanking (copying) text, searching, etc.
-</para>
-
-
-</section>
-
-<section>
-<title>Opening, Saving, and Quitting</title>
-
-<para>
-Ok, so you've decided that you want to learn how to use 
-<application>vi</application>. The first thing to do is learn how to
-open and save files. Opening files is actually pretty easy. Simply type
-the filename as an argument on the command-line and 
-<application>vi</application> will happily load it for you. For
-example, <userinput>vi chapter_11.xml</userinput> will open the file
-<filename>chapter_11.xml</filename> and load its content onto the
-screen, simple enough. But what if we've finished with one document and
-wish to save it? We can do that in command mode using the <arg>:w</arg>
-command. When in command mode, pressing the <keycap>:</keycap> key
-temporarily positions the cursor on the very bottom line of the window
-and allows you to enter special commands. (This is technically known as
-ex-mode after the venerable <application>ex</application> application
-which we will not document here.) The command to save your current work
-is <arg>:w</arg>. Once this is done, <application>vi</application> will
-write your changes to the buffer back into the file. If you wish to
-open another document, simply use the <arg>:e other_document</arg>
-command and <application>vi</application> will happily open it for you.
-If you've made changes to the buffer but haven't saved it yet,
-<arg>:e</arg> will fail and print a warning message on the bottom line.
-You can bypass this with the <arg>:e!</arg> command. Most ex-mode
-commands in <application>vi</application> can be "forced" by adding
-<keycap>!</keycap> to them. This tells <application>vi</application>
-that you want to abandon any changes you've made to the buffer and open
-the other document immediately.
-</para>
-
-<para>
-But what if I don't like my changes and want to quit or start over?
-That's easily done as well. Executing the <arg>:e!</arg> command
-without any arguments will re-open the current document from the
-beginning. Quitting <application>vi</application> is as simple as
-running the <arg>:q</arg> command if you haven't made any changes to
-the buffer, or <arg>:q!</arg> if you'd like to quit and abandon those
-changes.
-</para>
-
-</section>
-
-<section>
-<title>Moving Around</title>
-
-<para>
-Moving around in <application>vi</application> is perhaps the hardest
-thing for a new user to learn. <application>vi</application> does not
-traditionally use the directional arrow keys for cursor movement,
-although in Slackware Linux that is an option. Rather, movement is
-simply another command issued in command-mode. The reason for this is
-rather simple. <application>vi</application> actually predates the
-inclusion of directional arrow keys on keyboards. Thus,
-movement of the cursor had to be accomplished by using the few
-keys available, so the right-hand "home row" keys of
-<keycap>h</keycap>, <keycap>j</keycap>, <keycap>k</keycap>, and
-<keycap>l</keycap> were chosen. These keys will move the cursor about
-whenever <application>vi</application> is in command mode. Here's a
-short table to help you remember how they work.
+Let's disect this. We have an ext3 filesystem located on the third
+partition of the first IDE device, and we've decided to mount its
+contents on the directory <filename>/mnt/hd</filename>. Additionally,
+we have mounted it read-only so no changes can be made to these
+contents. The <arg>-t ext3</arg> argument tells
+<application>mount</application>
+what type of filesystem we are using,
+in this case it is ext3. This lets the kernel know which driver to use.
+Often <application>mount</application> can determine this for itself,
+but it never hurts to explicitly declare it. Second, we tell
+<application>mount</application> 
+where to locate the filesystem's contents. Here we've chosen
+<filename>/mnt/hd</filename>.
+Finally, we must decide what options to use if any. These are declared
+with the <arg>-o</arg> argument. A short-list of the most common
+options follows. 
 </para>
 
 <table pgwide="0">
-<title>vi cursor movement</title>
+<title>Common mount options</title>
 <tgroup cols="2">
   <thead>
-    <row>
-      <entry>Command</entry>
-      <entry>Result</entry>
-    </row>
+    <entry>Option</entry>
+    <entry>Description</entry>
   </thead>
   <tbody>
     <row>
-      <entry>h</entry>
-      <entry>Move the cursor one character left.</entry>
+      <entry>ro</entry>
+      <entry>read-only</entry>
     </row>
     <row>
-      <entry>j</entry>
-      <entry>Move the cursor one line down</entry>
+      <entry>rw</entry>
+      <entry>read-write (default)</entry>
     </row>
     <row>
-      <entry>k</entry>
-      <entry>Move the cursor one line up</entry>
+      <entry>uid</entry>
+      <entry>user to own the contents of the filesystem</entry>
     </row>
     <row>
-      <entry>l</entry>
-      <entry>Move the cursor one character right</entry>
+      <entry>gid</entry>
+      <entry>group to own the contents of the filesystem</entry>
+    </row>
+    <row>
+      <entry>noexec</entry>
+      <entry>prevent execution of any files on the filesystem</entry>
+    </row>
+    <row>
+      <entry>defaults</entry>
+      <entry>sane defaults for most filesystems</entry>
     </row>
   </tbody>
 </tgroup>
 </table>
 
 <para>
-Moving around is a little more powerful than that though. Like many
-command keys, these movement keys accept numerical arguments. For
-example, <keycap>10j</keycap> will move the cursor down 10 lines. You
-can also move to the end or beginning of the current line with
-<keycap>$</keycap> and <keycap>^</keycap>, respectively.
+If this is your first Linux installation, the only options you
+typically need to be concerned about are <arg>ro</arg> and
+<arg>rw</arg>. The exception to this rule comes when you are dealing
+with filesystems that don't handle traditional Linux permissions such
+as vfat or NTFS. In those cases you'll need to use the <arg>uid</arg>
+or <arg>gid</arg> options to allow non-root users access to these
+filesystems.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>mount -t vfat /dev/hda4 /mnt/hd -o uid=alan</userinput>
+</screen>
+
+<para>
+But Alan, that's appalling! I don't want to have to tell mount what
+filesystem or options to use everytime I load a CD. It should be easier
+than that. Well thankfully, it is. The <filename>/etc/fstab</filename>
+file contains all this information for filesystems that the installer
+sets up for you, and you can make additions to it as well.
+<filename>fstab</filename>(5) looks like a simple table containing the
+device to mount along with its filesystem type and optional arguments.
+Let's take a look. 
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>cat /etc/fstab</userinput>
+/dev/hda1        /                reiserfs    defaults               1   1
+/dev/hda2        /home            reiserfs    defaults               1   2
+/dev/hda3        swap             swap        defaults               0   0
+/dev/cdrom       /mnt/cdrom       auto        noauto,owner,ro,users  0   0
+/dev/fd0         /mnt/floppy      auto        noauto,owner           0   0
+devpts           /dev/pts         devpts      gid=5,mode=620         0   0
+proc             /proc            proc        defaults               0   0
+</screen>
+
+<para>
+If you have an entry in <filename>fstab</filename> for your filesystem, you
+need only tell mount the device node or the mount location. 
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>mount /dev/cdrom</userinput>
+<prompt>darkstar:~# </prompt><userinput>mount /home</userinput>
+</screen>
+
+<para>
+One final use for
+<application>mount</application>
+is to tell you what filesystems are currently mounted and with what
+options. Simply run
+<application>mount</application>
+without any arguments to display these. 
 </para>
 
 </section>
 
 <section>
-<title>Editing A Document</title>
+<title>Network Filesystems</title>
 
 <para>
-Now that we're able to open and save documents, as well as move around
-in them, it's time to learn how to edit them. The primary means of
-editing is to enter insert mode using either the <keycap>i</keycap> or
-<keycap>a</keycap> command keys.  These either insert text at the
-cursor's current location, or append it after the cursor's current
-location. Once into insert mode, you can type any text normally and it
-will be placed into your document.  You can return to command mode in
-order to save your changes by pressing the <keycap>ESC</keycap> key.
+In addition to local filesystems, Slackware supports a number of network
+filesystems as both client and server. This allows you to share data
+between multiple computers transparently. We'll discuss the two most
+common: NFS and SMB. 
+</para>
+
+<section>
+<title>NFS</title>
+
+<para>
+NFS is the Network File System for Linux as well as several other common
+operating systems. It has modest performance but supports the full range of
+permissions for Slackware. In order to use NFS as either a client or a
+server, you must run the remote procedure call daemon. This is easily
+accomplished by setting the <filename>/etc/rc.d/rc.rpc</filename> file
+executable and telling it to start. Once it has been set executable, it
+will run automatically every time you boot into Slackware. 
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>chmod +x /etc/rc.d/rc.rpc</userinput>
+<prompt>darkstar:~# </prompt><userinput>/etc/rc.d/rc.rpc start</userinput>
+</screen>
+
+<para>
+Mounting an NFS share is little different than mounting a local filesystem.
+Rather than specifying a local device, you must tell mount the domain name
+or IP address of the NFS server and the directory to mount with a colon
+between them. 
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>mount -t nfs darkstar.example.com:/home /home</userinput>
+</screen>
+
+<para>
+Running an NFS server is a little bit different. First, you must configure
+each directory to be exported in the <filename>/etc/exports</filename>
+file. <filename>exports</filename>(5) contains information about what
+directories will be shared, who they will be shared with, and what special
+permissions to grant or deny. 
+</para>
+
+<screen>
+# See exports(5) for a description.
+# This file contains a list of all directories exported to other computers.
+# It is used by rpc.nfsd and rpc.mountd.
+
+/home/backup	192.168.1.0/24(sync,rw,no_root_squash)
+</screen>
+
+<para>
+The first column in
+<filename>exports</filename>
+is a list of the files to be exported via NFS. The second column is a list
+of what systems may access the export along with special permissions. You
+can specify hosts via domain name, IP address, or netblock address (as I
+have here). Special permissions are always a parenthetical list. For a
+complete list, you'll need to read the man page. For now, the only special
+option that matters is <arg>no_root_squash</arg>. Usually the root user on
+an NFS client cannot read or write an exported share. Instead, the root
+user is "squashed" and forced to act as the nobody user.
+<arg>no_root_squash</arg> prevents this.
+</para>
+
+<para>
+You'll also need to run the NFS daemon. Starting and stopping NFS server
+support is done with the <filename>/etc/rc.d/rc.nfsd</filename> rc script.
+Set it executable and run it just like we did for
+<filename>rc.rpc</filename> and you are ready to go. 
 </para>
 
 </section>
 
 <section>
-<title><application>vi</application> Cheat Sheet</title>
+<title>SMB</title>
 
 <para>
-Since <application>vi</application> can be difficult to learn, I've
-prepared a short cheat sheat that should help you with the basics until
-you begin to feel comfortable.
+SMB is the Windows network file-sharing protocol. Connecting to SMB shares
+(commonly called samba shares) is fairly straight forward. Unfortuantely,
+SMB isn't as strongly supported as NFS. Still, it offers higher performance
+and connectivity with Windows computers. For these reasons, SMB is the most
+common network file-sharing protocol deployed on local networks. Exporting
+SMB shares from Slackware is done through the samba daemon and configured
+in <filename>smb.conf</filename>(5). Unfortunately configuring samba as a
+service is beyond the scope of this book. Check online for additional
+documentation, and as always refer to the man page. 
 </para>
 
-<table pgwide="0">
-<title>vi Cheat Sheet</title>
-<tgroup cols="2" title="Movement">
-  <thead>
-    <row>
-      <entry>Command</entry>
-      <entry>Result</entry>
-    </row>
-  </thead>
-  <tbody>
-    <row>
-      <entry>h</entry>
-      <entry>Move the cursor one character left.</entry>
-    </row>
-    <row>
-      <entry>j</entry>
-      <entry>Move the cursor one line down</entry>
-    </row>
-    <row>
-      <entry>k</entry>
-      <entry>Move the cursor one line up</entry>
-    </row>
-    <row>
-      <entry>l</entry>
-      <entry>Move the cursor one character right</entry>
-    </row>
-    <row>
-      <entry>10j</entry>
-      <entry>Move the cursor ten lines down</entry>
-    </row>
-    <row>
-      <entry>G</entry>
-      <entry>Move to the end of the file</entry>
-    </row>
-    <row>
-      <entry>^</entry>
-      <entry>Move to the beginning of the line</entry>
-    </row>
-    <row>
-      <entry>$</entry>
-      <entry>Move to the end of the line</entry>
-    </row>
-    <row>
-      <entry>dd</entry>
-      <entry>Remove a line</entry>
-    </row>
-    <row>
-      <entry>5dd</entry>
-      <entry>Remove 5 lines</entry>
-    </row>
-    <row>
-      <entry>r</entry>
-      <entry>Replace a single character</entry>
-    </row>
-    <row>
-      <entry>R</entry>
-      <entry>Replace multiple characters</entry>
-    </row>
-    <row>
-      <entry>x</entry>
-      <entry>Delete a character</entry>
-    </row>
-    <row>
-      <entry>X</entry>
-      <entry>Delete the previous character</entry>
-    </row>
-    <row>
-      <entry>u</entry>
-      <entry>Undo the last action</entry>
-    </row>
-    <row>
-      <entry>:s'old'new'g</entry>
-      <entry>Replace all occurances of 'old' with 'new'</entry>
-    </row>
-    <row>
-      <entry>/asdf</entry>
-      <entry>Locate next occurance of asdf</entry>
-    </row>
-    <row>
-      <entry>:q</entry>
-      <entry>Quit (without saving)</entry>
-    </row>
-    <row>
-      <entry>:w</entry>
-      <entry>Save the current document</entry>
-    </row>
-    <row>
-      <entry>:w file</entry>
-      <entry>Save the current document as 'file'</entry>
-    </row>
-    <row>
-      <entry>:x</entry>
-      <entry>Save and quit</entry>
-    </row>
-  </tbody>
-</tgroup>
-</table>
+<para>
+Thankfully mounting an SMB share is easy and works almost exactly like
+mounting an NFS share. You must tell mount where to find the server and
+what share you wish to access in exactly the same way. Additionally, you
+must specify a username and password. 
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>mount -t cifs //darkstar/home /home -o username=alan,password=secret</userinput>
+</screen>
+
+<para>
+You may be wondering why the filesystem type is cifs instead of smbfs. In
+older versions of the Linux kernel, smbfs was used. This has been
+deprecated in favor of the better performing and more secure general
+purpose cifs driver. 
+</para>
+
+<para>
+All SMB shares require the <arg>username</arg> and <arg>password</arg>
+arguments. This can create a security problem if you wish to place your
+samba share in fstab. You may avoid this problem by using the
+<arg>credentials</arg> argument. <arg>credentials</arg> points to a file
+which contains the username and password information. As long as this file
+is safely guarded and readable only by root, the likelyhood that your
+authentication credentials will be compromised is lessened. 
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>echo "username=alan" > /etc/creds-home</userinput>
+<prompt>darkstar:~# </prompt><userinput>echo "password=secret" >> /etc/creds-home</userinput>
+<prompt>darkstar:~# </prompt><userinput>mount -t cifs //darkstar/home -o credentials=/etc/creds-home</userinput>
+</screen>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
 
 </section>
 
