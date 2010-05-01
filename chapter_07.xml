@@ -131,27 +131,13 @@ Windows.
 </para>
 
 <para>
-LIST OF DE'S AND WINDOW MANAGERS.
-FILL THIS IN!!!!
-FILL THIS IN!!!!
-FILL THIS IN!!!!
-FILL THIS IN!!!!
-FILL THIS IN!!!!
-FILL THIS IN!!!!
-FILL THIS IN!!!!
-FILL THIS IN!!!!
-FILL THIS IN!!!!
-FILL THIS IN!!!!
-FILL THIS IN!!!!
-FILL THIS IN!!!!
-</para>
-
-<para>
 The easiest way to choose a window manager is
 <application>xwmconfig</application>(1), included with Slackware Linux.
 This application allows a user to choose what window manager to run
 with <application>startx</application>. 
 </para>
+
+<imagedata fileref="img/xwmconfig.png" format="PNG"/>
 
 </section>
 
