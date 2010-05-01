@@ -5,24 +5,143 @@
 <chapter>
 <title>Process Control</title>
 
+<para>
+Slackware systems often run hundreds or thousands of programs, each of
+which is refered to as a process. Managing these processes is an
+important part of system administration. So how exactly do we handle
+all of these seperate processes?
+</para>
+
 <section>
-<title>Why Use Slackware?</title>
+<title>ps</title>
 
 <para>
+The first step in managing processes is figuring out what processes are
+currently running. The most popular and powerful tool for this is
+<application>ps</application>(1). Without any arguments,
+<application>ps</application> won't tell you much information. By
+default, it only tells you what processes are running in your currently
+active shell. If we want more information, we'll need to look deeper.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ps</userinput>
+  PID TTY          TIME CMD
+12220 pts/4    00:00:00 bash
+12236 pts/4    00:00:00 ps
+</screen>
+
+<para>
+Here you can see what processes you are running in your currently
+active shell or terminal and only some information is included.  The
+PID is the "Process ID"; every process is assigned a unique number. The
+TTY tells you what terminal device the process is attached to.
+Naturally, CMD is the command that was run. You might be a little
+confused by TIME though, since it seems to move so slowly. This isn't
+the amount of real time the process has been running, but rather the
+amount of CPU time the process has consumed. An idle process uses
+virtually no CPU time, so this value may not increase quickly.
+</para>
+
+<para>
+Viewing only our own processes isn't very much fun, so let's take a
+look at all the processes on the system with the <arg>-e</arg>
+argument.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ps -e</userinput>
+  PID TTY          TIME CMD
+    1 ?        00:00:00 init
+    2 ?        00:00:00 kthreadd
+    3 ?        00:00:00 migration/0
+    4 ?        00:00:00 ksoftirqd/0
+    7 ?        00:00:11 events/0
+    9 ?        00:00:01 work_on_cpu/0
+   11 ?        00:00:00 khelper
+  102 ?        00:00:02 kblockd/0
+  105 ?        00:01:19 kacpid
+  106 ?        00:00:01 kacpi_notify
+... many more lines ommitted ...
+</screen>
+
+<para>
+The above example uses the standard <application>ps</application>
+syntax, but much more information can be discovered if we use BSD
+syntax. In order to do so, we must use the <arg>aux</arg> argument.
+</para>
+
+<note><para>
+This is distinct from the <arg>-aux</arg> argument, but in most cases
+the two arguments are equivilant. This is a decades-old relic. For more
+information, see the man page for <application>ps</application>.
+</para></note>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ps aux</userinput>
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0   3928   632 ?        Ss   Apr05   0:00 init [3]  
+root         2  0.0  0.0      0     0 ?        S<   Apr05   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        S<   Apr05   0:00 [migration/0]
+root         4  0.0  0.0      0     0 ?        S<   Apr05   0:00 [ksoftirqd/0]
+root         7  0.0  0.0      0     0 ?        S<   Apr05   0:11 [events/0]
+root         9  0.0  0.0      0     0 ?        S<   Apr05   0:01 [work_on_cpu/0]
+root        11  0.0  0.0      0     0 ?        S<   Apr05   0:00 [khelper]
+... many more lines ommitted ....
+</screen>
+
+<para>
+As you can see, BSD syntax offers much more information, including what
+user controls the process and what percentage of RAM and CPU the process
+is consuming when <application>ps</application> is run.
+</para>
+
+<para>
+Finally, <application>ps</application> can also create a process tree.
+This shows you which processes have children processes. Ending the
+parent of a child process also ends the child. We do this with the
+<arg>-ejH</arg> argument.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ps -ejH</userinput>
+... many lines ommitted ...
+ 3660  3660  3660 tty1     00:00:00   bash
+29947 29947  3660 tty1     00:00:00     startx
+29963 29947  3660 tty1     00:00:00       xinit
+29964 29964 29964 tty7     00:27:11         X
+29972 29972  3660 tty1     00:00:00         sh
+29977 29972  3660 tty1     00:00:05           xscreensaver
+29988 29972  3660 tty1     00:00:04           xfce4-session
+29997 29972  3660 tty1     00:00:16             xfwm4
+29999 29972  3660 tty1     00:00:02             Thunar
+... many more lines ommitted ...
+</screen>
+
+<para>
+As you can see, <application>ps</application> is an incredibly powerful
+tool for determining not only what processes are currently active on
+your system, but also for learning lots of important information about
+them.
 </para>
 
 </section>
 
 <section>
-<title>Differences Compared to Other Linux Distributions</title>
+<title>kill and killall</title>
 
 <para>
+Managing processes isn't only about knowing which ones are running, but
+also about communicating with them to change their behavior. The most
+common way of managing a program is to terminate it. Thus, the tool for
+the job is named <application>kill</application>(1). Despite the name,
+<application>kill</application> doesn't actually terminate processes,
+but sends signals to them. The most common signal is a SIGTERM, which
+tells the process to finish up what it is doing and terminate. There
+are a variety of other signals that can be sent, but the three most
+common are SIGTERM, SIGHUP, and SIGKILL.
 </para>
 
 </section>
 
 <section>
-<title>Licensing</title>
+<title>top</title>
 
 <para>
 </para>
