@@ -78,12 +78,12 @@ information, see the man page for <application>ps</application>.
 <screen><prompt>darkstar:~$ </prompt><userinput>ps aux</userinput>
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root         1  0.0  0.0   3928   632 ?        Ss   Apr05   0:00 init [3]  
-root         2  0.0  0.0      0     0 ?        S<   Apr05   0:00 [kthreadd]
-root         3  0.0  0.0      0     0 ?        S<   Apr05   0:00 [migration/0]
-root         4  0.0  0.0      0     0 ?        S<   Apr05   0:00 [ksoftirqd/0]
-root         7  0.0  0.0      0     0 ?        S<   Apr05   0:11 [events/0]
-root         9  0.0  0.0      0     0 ?        S<   Apr05   0:01 [work_on_cpu/0]
-root        11  0.0  0.0      0     0 ?        S<   Apr05   0:00 [khelper]
+root         2  0.0  0.0      0     0 ?        S    Apr05   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        S    Apr05   0:00 [migration/0]
+root         4  0.0  0.0      0     0 ?        S    Apr05   0:00 [ksoftirqd/0]
+root         7  0.0  0.0      0     0 ?        S    Apr05   0:11 [events/0]
+root         9  0.0  0.0      0     0 ?        S    Apr05   0:01 [work_on_cpu/0]
+root        11  0.0  0.0      0     0 ?        S    Apr05   0:00 [khelper]
 ... many more lines ommitted ....
 </screen>
 
