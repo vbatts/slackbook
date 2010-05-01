@@ -239,4 +239,84 @@ right from within <application>top</application> itself.
 
 </section>
 
+<section>
+<title>cron</title>
+
+<para>
+Ok, so we've learned many different ways of viewing the active
+processes on our system and means of signalling them, but what if we
+want to run a process periodically? Fortunately, Slackware includes
+just the thing, <application>crond</application>(8). cron runs
+processes for every user on the schedule that user demands. This makes
+it very useful for processes that need to be run periodically, but
+don't require full daemonization, such as backup scripts. Every user
+gets their own entry in the cron database, so non-root users can
+periodically run processes too.
+</para>
+
+<para>
+In order to run programs from cron, you'll need to use the
+<application>crontab</application>(1). The man page lists a variety of
+ways to do this, but the most common method is to pass the
+<arg>-e</arg> argument. This will lock the user's entry in the cron
+database (to prevent it from being overwritten by another program),
+then open that entry with whatever text editor is specified by the
+VISUAL environment variable. On Slackware systems, this is typically
+the <application>vi</application> editor. You may need to refer to the
+chapter on <application>vi</application> before continuing.
+</para>
+
+<para>
+The cron database entries may seem a little archaic at first, but they
+are highly flexible. Each uncommented line is processed by
+<application>crond</application> and the command specified is run if
+all the time conditions match.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>crontab -e</userinput>
+# Keep current with slackware
+30 02 * * * /usr/local/bin/rsync-slackware64.sh 1>/dev/null 2>&amp;1
+</screen>
+
+<para>
+As mentioned before, the syntax for cron entries is a little difficult
+to understand at first, so let's look at each part individually. From
+left to right, the different sections are: Minute, Hour, Day, Month,
+Week Day, and Command. Any asterisk <keycap>*</keycap> entry matches
+every minute, hour, day, and so on. So from the example above, the
+command is "/usr/local/bin/rsync-slackware64.sh 1>/dev/null 2>&amp;1", and
+it runs every weekday or every week of every month at 2:30 a.m.
+</para>
+
+<para>
+<application>crond</application> will also e-mail the local user with
+any output the command generates. For this reason, many tasks have
+their output redirected to <filename>/dev/null</filename>, a special
+device file that immediately discards everything it receives. In order
+to make it easier for you to remember these rules, you might wish to
+paste the following commented text at the top of your own cron entries.
+</para>
+
+<screen>
+# Redirect everything to /dev/null with:
+#   1>/dev/null 2>&amp;1
+#
+# MIN HOUR DAY MONTH WEEKDAY COMMAND
+</screen>
+
+<para>
+By default, Slackware includes a number of entries and comments in
+root's crontab. These entries make it easier to setup periodic system
+tasks by creating a number of directories in <filename>/etc</filename>
+corrosponding to how often the tasks should run. Any script placed
+within these directories will be run hourly, daily, weekly, or monthly.
+The names should be self-explainatory:
+<filename>/etc/cron.hourly</filename>,
+<filename>/etc/cron.daily</filename>,
+<filename>/etc/cron.weekly</filename>, and
+<filename>/etc/cron.monthly</filename>.
+</para>
+
+</section>
+
 </chapter>
