@@ -4,16 +4,17 @@
 3 - Booting (LILO & GRUB & Dual-Booting)
 4 - Basic Shell Commands
 5 - Bash Overview
-6 - X Windows
-7 - Printing
-8 - Managing Users & Groups
-9 - Filesystem Permissions
-10- Filesystems & mount
-11- Vi
-12- Emacs
-13- Networking
-14- Wireless Networking
-15- Basic Networking Commands
-16- Pkgtool
-17- Keeping Up with -stable
-18- Kernel
+6 - Process Control
+7 - X Windows
+8 - Printing
+9 - Managing Users & Groups
+10- Filesystem Permissions
+11- Filesystems & mount
+12- Vi
+13- Emacs
+14- Networking
+15- Wireless Networking
+16- Basic Networking Commands
+17- Pkgtool
+18- Keeping Up with -stable
+19- Kernel
