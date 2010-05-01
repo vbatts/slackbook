@@ -138,12 +138,103 @@ are a variety of other signals that can be sent, but the three most
 common are SIGTERM, SIGHUP, and SIGKILL.
 </para>
 
+<para>
+What a process does when it receives a signal varies. Most programs
+will terminate (or attempt to terminate) whenever they receive any
+signal, but there are a few important differences. For starters, the
+SIGTERM signal informs the process that it should terminate itself at
+its earliest convenience. This gives the process time to finish up any
+important activities, such as writing information to the disk, before
+it closes. In contrast, the SIGKILL signal tells the process to
+terminate itself immediately, no questions asked. This is most useful
+for killing processes that are not responding and is sometimes called
+the "silver bullet". Some processes (particularly daemons) capture the
+SIGHUP signal and reload their configuration files whenever they
+receive it.
+</para>
+
+<para>
+In order to signal a process, we first need to know it's PID. You can
+get this easily with <application>ps</application> as we discused. In
+order to send different signals to a running process, you simply pass
+the signal number and <arg>-s</arg> as an argument.  The <arg>-l</arg>
+argument lists all the signals you can chose and their number. You can
+also send signals by their name with <arg>-s</arg>.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>kill -l</userinput>
+ 1) SIGHUP	 2) SIGINT	 3) SIGQUIT	 4) SIGILL
+ 5) SIGTRAP	 6) SIGABRT	 7) SIGBUS	 8) SIGFPE
+ 9) SIGKILL	10) SIGUSR1	11) SIGSEGV	12) SIGUSR2
+13) SIGPIPE	14) SIGALRM	15) SIGTERM	16) SIGSTKFLT
+... many more lines ommitted ...
+<prompt>darkstar:~$ </prompt><userinput>kill 1234 # SIGTERM</userinput>
+<prompt>darkstar:~$ </prompt><userinput>kill -s 9 1234 # SIGKILL</userinput>
+<prompt>darkstar:~$ </prompt><userinput>kill -s 1 1234 # SIGHUP</userinput>
+<prompt>darkstar:~$ </prompt><userinput>kill -s HUP 1234 # SIGHUP</userinput>
+</screen>
+
+<para>
+Sometimes you may wish to terminate all running processes with a
+certain name. You can kill processes by name with
+<application>killall</application>(1). Just pass the same arguments to
+<application>killall</application> that you would pass to
+<application>kill</application>.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>killall bash # SIGTERM</userinput>
+<prompt>darkstar:~$ </prompt><userinput>killall -s 9 bash # SIGKILL</userinput>
+<prompt>darkstar:~$ </prompt><userinput>killall -s 1 bash # SIGHUP</userinput>
+<prompt>darkstar:~$ </prompt><userinput>killall -s HUP bash # SIGHUP</userinput>
+</screen>
+
 </section>
 
 <section>
 <title>top</title>
 
 <para>
+So far we've learned how to look at the active processes for a moment
+in time, but what if we want to monitor them for an extended period?
+<application>top</application>(1) allows us to do just that. It
+displays an ordered list of the processes on your system, along with
+vital information about them, and updates periodically. By default,
+processes are ordered by their CPU percentage and updates occur every
+three seconds.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>top</userinput>
+top - 16:44:15 up 26 days,  5:53,  5 users,  load average: 0.08, 0.03, 0.03
+Tasks: 122 total,   1 running, 119 sleeping,   0 stopped,   2 zombie
+Cpu(s):  3.4%us,  0.7%sy,  0.0%ni, 95.5%id,  0.1%wa,  0.0%hi,  0.2%si, 0.0%st
+Mem:   3058360k total,  2853780k used,   204580k free,   154956k buffers
+Swap:        0k total,        0k used,        0k free,  2082652k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND            
+    1 root      20   0  3928  632  544 S    0  0.0   0:00.99 init               
+    2 root      15  -5     0    0    0 S    0  0.0   0:00.00 kthreadd           
+    3 root      RT  -5     0    0    0 S    0  0.0   0:00.82 migration/0        
+    4 root      15  -5     0    0    0 S    0  0.0   0:00.01 ksoftirqd/0        
+    7 root      15  -5     0    0    0 S    0  0.0   0:11.22 events/0           
+    9 root      15  -5     0    0    0 S    0  0.0   0:01.19 work_on_cpu/0      
+   11 root      15  -5     0    0    0 S    0  0.0   0:00.01 khelper            
+  102 root      15  -5     0    0    0 S    0  0.0   0:02.04 kblockd/0          
+  105 root      15  -5     0    0    0 S    0  0.0   1:20.08 kacpid             
+  106 root      15  -5     0    0    0 S    0  0.0   0:01.92 kacpi_notify       
+  175 root      15  -5     0    0    0 S    0  0.0   0:00.00 ata/0              
+  177 root      15  -5     0    0    0 S    0  0.0   0:00.00 ata_aux            
+  178 root      15  -5     0    0    0 S    0  0.0   0:00.00 ksuspend_usbd      
+  184 root      15  -5     0    0    0 S    0  0.0   0:00.02 khubd              
+  187 root      15  -5     0    0    0 S    0  0.0   0:00.00 kseriod            
+  242 root      20   0     0    0    0 S    0  0.0   0:03.37 pdflush            
+  243 root      15  -5     0    0    0 S    0  0.0   0:02.65 kswapd0
+</screen>
+
+<para>
+The man page has helpful details on how to interact with
+<application>top</application> such as changing its delay interval, the
+order processes are displayed, and even how to terminate processes
+right from within <application>top</application> itself.
 </para>
 
 </section>
