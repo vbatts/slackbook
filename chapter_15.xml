@@ -375,6 +375,21 @@ protocols.
 </para>
 
 <screen><prompt>darkstar:~# </prompt><userinput>wget ftp://ftp.osuosl.org/pub/slackware/slackware-current/ChangeLog.txt</userinput>
+--2010-05-01 13:51:19--
+ftp://ftp.osuosl.org/pub/slackware/slackware-current/ChangeLog.txt
+           => `ChangeLog.txt'
+Resolving ftp.osuosl.org... 64.50.236.52
+Connecting to ftp.osuosl.org|64.50.236.52|:21... connected.
+Logging in as anonymous ... Logged in!
+==> SYST ... done.    ==> PWD ... done.
+==> TYPE I ... done.  ==> CWD /pub/slackware/slackware-current ...  done.
+==> SIZE ChangeLog.txt ... 75306
+==> PASV ... done.    ==> RETR ChangeLog.txt ... done.
+Length: 75306 (74K)
+
+100%[======================================>] 75,306       110K/s   in 0.7s    
+
+2010-05-01 13:51:22 (110 KB/s) - `ChangeLog.txt' saved [75306]
 </screen>
 
 </section>
