@@ -233,17 +233,7 @@ installer, but you can run it at any time from a terminal.
 
 <para>
 
-<screenshot>
-<screeninfo>First screen of liloconfig</screeninfo>
-<mediaobject>
-<imageobject>
 <imagedata fileref="img/liloconfig01.png" format="PNG" />
-</imageobject>
-<textobject>
-<phrase>FILL THIS IN!!!!</phrase>
-</textobject>
-</mediaobject>
-</screenshot>
 
 </para>
 
