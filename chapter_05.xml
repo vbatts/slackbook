@@ -284,6 +284,48 @@ root      3202  0.0  0.0   1660   536 tty6     Ss+  Feb15   0:00 /sbin/agetty 38
 </section>
 
 <section>
+<title>Task Management</title>
+
+<para>
+<application>bash</application> has yet another cool feature to offer,
+the ability to suspend and resume tasks.  This allows you to
+temporarily halt a running process, perform some other task, then
+resume it or optionally make it run in the background. Upon pressing
+<keycap>CTRL-Z</keycap>, <application>bash</application> will suspend
+the running process and return you to a prompt. You can return to that
+process later.  Additionally, you can suspend multiple processes in
+this way indefinitely.  The <application>jobs</application> built-in
+command will display a list of suspended tasks.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>jobs</userinput>
+[1]-  Stopped                 vi TODO
+[2]+  Stopped                 vi chapter_05.xml
+</screen>
+
+<para>
+In order to return to a suspended task, run the
+<application>fg</application> built-in to bring the the most recently
+suspended task back into the fore ground. If you have mutiple suspended 
+tasks, you can specify a number as well to bring one of them to the
+foreground.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>fg # "vi TODO"</userinput>
+<prompt>darkstar:~$ </prompt><userinput>fg 1 # "vi chapter_05.xml"</userinput>
+</screen>
+
+<para>
+You can also background a task with (surprize)
+<application>bg</application>. This will allow the process to continue
+running without maintaining control of your shell. You can bring it
+back to the fore ground with <application>fg</application> in the same
+way as suspended tasks.
+</para>
+
+</section>
+
+<section>
 <title>Terminals</title>
 
 <para>
