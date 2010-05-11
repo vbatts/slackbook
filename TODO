@@ -39,6 +39,10 @@ Chapter 4. Basic Shell Commands
 
   Perhaps split this with subsections for cat, more, and less?
 
+* In the section about LZMA, possibly title it "XZ / LZMA"
+  Since we are officially *.txz as our standard pkgtype.
+
+
 Chapter 6. X Windows
 
 * Section 'configuring the X server'
