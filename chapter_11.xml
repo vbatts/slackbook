@@ -149,6 +149,22 @@ computer is booted, and causes an annoying delay.
 </section>
 
 <section>
+<title>ext4</title>
+
+<para>
+ext4 is the latest in the ext series of filesystems. It was designed to
+build upon ext3 with new ideas on what filesystems should do. While
+Slackware supports ext4, you should remember that this filesystem is
+still very new (particularly in file system terms) and is under heavy
+development. If you require stability over performance, you may wish to
+use a different filesystem such as ext3. With that said, ext4 does
+boast some major improvements over ext3 in the performance arena, but
+many people don't yet trust it for stable use.
+</para>
+
+</section>
+
+<section>
 <title>reiserfs</title>
 <para>
 reiserfs is one of the oldest journaling filesystems for the Linux

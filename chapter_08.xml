@@ -9,12 +9,28 @@
 <title>Choosing A Printer</title>
 
 <para>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Linux hasn't always had a great history with printers. For many years,
+printing was a black art to many Linux users, and very few printers
+worked reliably. Today, most printers will work well with Linux, but
+some still do not. If you're purchasing a new printer, be aware that
+many of the cheap inkjet models aren't as well supported in Linux as
+more expensive laser printers. If you're unsure about a printer, you
+can check online to see if others have had success with it.
 </para>
+
+<para>
+All these warnings are perhaps a bit overkill though, as the large
+majority of printers work with Linux after only a brief and simple
+setup. The progress in this direction is largely due to the efforts of
+the Common UNIX Printing System, (CUPS). CUPS is a printing system used
+by Slackware and most other Linux distributions today. It primarily uses
+a graphical setup procedure accessed via a web browser. In order to
+setup a printer with CUPS, you'll need to open a web browser such as
+firefox, konqueror, or links and go to 
+<ulink url="http://localhost:631">http://localhost:631</ulink>.
+</para>
+
+<imagedata fileref="img/cups-01.png" format="PNG" />
 
 </section>
 
@@ -22,11 +38,9 @@ voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 <title>Setting Up a Printer in CUPS</title>
 
 <para>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+From this point onward, setting up a printer is just a series of
+following the step-by-step instructions with CUPS, but a few areas
+merit some clarification.
 </para>
 
 </section>

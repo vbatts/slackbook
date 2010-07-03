@@ -4,8 +4,6 @@ General
   used in the most recent release of Slackware. I've seen kernel 2.6.29.4 and 
   Slackware 12.0.0 for instance.
 
-* cron
-
 * more extensive CLI apps like v2.0
 
 * no idea where the hell udev is covered in here, but we need to do a bit of
@@ -66,10 +64,6 @@ Chapter 8. Users and Groups
 
 
 Chapter 10. Working with Filesystems
-
-* Section 'Local Filesystem Types'
-
-  Do not forget to mention ext4.
 
 * Section 'Network Filesystems' / 'NFS'
 
