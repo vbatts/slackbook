@@ -190,7 +190,7 @@ KERNEL_VERSION="$(uname -r)"
 #KEYMAP="us"
 MODULE_LIST="ext3:ext4:jfs"
 #LUKSDEV="/dev/hda1"
-ROOTDEV="/dev/raven/64root"
+ROOTDEV="/dev/sda1
 ROOTFS="ext4"
 #RESUMEDEV="/dev/hda2"
 #RAID="0"
@@ -208,6 +208,22 @@ edit it as desired.  Once it is setup properly, you need only run
 A proper initrd file will be constructed and installed for you without 
 you having to remember all those obscure arguments.
 </para>
+
+<para>
+If you're unsure what options to specify in the configuration file or
+on the command-line, there is one final option. Slackware includes a
+nifty little utility that can tell what options are required for your
+currently running kernel
+<application>/usr/share/mkinitrd/mkinitrd_command_generator.sh</application>.
+When you run this script, it will generate a command line for
+<application>mkinitrd</application> that should work
+for your computer, but you may wish to check everything anyway.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>/usr/share/mkinitrd/mkinitrd_command_generator.sh</userinput>
+mkinitrd -c -k 2.6.33.4 -f ext3 -r /dev/sda3 -m \
+  usbhid:ehci-hcd:uhci-hcd:ext3 -o /boot/initrd.gz
+</screen>
 
 </section>
 
@@ -341,7 +357,7 @@ Microsoft Windows.
 ... global section ommitted ....
 # Linux bootable partition config begins
 image = /boot/vmlinuz-generic-2.6.29.4
-  root = /dev/raven/64root
+  root = /dev/sda1
   initrd = /boot/initrd.gz
   label = Slackware64
   read-only
@@ -377,22 +393,16 @@ not be installed, and those changes will not be reflected.
 
 <screen><prompt>darkstar:~# </prompt><userinput>lilo</userinput>
 Warning: LBA32 addressing assumed
-Warning: '/proc/partitions' does not match '/dev' directory structure.
-    Name change: '/dev/dm-0' -> '/dev/raven/swap'
-Warning: Name change: '/dev/dm-1' -> '/dev/raven/root'
-Warning: Name change: '/dev/dm-2' -> '/dev/raven/home'
-Warning: Name change: '/dev/dm-3' -> '/dev/raven/src'
-Warning: Name change: '/dev/dm-4' -> '/dev/raven/64root'
 Added Slackware *
 Added Backup
 6 warnings were issued.
 </screen>
 
 <para>
-Don't be scared by many of the warnings you may see when running
-<application>lilo</application>.  In my case, most of these warnings are
-issued by the use of LVM.  Unless you see a fatal error, things should
-be just fine.
+Don't be too scared by many of the warnings you may see when running
+<application>lilo</application>. Unless you see a fatal error, things
+should be just fine. In particular, the LBA32 addressing warning is
+commonplace.
 </para>
 
 </section>

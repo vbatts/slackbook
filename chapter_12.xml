@@ -275,11 +275,35 @@ you begin to feel comfortable.
     </row>
     <row>
       <entry>dd</entry>
-      <entry>Remove a line</entry>
+      <entry>Remove a line (and store it in the copy buffer)</entry>
     </row>
     <row>
       <entry>5dd</entry>
-      <entry>Remove 5 lines</entry>
+      <entry>Remove 5 lines (and store them in the copy buffer)</entry>
+    </row>
+    <row>
+      <entry>dw</entry>
+      <entry>Remove a single word (and store it in the copy buffer)</entry>
+    </row>
+    <row>
+      <entry>5dw</entry>
+      <entry>Remove five words (and store them in the copy buffer)</entry>
+    </row>
+    <row>
+      <entry>yw</entry>
+      <entry>Yank (copy) a single word (and store it in the copy buffer)</entry>
+    </row>
+    <row>
+      <entry>5yw</entry>
+      <entry>Yank five words (and store them in the copy buffer)</entry>
+    </row>
+    <row>
+      <entry>p</entry>
+      <entry>Paste the contents of the copy buffer at the cursor's location</entry>
+    </row>
+    <row>
+      <entry>P</entry>
+      <entry>Paste the contents of the copy buffer above the cursor's location</entry>
     </row>
     <row>
       <entry>r</entry>

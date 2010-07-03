@@ -180,6 +180,29 @@ encrypted password to a value that can't be matched.
 </para>
 
 <para>
+The easiest way for modifying a user's information is the
+<application>usermod</application>(8) utility which is capable of
+modifying everything from group membership to home directories. A full
+listing of its features won't be given here, so check the man page.
+<application>usermod</application> is perhaps the best tool to use for
+modifying a user's group members.  The <arg>-s</arg> and <arg>-G</arg>
+arguments accomplish this.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>usermod -a -G wheel alan</userinput>
+<prompt>darkstar:~# </prompt><userinput>usermod -G wheel alan</userinput>
+</screen>
+
+<para>
+It important to note the differences in the two commands above.  The
+first command adds the user "alan" to the "wheel" group without
+modifying any other groups "alan" belongs to. The second command also
+makes "alan" a member of the "wheel" group, but also removes the user's
+membership from any other groups, something you will very rarely want
+to do!
+</para>
+
+<para>
 Another useful tool is <application>chsh</application>(1) which changes a
 user's default shell. Like <application>passwd</application>, normal
 users can only change their own shell, but the root user can change

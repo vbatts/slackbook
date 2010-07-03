@@ -16,30 +16,11 @@ General
     in reference to how the admin might be misled into thinking that they are
     causing breakage...
 
-
-Chapter 3. Booting
-
-* Section 'mkinitrd'
-
-* /usr/share/mkinitrd_command_generator.sh
-
-  "Now that we've created out initrd" -> "Now that we've created our initrd"
-  "most of these warnings are issued by the use of LVM" << I think that at 
-    this point of the book, people will be scared off by the unfamiliar 
-    'LVM' and listing "/dev/raven/64root" as a root device may be confusing 
-    to people who expect something like "/dev/sda1". Better to discuss LVM 
-    later on.
-
-
 Chapter 4. Basic Shell Commands
 
 * Section 'Reading Documents'
 
   Perhaps split this with subsections for cat, more, and less?
-
-* In the section about LZMA, possibly title it "XZ / LZMA"
-  Since we are officially *.txz as our standard pkgtype.
-
 
 Chapter 6. X Windows
 
@@ -55,18 +36,6 @@ Chapter 6. X Windows
   * note that HAL is slated for deprecation and this might be handled by
     udev directly at some point in the future...
 
-
-Chapter 8. Users and Groups
-
-* Section 'Other User and Group Tools'
-
-  You could mention the tool here that is most sought after in IRC and 
-  forums: the "gpasswd" program which allows you to add a user to one 
-  additional group without touching on your current group management 
-  (remember that "usermod -G" will not retain your current group membership 
-  while "gpasswd -a" will).
-
-
 Chapter 10. Working with Filesystems
 
 * Section 'Network Filesystems' / 'NFS'
@@ -75,23 +44,7 @@ Chapter 10. Working with Filesystems
   allows you to find out exactly what NFS exports a remote server has made 
   available.
 
+Chapter 16. Basic Networking Commands
 
-Chapter 11. vi
+* Additional tools to discuss: finger, host, dig, pine, mutt, nail
 
-* Table 11.2. vi Cheat Sheet
-
-  You should really add "dw" (delete a word - and store it in the 
-  copybuffer)  "yw" (copy a word to the copy buffer), "yy" (copy a line to 
-  the copy buffer) and "p" (paste the content of the copybuffer at the 
-  cursor's location)
-
-
-Chapter 15. Basic Networking Commands
-
-* Section 'Web Browsers'
-
-  Should we include curl along with the others?
-
-* Section 'NNTP Clients'
-
-  Should we even have this section?  At this time, I'm leaning towards 'no'.
