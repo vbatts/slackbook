@@ -43,6 +43,14 @@ FILL THIS IN!  FILL THIS IN!
 FILL THIS IN!  FILL THIS IN!
 </para>
 
+<para>
+<imagedata fileref="img/install_keymap.png" format="PNG" />
+</para>
+
+<para>
+<imagedata fileref="img/install_login.png" format="PNG" />
+</para>
+
 </section>
 
 <section>
@@ -112,15 +120,23 @@ message telling you what to do with <application>fdisk</application>.
 </para>
 
 <screen>Command (m for help): <userinput>m</userinput>
-
-FILL THIS IN!  FILL THIS IN!
-FILL THIS IN!  FILL THIS IN!
-FILL THIS IN!  FILL THIS IN!
-FILL THIS IN!  FILL THIS IN!
-FILL THIS IN!  FILL THIS IN!
-FILL THIS IN!  FILL THIS IN!
-FILL THIS IN!  FILL THIS IN!
-
+Command action
+   a   toggle a bootable flag
+   b   edit bsd disklabel
+   c   toggle the dos compatibility flag
+   d   delete a partition
+   l   list known partition types
+   m   print this menu
+   n   add a new partition
+   o   create a new empty DOS partition table
+   p   print the partition table
+   q   quit without saving changes
+   s   create a new empty Sun disklabel
+   t   change a partition's system id
+   u   change display/entry units
+   v   verify the partition table
+   w   write table to disk and exit
+   x   extra functionality (experts only)
 </screen>
 
 <para>

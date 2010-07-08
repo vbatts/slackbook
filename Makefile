@@ -10,4 +10,8 @@ book.html: clean build.sh $(chapters)
 clean:
 	rm -f book.html
 
+.PHONY: view
+view:
+	xdg-open book.html
+
 .DEFAULT_GOAL := book.html
