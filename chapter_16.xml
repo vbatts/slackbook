@@ -84,26 +84,16 @@ packets
  2  10.0.0.1 (10.0.0.1)  7.642 ms  8.019 ms  6.006 ms
  3  68.1.8.49 (68.1.8.49)  10.446 ms  9.739 ms  7.003 ms
  4  68.1.8.69 (68.1.8.69)  11.564 ms  6.235 ms  7.971 ms
- 5  dalsbbrj01-ae0.r2.dl.cox.net (68.1.0.142)  43.859 ms  43.287 ms
-44.125 ms
- 6  dpr1-ge-2-0-0.dallasequinix.savvis.net (204.70.204.146)  41.927 ms
-58.247 ms  44.989 ms
- 7  cr2-tengige0-7-5-0.dallas.savvis.net (204.70.196.29)  42.577 ms
-46.110 ms  43.977 ms
- 8  cr1-pos-0-3-3-0.losangeles.savvis.net (204.70.194.53)  78.070 ms
-76.735 ms  76.145 ms
- 9  bpr1-ge-3-0-0.LosAngeles.savvis.net (204.70.192.222)  77.533 ms
-108.328 ms  120.096 ms
-10  wiltel-communications-group-inc.LosAngeles.savvis.net
-(208.173.55.186)  79.607 ms  76.847 ms  75.998 ms
-11  tg9-4.cr01.lsancarc.integra.net (209.63.113.57)  84.789 ms  85.436
-ms  85.575 ms
-12  tg13-1.cr01.sntdcabl.integra.net (209.63.113.106)  87.608 ms
-84.278 ms  86.922 ms
-13  tg13-4.cr02.sntdcabl.integra.net (209.63.113.134)  87.284 ms
-85.924 ms  86.102 ms
-14  tg13-1.cr02.rcrdcauu.integra.net (209.63.114.169)  85.578 ms
-85.285 ms  84.148 ms
+ 5  dalsbbrj01-ae0.r2.dl.cox.net (68.1.0.142)  43.859 ms  43.287 ms 44.125 ms
+ 6  dpr1-ge-2-0-0.dallasequinix.savvis.net (204.70.204.146)  41.927 ms 58.247 ms  44.989 ms
+ 7  cr2-tengige0-7-5-0.dallas.savvis.net (204.70.196.29)  42.577 ms 46.110 ms  43.977 ms
+ 8  cr1-pos-0-3-3-0.losangeles.savvis.net (204.70.194.53)  78.070 ms 76.735 ms  76.145 ms
+ 9  bpr1-ge-3-0-0.LosAngeles.savvis.net (204.70.192.222)  77.533 ms 108.328 ms  120.096 ms
+10  wiltel-communications-group-inc.LosAngeles.savvis.net (208.173.55.186)  79.607 ms  76.847 ms  75.998 ms
+11  tg9-4.cr01.lsancarc.integra.net (209.63.113.57)  84.789 ms  85.436 ms  85.575 ms
+12  tg13-1.cr01.sntdcabl.integra.net (209.63.113.106)  87.608 ms 84.278 ms  86.922 ms
+13  tg13-4.cr02.sntdcabl.integra.net (209.63.113.134)  87.284 ms 85.924 ms  86.102 ms
+14  tg13-1.cr02.rcrdcauu.integra.net (209.63.114.169)  85.578 ms 85.285 ms  84.148 ms
 15  209.63.99.166 (209.63.99.166)  84.515 ms  85.424 ms  85.956 ms
 16  208.186.199.158 (208.186.199.158)  86.557 ms  85.822 ms  86.072 ms
 17  sac-main.cwo.com (209.210.78.20)  88.105 ms  87.467 ms  87.526 ms
@@ -286,6 +276,77 @@ scanning and may take measures to prevent you from doing it.
 <application>nmap</application> and applications like it are best used
 on your own systems for maintenance and security purposes, not as
 general purpose Internet scanners.
+</para>
+
+</section>
+
+<section>
+<title>host</title>
+
+<para>
+Often network problems stem from a failure of DNS (Domain Name Service)
+which maps domain names to IP addresses. An easy way to perform quick
+DNS lookups is the <application>host</application>(1) command. When
+this is run, your computer will perform a few common DNS lookups and
+return the results.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>host www.slackware.com</userinput>
+www.slackware.com is an alias for slackware.com.
+slackware.com has address 64.57.102.34
+slackware.com mail is handled by 1 mail-mx.cwo.com.
+</screen>
+
+</section>
+
+<section>
+<title>dig</title>
+
+<para>
+More complex DNS lookups can be manually performed with the
+<application>dig</application>(1) tool.  <application>dig</application>
+is "the meanest dog in the pound" when it comes to troubleshooting DNS
+issues. With this tool, you can perform virtually any DNS lookup from
+reverse lookups to A, CNAME, MX, SP, TXT records and more. There are
+far too many command-line options and lookup types to go into depth
+here, but the man page lists all the common use cases.
+</para>
+
+<screen><prompt>darkstar:~# </prompt><userinput>dig @207.69.188.185 www.slackware.com a</userinput>
+
+; &lt;&lt;&gt;&gt; DiG 9.4.3-P4 &lt;&lt;&gt;&gt; @207.69.188.185 www.slackware.com a
+; (1 server found)
+;; global options:  printcmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 57965
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 2, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;www.slackware.com.		IN	A
+
+;; ANSWER SECTION:
+www.slackware.com.	86400	IN	CNAME	slackware.com.
+slackware.com.		86400	IN	A	64.57.102.34
+
+;; AUTHORITY SECTION:
+slackware.com.		86400	IN	NS	ns2.cwo.com.
+slackware.com.		86400	IN	NS	ns1.cwo.com.
+
+;; Query time: 348 msec
+;; SERVER: 207.69.188.185#53(207.69.188.185)
+;; WHEN: Sat Jul  3 16:25:10 2010
+;; MSG SIZE  rcvd: 105
+
+</screen>
+
+<para>
+Let's take a took at the command-line options used above.  The
+<arg>@207.69.188.185</arg> argument tells
+<application>dig</application> what DNS server to query. If it is not
+specified, <application>dig</application> will simply use whatever
+servers are listed in <filename>/etc/resolv.conf</filename>.  The
+<arg>a</arg> argument at the end is the type of DNS record to lookup.
+In this case we looked for an "A" record which returned an IPv4 address.
 </para>
 
 </section>
@@ -489,32 +550,6 @@ New: 16 files, 1 symlink
 14636789 bytes transferred in 20 seconds (703.7K/s)
 lftp ftp.osuosl.org:/pub/slackware/slackware-current> <userinput>bye</userinput>
 </screen>
-
-</section>
-
-</section>
-
-<section>
-<title>NNTP Clients</title>
-
-<para>
-Once upon a time when the Internet was young, before the World Wide Web
-was invented and no one had heard of hyperlinks, everyone retrieved
-their news and information through a service known as Usenet using the
-NNTP protocol. It remains today a useful knowledge base of information
-on an incredible variety of subjects, but if you wish to access this
-information, you're going to need a proper client.  Slackware includes
-a number of NNTP clients with both console and graphical interfaces,
-but we'll only detail the console tools here. Popular graphical news
-readers include <application>knode</application> and
-<application>pan</application>.
-</para>
-
-<section><title>tin</title>
-
-</section>
-
-<section><title>slrn</title>
 
 </section>
 
