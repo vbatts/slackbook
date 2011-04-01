@@ -11,7 +11,7 @@ clean:
 	rm -f book.html
 
 .PHONY: view
-view:
+view: book.html
 	xdg-open book.html
 
 .DEFAULT_GOAL := book.html
