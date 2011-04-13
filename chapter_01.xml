@@ -83,7 +83,7 @@ the Samba project, are released under the terms of the GPL.
 
 <para>
 Another very common license is the BSD license, which is arguably "more
-free" than the GPL but imposes no restrictions on derivative works.
+free" than the GPL because it imposes no restrictions on derivative works.
 The BSD license simply requires that the copyright remain intact along
 with a simple disclaimer.  Many of the utilities specific to Slackware
 are licensed with a BSD-style license.
