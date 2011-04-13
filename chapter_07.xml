@@ -29,13 +29,13 @@ resounding "no". There are many parts to a GUI, but X is the most
 fundamental. X is that application that receives input from the mouse,
 keyboard, and possibly other devices. X is that application that tells
 the graphics card what to do. In short, X is the application that talks
-to your computer's hardware from graphical purposes; all other
+to your computer's hardware for graphical purposes; all other
 graphical applications simply talk to X.
 </para>
 
 <para>
 Let's stop for a moment and talk about nomenclature. X is just one of a
-dozen names that you may encounter. It is also called X11, the X Window
+dozen names that you may encounter. It is also called X11, xorg, the X Window
 System, X Window, X11R6, X Version 11, and several others. Whatever
 you hear it called, simply understand that the speakers are referring
 to X.
@@ -47,68 +47,65 @@ to X.
 <title>Configuring the X Server</title>
 
 <para>
-As powerful as Slackware Linux is, configuring X can be daunting and
-is often one of the first real challenges a new user faces. Don't be
-overly concerned if you find this a bit difficult. While many changes
-have been made over the years that make this much easier, there are
-still computers out there that don't properly auto-detect, or you'll
-wish to make some change to some setting and it might not be immediately
-apparent what to do. Just remember that when I started using X, it was
-far more primitive than it is today, took far more work to configure,
-and often crashed without telling the user what was wrong. If I and
-thousands of others got this working back then, you can do it today.
+Once upon a time, configuring X was a difficult and painful process
+that caused the magic smoke to come gushing out of hundreds of
+monitors. Today X is a lot more user friendly. In fact, most users will
+not need to configure X at all, Slackware will simply figure out all
+the proper settings on its own. There are, however, still some
+computers that X can't properly auto-configure and will need a little
+bit of work on your part.
 </para>
 
 <para>
+Once upon a time, the X configuration file was located at
+<filename>/etc/X11/xorg.conf</filename>, and if you create a file
+there, X will honor whatever settings you place within it.
 Fortunately, with <application>X.Org 1.6.3</application> an
 <filename>/etc/X11/xorg.conf</filename> does not even need to be
-present for <application>X</application> to attempt a working display,
-further, Slackware includes a default configuration file that works
-for most computers by using the VESA standard. This offers only the
-most basic functions and may not allow your graphics card to operate at
-its full potential. You may be limited to low resolutions, fewer
-colors, and <application>X</application> will be slower. Still, this is
-an option for users, particularly those who only want to occassionally
-run <application>X</application>. You can try it out now simply by
-running <application>startx</application>(1) from a command prompt.
+present for <application>X</application> to generate a working display.
+If for whatever reason, you need to make configuration changes to X,
+try to avoid using this file; it's antiquated and inflexible. Rather,
+the <filename>/etc/X11/xorg.conf.d/</filename> directory is where you
+should put such tweaks. Any file you place within that directory will
+be read when X starts up. This allows you to split-up your
+configuration into more easily manageable parts. For example, here's
+my <filename>/etc/X11/xorg.conf.d/synaptics.conf</filename> file for my
+laptop.
 </para>
 
-<para>
-There are many ways to configure <application>X</application>, but the
-easiest is to use <application>xorgsetup</application>. This will attempt
-to probe probe your computer's hardware and write a working xorg.conf
-file. This option is not garaunteed to work; there are some platforms
-that it is known not to work with, and there are probably others as
-well. Still, it is worth trying first as it is the quickest and least
-complicated for a new user to attempt.
-</para>
+<screen><prompt>darkstar:~$ </prompt><userinput>cat /etc/X11/xorg.conf.d/synaptics.conf</userinput>
+Section "InputDevice"
+    Identifier      "Synaptics Touchpad"
+    Driver          "synaptics"
+    Option          "SendCoreEvents"        "true"
+    Option          "Device"                "/dev/psaux"
+    Option          "Protocol"              "auto-dev"
+    Option          "SHMConfig"             "on"
+    Option          "LeftEdge"              "100"
+    Option          "RightEdge"             "1120"
+    Option          "TopEdge"               "50"
+    Option          "BottomEdge"            "310"
+    Option          "FingerLow"             "25"
+    Option          "FingerHigh"            "30"
+    Option          "VertScrollDelta"       "20"
+    Option          "HorizScrollDelta"      "50"
+    Option          "MinSpeed"              "0.79"
+    Option          "MaxSpeed"              "0.88"
+    Option          "AccelFactor"           "0.0015"
+    Option          "TapButton1"            "1"
+    Option          "TapButton2"            "2"
+    Option          "TapButton3"            "3"
+    Option          "MaxTapMove"            "100"
+    Option          "HorizScrollDelta"      "0"
+    Option          "HorizEdgeScroll"       "0"
+    Option          "VertEdgeScroll"        "1"
+    Option          "VertTwoFingerScroll"   "0"
+EndSection
+</screen>
 
 <para>
-The second most popular way to configure <application>X</application>
-on your system is the handy <application>xorgconfig</application>(1).
-This application asks you a series of questions about your computer's
-hardware and writes out a config file based on your choices. Unless you
-know exactly what your hardware is, we recommend that you try
-<application>xorgsetup</application> first.
-</para>
-
-<para>
-Additionally, the <application>X</application> has flags available to 
-let <application>X</application> attempt to detect hardware and render
-an <filename>xorg.conf.new</filename> that should work with the hardware
-present. From a virtual terminal call <command>X -configure</command>,
-and the resulting file will be either <filename>/root/xorg.conf.new</filename>
-or <filename>$HOME/xorg.conf.new</filename>. Before moving this new
-configuration to <filename>/etc/X11/</filename>, it can be tested by 
-calling <command>X -config /root/xorg.conf.new</command>, then you can 
-exit this <application>X</application> session with &lt;CTRL&gt;+&lt;ALT&gt;+&lt;Backspace&gt;.
-</para>
-
-<para>
-Lastly, you can manually configure your <application>X</application>
-server by modifying <filename>/etc/X11/xorg.conf</filename> with a text
-editor. This is not normally a task for the faint of heart, but is
-often the easiest way to make minor changes.
+By placing such options in individual files, you can easily manage your
+X configuration by sections.
 </para>
 
 </section>
