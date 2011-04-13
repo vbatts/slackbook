@@ -290,6 +290,10 @@ you begin to feel comfortable.
       <entry>Remove five words (and store them in the copy buffer)</entry>
     </row>
     <row>
+      <entry>yy</entry>
+      <entry>Yank (copy) a line (and store it in the copy buffer)</entry>
+    </row>
+    <row>
       <entry>yw</entry>
       <entry>Yank (copy) a single word (and store it in the copy buffer)</entry>
     </row>
@@ -327,7 +331,11 @@ you begin to feel comfortable.
     </row>
     <row>
       <entry>:s'old'new'g</entry>
-      <entry>Replace all occurances of 'old' with 'new'</entry>
+      <entry>Replace all occurances of 'old' with 'new' (current line only)</entry>
+    </row>
+    <row>
+      <entry>:%s'old'new'g</entry>
+      <entry>Replace all occurances of 'old' with 'new' (all lines)</entry>
     </row>
     <row>
       <entry>/asdf</entry>
