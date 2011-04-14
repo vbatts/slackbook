@@ -19,8 +19,10 @@ General
 Chapter 2. Installation
 
 * Section 'Booting the Installer'
+  - Does this need to be reworked? Feels kinda kludgy and amateur.
+    - seems fine to me (rworkman)
 
-  Does this need to be reworked? Feels kinda kludgy and amateur.
+* Need to mention gdisk (for GPT parts) in the partitioning section
 
 * At the tail end we might wish to tell the user about adduser and
   inform him that he can skip ahead to chapter 9 briefly if he needs
