@@ -21,11 +21,12 @@
 <para>
 Slackware Linux may be one of the oldest surviving Linux distributions 
 but that does not mean it has to be left behind.  While Slackware does 
-aim to maintain it's traditional UNIX roots and values, there is no 
-escaping "progress".  Subsystems change, Window Managers come and go and 
-new ways are devised to manage the complexities of a modern OS.
-While we do resist change for changes sake, it's inevitable that as 
-things evolve documentation becomes stale and books are no exception.
+aim to maintain its traditional UNIX roots and values, there is no 
+escaping "progress".  Subsystems change, window managers come and go and 
+new ways are devised to manage the complexities of a modern operating
+system.
+While we do resist change for change's sake, it's inevitable that as 
+things evolve documentation becomes stale &mdash; books are no exception.
 </para>
 
 </section>
