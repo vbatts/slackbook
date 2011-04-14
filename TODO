@@ -20,8 +20,6 @@ Chapter 2. Installation
 
 * Section 'Booting the Installer'
 
-  Does this need to be reworked? Feels kinda kludgy and amateur.
-
 * At the tail end we might wish to tell the user about adduser and
   inform him that he can skip ahead to chapter 9 briefly if he needs
   more info.
