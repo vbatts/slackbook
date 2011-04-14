@@ -7,7 +7,7 @@
 
 <para>
 Slackware systems often run hundreds or thousands of programs, each of
-which is refered to as a process. Managing these processes is an
+which is referred to as a process. Managing these processes is an
 important part of system administration. So how exactly do we handle
 all of these seperate processes?
 </para>
@@ -60,7 +60,7 @@ argument.
   102 ?        00:00:02 kblockd/0
   105 ?        00:01:19 kacpid
   106 ?        00:00:01 kacpi_notify
-... many more lines ommitted ...
+... many more lines omitted ...
 </screen>
 
 <para>
@@ -84,7 +84,7 @@ root         4  0.0  0.0      0     0 ?        S    Apr05   0:00 [ksoftirqd/0]
 root         7  0.0  0.0      0     0 ?        S    Apr05   0:11 [events/0]
 root         9  0.0  0.0      0     0 ?        S    Apr05   0:01 [work_on_cpu/0]
 root        11  0.0  0.0      0     0 ?        S    Apr05   0:00 [khelper]
-... many more lines ommitted ....
+... many more lines omitted ....
 </screen>
 
 <para>
@@ -101,7 +101,7 @@ parent of a child process also ends the child. We do this with the
 </para>
 
 <screen><prompt>darkstar:~$ </prompt><userinput>ps -ejH</userinput>
-... many lines ommitted ...
+... many lines omitted ...
  3660  3660  3660 tty1     00:00:00   bash
 29947 29947  3660 tty1     00:00:00     startx
 29963 29947  3660 tty1     00:00:00       xinit
@@ -111,7 +111,7 @@ parent of a child process also ends the child. We do this with the
 29988 29972  3660 tty1     00:00:04           xfce4-session
 29997 29972  3660 tty1     00:00:16             xfwm4
 29999 29972  3660 tty1     00:00:02             Thunar
-... many more lines ommitted ...
+... many more lines omitted ...
 </screen>
 
 <para>
@@ -158,7 +158,7 @@ In order to signal a process, we first need to know it's PID. You can
 get this easily with <application>ps</application> as we discused. In
 order to send different signals to a running process, you simply pass
 the signal number and <arg>-s</arg> as an argument.  The <arg>-l</arg>
-argument lists all the signals you can chose and their number. You can
+argument lists all the signals you can choose and their number. You can
 also send signals by their name with <arg>-s</arg>.
 </para>
 
@@ -167,7 +167,7 @@ also send signals by their name with <arg>-s</arg>.
  5) SIGTRAP	 6) SIGABRT	 7) SIGBUS	 8) SIGFPE
  9) SIGKILL	10) SIGUSR1	11) SIGSEGV	12) SIGUSR2
 13) SIGPIPE	14) SIGALRM	15) SIGTERM	16) SIGSTKFLT
-... many more lines ommitted ...
+... many more lines omitted ...
 <prompt>darkstar:~$ </prompt><userinput>kill 1234 # SIGTERM</userinput>
 <prompt>darkstar:~$ </prompt><userinput>kill -s 9 1234 # SIGKILL</userinput>
 <prompt>darkstar:~$ </prompt><userinput>kill -s 1 1234 # SIGHUP</userinput>
@@ -308,9 +308,9 @@ paste the following commented text at the top of your own cron entries.
 By default, Slackware includes a number of entries and comments in
 root's crontab. These entries make it easier to setup periodic system
 tasks by creating a number of directories in <filename>/etc</filename>
-corrosponding to how often the tasks should run. Any script placed
+corresponding to how often the tasks should run. Any script placed
 within these directories will be run hourly, daily, weekly, or monthly.
-The names should be self-explainatory:
+The names should be self-explanatory:
 <filename>/etc/cron.hourly</filename>,
 <filename>/etc/cron.daily</filename>,
 <filename>/etc/cron.weekly</filename>, and
