@@ -7,7 +7,7 @@
 
 <para>
 Slackware's installation is a bit more simplistic than that of most
-other Linux distributions, and is very reminiscent of installing one of the
+other Linux distributions and is very reminiscent of installing one of the
 varieties of BSD operating systems.  If you're familiar with those, you
 should feel right at home.  If you've never installed Slackware or used
 a distribution that makes use of a non-graphical installer, you may
@@ -124,18 +124,19 @@ slackware login: <userinput>root</userinput>
 
 <para>
 Unlike other Linux distributions which boot you directly into a
-dedicated installer program, Slackware's installer gives you a limited
-Linux distribution contained in your system's RAM from the word go. This 
+dedicated installer program, Slackware's installer drops you into a 
+limited Linux distribution loaded into your system's RAM.  This 
 limited distribution is then used to run all the installation programs
 manually, or can be used in emergencies to fix a broken system that
 fails to boot. Now that you're logged in as root (there is no password
-within the installer) it's time to start setting up your disks. At this
-point, you may setup software RAID or LVM support if you wish, but
-those topics are outside of the scope of this book. I encourage you to
-refer to the excellent <filename>README_RAID.TXT</filename> and
-<filename>README_LVM.TXT</filename> files on your CD if you desire to
-setup your system with these advanced tools. Most users won't have any
-need to do so and should proceed directly to partitioning.
+within the installer), it's time to start setting up your disks. At this
+point, you may setup software RAID, LVM, or LUKS (encryption) support if 
+you wish, but those topics are outside of the scope of this book.  I 
+encourage you to refer to the excellent <filename>README_RAID.TXT</filename>,
+<filename>README_LVM.TXT</filename>, and <filename>README_CRYPT.TXT</filename>
+files on your CD if you wish to set up your system with one or more of those.
+Most users won't have any need to do so and thus should proceed directly to 
+partitioning.
 </para>
 
 </section>
