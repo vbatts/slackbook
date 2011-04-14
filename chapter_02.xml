@@ -130,10 +130,12 @@ limited distribution is then used to run all the installation programs
 manually, or can be used in emergencies to fix a broken system that
 fails to boot. Now that you're logged in as root (there is no password
 within the installer) it's time to start setting up your disks. At this
-point, you may setup software RAID or LVM support if you wish, but
+point, you may setup software RAID or LVM support if you wish or even
+an encrpted root partition, but
 those topics are outside of the scope of this book. I encourage you to
-refer to the excellent <filename>README_RAID.TXT</filename> and
-<filename>README_LVM.TXT</filename> files on your CD if you desire to
+refer to the excellent <filename>README_RAID.TXT</filename>,
+<filename>README_LVM.TXT</filename>, and
+<filename>README_CRYPT.TXT</filename> files on your CD if you desire to
 setup your system with these advanced tools. Most users won't have any
 need to do so and should proceed directly to partitioning.
 </para>
