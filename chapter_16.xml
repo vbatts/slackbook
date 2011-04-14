@@ -351,6 +351,37 @@ In this case we looked for an "A" record which returned an IPv4 address.
 
 </section>
 
+<section><title>finger</title>
+
+<para>
+<application>finger</application>(1) isn't exactly a network diagnostic
+tool as much as it is a network-user diagnostic tool. Using
+<application>finger</application>, you can gather a handful of useful
+information about users on servers running the
+<application>fingerd</application>(8) daemon. Today very few servers
+still offer <application>fingerd</application>, but for those that do
+it can be a useful tool for keeping track of your friends and
+co-workers.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>finger alan@cardinal.lizella.net</userinput>
+[cardinal.lizella.net]
+Login: alan           			Name: Alan Hicks
+Directory: /home/alan               	Shell: /bin/bash
+Office: 478 808 9919, 478 935 8133
+On since Wed Apr 13 17:43 (UTC) on pts/9 from
+75-150-12-113-atlanta.hfc.comcastbusiness.net
+    32 minutes 24 seconds idle
+     (messages off)
+On since Wed Apr 13 17:45 (UTC) on pts/10 from :pts/9:S.0
+   48 minutes 56 seconds idle
+Mail forwarded to alan@lizella.net
+No mail.
+No Plan.
+</screen>
+
+</section>
+
 </section>
 
 <section><title>Web Browsers</title>
@@ -432,6 +463,110 @@ Length: 75306 (74K)
 
 2010-05-01 13:51:22 (110 KB/s) - `ChangeLog.txt' saved [75306]
 </screen>
+
+</section>
+
+</section>
+
+<section>
+<title>Mail Clients</title>
+
+<section><title>pine</title>
+
+<para>
+<application>pine</application> is one of the oldest command-line
+interface mail clients still in existance and remains one of the most
+user-friendly. <application>pine</application> was created by the
+University of Washington and carries with it both a trademark and a
+copyright license that are difficult to work with. Thankfully back in
+2005, the university saw fit to re-write it without the trademark and
+with a more open license, so <application>alpine</application>(1) was
+born. This is the pine-clone distributed with Slackware. To start using
+it, simply type <application>pine</application> at the command line.
+Using it is very simple due to its menu-driven system as well as the
+command referance neatly located at the bottom of the screen. See for
+yourself.
+</para>
+
+<screen>
+  ALPINE 2.00   MAIN MENU              Folder: INBOX               No
+Messages  
+
+
+          ?     HELP               -  Get help using Alpine           
+
+          C     COMPOSE MESSAGE    -  Compose and send a message      
+
+          I     MESSAGE INDEX      -  View messages in current folder 
+
+          L     FOLDER LIST        -  Select a folder to view         
+
+          A     ADDRESS BOOK       -  Update address book             
+
+          S     SETUP              -  Configure Alpine Options        
+
+          Q     QUIT               -  Leave the Alpine program        
+
+
+                  Copyright 2006-2008 University of Washington
+                    [Folder "INBOX" opened with 0 messages]
+? Help                     P PrevCmd                 R RelNotes                 
+O OTHER CMDS > [ListFldrs] N NextCmd                 K KBLock                  
+</screen>
+
+</section>
+
+<section><title>mutt</title>
+
+<para>
+Some people don't like <application>pine</application>. Some people
+want more control. Some people want a fully-configurable mail client
+with plugin support and a no-nonsense attitude. Those people use
+<application>mutt</application>(1). <application>mutt</application>
+isn't as user friendly as <application>pine</application>, but makes up
+for it with power. You won't find the user-friendly command referance
+at the bottom of the screen, <application>mutt</application> uses every
+last inch of real-estate for mail processing duty. It's feature support
+is extensive: threaded displays are no problem for the mighty
+mixed-breed! You can configure <application>mutt</application> with a
+<filename>.muttrc</filename> file in your home directory. With all the
+many different possible configuration options, there's even a man page
+for that, muttrc(5). You might want to read up on it.
+</para>
+
+<screen>
+3172 N   Jan 17 Thomas Morper   (2.8K)     │ └─>Re: [Slackbuilds-users] Exim Sbo
+3173 N   Jan 17 TuxaneMedia     (2.5K)     └─>Re: [Slackbuilds-users] Exim Sbo
+3174 N   Jan 06 Uli Sch?fer     (4.6K) [Slackbuilds-users] mrtg-2.15.2 breaks wi
+3175 N   Jan 06 Willy Sudiarto  (4.0K) └─>
+3176 N   Jan 06 Audrius Ka??uka (3.9K)   └─>
+3177 N   Jan 06 Niels Horn      (4.4K)     └─>
+3178 N * Jan 09 King Beowulf    (6.5K) [Slackbuilds-users]  libreoffice (3.3.0rc
+3179 N * Jan 09 Niels Horn      (4.8K) └─>Re: [Slackbuilds-users] libreoffice (3
+3180   * Jan 09 Niels Horn      (  73)   └─>                                    
+3181 N * Jan 09 King Beowulf    (5.9K)     └─>
+3182 N   Jan 10 Robby Workman   (7.8K) [Slackbuilds-users] Updates - 20110110
+3183 N   Jan 10 B Watson        (3.6K) [Slackbuilds-users] Fwd: nted slackbuild
+3184 N   Jan 11 SlackBuilds@cat (2.5K) [Slackbuilds-users] /usr/share/ package s
+3185 N   Jan 11 Robby Workman   (3.4K) └─>
+3186 N   Jan 12 SlackBuilds@cat (3.4K)   └─>
+3187 N   Jan 11 Robby Workman   (4.5K)     └─>
+3188 N   Jan 12 Robby Workman   (2.3K) [Slackbuilds-users] Unavailability of mai
+3189 N   Jan 13 Mr. B-o-B       (3.7K) └─>
+3190 N   Jan 13 Josiah Boothby  (3.2K) [Slackbuilds-users] Ted's Word Processor
+3191 N   Jan 14 Adam Swift      (7.4K) [Slackbuilds-users] Web submission failur
+3192 N   Jan 14 Rob McGee       (3.5K) └─>
+</screen>
+
+</section>
+
+<section><title>mailx</title>
+
+<para>
+So those are great and everything, but what if you just want a mail
+client that isn't menu-driven? Thankfully
+<application>mailx</application> is here to save you. 
+</para>
 
 </section>
 
