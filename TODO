@@ -16,28 +16,21 @@ General
     in reference to how the admin might be misled into thinking that they are
     causing breakage...
 
-Chapter 2.
-* Booting the Installer
+Chapter 2. Installation
+
+* Section 'Booting the Installer'
+
+  Does this need to be reworked? Feels kinda kludgy and amateur.
+
+* At the tail end we might wish to tell the user about adduser and
+  inform him that he can skip ahead to chapter 9 briefly if he needs
+  more info.
 
 Chapter 4. Basic Shell Commands
 
 * Section 'Reading Documents'
 
   Perhaps split this with subsections for cat, more, and less?
-
-Chapter 6. X Windows
-
-* Section 'configuring the X server'
-
-  "The second most popular way to configure X on your system is the handy 
-  xorgconfig(1)." << Factually, this is no longer true. The xorgconfig and 
-  xorgcfg utilities have been removed as per Slackware 13.0.  What you 
-  *should* mention is that the X in Slackware will auto-configure itself 
-  if a xorg.conf file is missing (or will automatically configure components 
-  for any sections that are missing from an existing xorg.conf using the 
-  information it receives from the HAL daemon)
-  * note that HAL is slated for deprecation and this might be handled by
-    udev directly at some point in the future...
 
 Chapter 10. Working with Filesystems
 

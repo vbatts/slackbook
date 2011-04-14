@@ -21,7 +21,7 @@ that is what this chapter is all about.
 <para>
 Your Slackware Linux system comes with lots of built-in documentation
 for nearly every installed application.  Perhaps the most common method
-of reading system documentation is by using the
+of reading system documentation is 
 <application>man</application>(1).  <application>man</application>
 (short for manual) will bring up the included man-page for any
 application, system call, configuration file, or library you tell it
@@ -279,7 +279,8 @@ unless the first two already existed, as you saw in the example.
 
 <para>
 Removing a file is as easy as creating one.  The
-<application>rm</application>(1) will remove a file (assuming of course
+<application>rm</application>(1) command will remove a file 
+(assuming of course
 that you have permission to do this).  There are a few very common
 arguments to <application>rm</application>.  The first is
 <arg>-f</arg> and is used to force the removal of a file
@@ -342,8 +343,7 @@ order to deal with directories.
 </para>
 
 <screen><prompt>darkstar:~$ </prompt><userinput>zip -r /tmp/home.zip /home</userinput>
-<prompt>darkstar:~$ </prompt><userinput>zip /tmp/large_file.zip
-/tmp/large_file</userinput></screen>
+<prompt>darkstar:~$ </prompt><userinput>zip /tmp/large_file.zip /tmp/large_file</userinput></screen>
 
 <para>
 The order of the arguments is very important. The first filename must
@@ -423,8 +423,8 @@ One alternative to <application>gzip</application> is the
 almost the exact same way.  The advantage to
 <application>bzip2</application> is that it boasts greater compression
 strength. Unfortunately, achieving that greater compression is a slow
-process, so <application>bzip2</application> takes longer to run than
-other alternatives.
+and CPU-intensive process, so <application>bzip2</application> 
+typicall takes much longer to run than other alternatives.
 </para>
 
 </section>
