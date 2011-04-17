@@ -19,6 +19,9 @@ General
     to upstream) a bad idea - not sure I completely agree, but there is a 
     lot of potential for breakage, it seems...
 
+* Need to mention iptables somewhere - perhaps consolidate some bits from
+  my iptables/netfilter presentations?  --rworkman
+
 Chapter 2. Installation
 
 * Need to mention gdisk (for GPT parts) in the partitioning section
