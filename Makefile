@@ -6,7 +6,7 @@ book.html: build.sh main.xml $(chapters)
 	sh build.sh && \
 	ls -l $@
 
-book.pdf: main.xml $(chapters)
+book.pdf: main.xml $(chapters) .dblatex
 	dblatex \
 		--pdf \
 		-x'-xinclude' \
@@ -18,6 +18,9 @@ view.pdf: book.pdf
 
 view.html: book.html
 	xdg-open $<
+
+.dblatex:
+	which dblatex 2>/dev/null || echo "ERROR: 'dblatex' REQUIRED, SEE http://github.com/vbatts/SlackBuilds/ FOR THE SlackBuild"
 
 .PHONY: clean
 clean:
