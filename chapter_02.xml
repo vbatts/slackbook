@@ -356,46 +356,158 @@ ensure that they are properly read by the kernel.
 <section>
 <title>The <application>setup</application> Program</title>
 
-  <!-- Each part of setup gets its individual subsection. -->
+<para>
+Now that you've created your partitions it's time to run the
+<application>setup</application> program to install Slackware.
+<application>setup</application> will handle formatting partitions,
+installing packages, and running basic configuration scripts
+step-by-step. In order to do so, just type
+<application>setup</application> at your shell prompt.
+</para>
+
+<imageobject>
+  <imagedata fileref="png/setup-program.png" format="PNG"/>
+</imageobject>
 
   <section>
   <title>Help</title>
+
+  <para>
+  If you've never installed Slackware before, you can get a very basic
+  over-view of the Slackware installer by reading the Help menu.
+  Most of the information here is on navigating through the installer
+  which should be fairly intuitive, but if you've never used a
+  curses-based program before you may find this useful.
+  </para>
+
+  <imageobject>
+    <imagedata fileref="png/setup-help.png" format="PNG"/>
+  </imageobject>
 
   </section>
 
   <section>
   <title>Keymap</title>
 
+  <para>
+  Before we go any further, Slackware gives you the opportunity to 
+  select a different mapping for your keyboard. If you're using a
+  standard US keyboard you can safely skip this step, but if you're
+  using an international keyboard you will want to select the correct
+  mapping now. This ensures that the keys you press on your keyboard
+  will do exactly what you expect them to do.
+  </para>
+
+  <imageobject>
+    <imagedata fileref="png/setup-keymap.png" format="PNG"/>
+  </imageobject>
+
   </section>
 
   <section>
   <title>Addswap</title>
 
+  <para>
+  If you created a swap partition, this step will allow you to enable
+  it before running any memory-intensive activities like installing
+  packages. swap space is essentially virtual memory. It's a hard drive
+  partition (or a file, though Slackware's installer does not support
+  swap files) where regions of active system memory get copied when
+  your computer is out of useable RAM. This lets the computer "swap"
+  programs in and out of active RAM, allowing you to use more memory
+  than your computer actually has. This step will also add your swap
+  partition to <filename>/etc/fstab</filename> so it will be available
+  to your OS.
+  </para>
+
+  <imageobject>
+    <imagedata fileref="png/setup-swap.png" format="PNG"/>
+  </imageobject>
   </section>
 
   <section>
   <title>Target</title>
+
+  <para>
+  Our next step is selecting our root partition and any other
+  partitions we'd like Slackware to utilize. You'll be given a choice 
+  of filesystems to use and whether or not to format the partition. If
+  you're installing to a new partition you must format it. If you have
+  a partition with data on it you'd like to save, don't. For example,
+  many users have a seperate <filename>/home</filename> partition used
+  for user data and elect not to format it on install. This lets them
+  install newer versions of Slackware without having to backup and
+  restore this data.
+  </para>
+
+  <imageobject>
+    <imagedata fileref="png/setup-target.png" format="PNG"/>
+  </imageobject>
 
   </section>
 
   <section>
   <title>Source</title>
 
+  <para>
+  Here you'll tell the installer where to find the Slackware packages.
+  The most common method is to use the Slackware install DVD or CDs, 
+  but there are various other options are available. If you have your
+  packages installed to a partition that you setup in the previous
+  step, you can install from that partition or a pre-mounted directory.
+  (You may need to mount that partition with
+  <application>mount</application>(8) first. See chapter 11 for more
+  details.) Additionally, Slackware offers a variety of networked
+  options such as NFS shares, FTP, HTTP, and Samba. If you select a
+  network installation, Slackware will prompt you for TCP/IP
+  information first. We're only going to discuss installation from the
+  DVD, but other methods are similar and straightforward.
+  </para>
+
+  <imageobject>
+    <imagedata fileref="png/setup-source.png" format="PNG"/>
+  </imageobject>
   </section>
 
   <section>
   <title>Select</title>
 
+  <para>
+  One unique feature of Slackware is its manner of dividing packages
+  into disksets. At the beginning of time, network access to FTP 
+  servers was available only through incredibly slow 300 baud modems,
+  so Slackware was split into disk sets that would fit onto floppy
+  disks so users could download and install only those packages they
+  were interested in. Today that practice continues and the installer
+  allows you to chose which sets to install. This allows you to
+  easily skip packages you may not want, such as X and KDE on headless
+  servers or Emacs on everything. Please note that the "A" series is
+  always required.
+  </para>
+
+  <imageobject>
+    <imagedata fileref="png/setup-select.png" format="PNG"/>
+  </imageobject>
   </section>
 
   <section>
   <title>Install</title>
-
+  <imagedata fileref="png/setup-install.png" format="PNG"/>
   </section>
 
   <section>
   <title>Configure</title>
+  <imageobject>
+    <imagedata fileref="png/usb-boot-stick.png" format="PNG"/>
+  </imageobject>
 
+  <imageobject>
+    <imagedata fileref="png/setup-lilo.png" format="PNG"/>
+  </imageobject>
+
+  <imageobject>
+    <imagedata fileref="png/setup-xwmconfig.png" format="PNG"/>
+  </imageobject>
   </section>
 
 </section>
