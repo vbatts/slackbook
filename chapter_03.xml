@@ -249,7 +249,9 @@ installer, but you can run it at any time from a terminal.
 
 <para>
 
-<imagedata fileref="img/liloconfig01.png" format="PNG" />
+<imageobject>
+<imagedata fileref="png/setup-lilo.png" format="PNG" />
+</imageobject>
 
 </para>
 

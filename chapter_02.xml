@@ -492,22 +492,197 @@ step-by-step. In order to do so, just type
 
   <section>
   <title>Install</title>
-  <imagedata fileref="png/setup-install.png" format="PNG"/>
+
+  <para>
+  Finally we get to the meat of the installer. At this stage, Slackware
+  will ask you what method to use to chose packages. If this is your
+  first time installing Slackware, the "full" method is highly
+  recommended. Even if this isn't your first time, you'll probably want
+  to use it anyway. 
+  </para>
+
+  <para>
+  The "menu" and "expert" options allow you to choose
+  individual packages to install and are of use to skilled users
+  familiar with the OS. These methods allow such users to quickly prune
+  packages from the installer to build a very minimal system. If you
+  don't know what you're doing (sometimes even if you do) you're likely
+  to leave out crucial pieces of software and end up with a broken
+  system.
+  </para>
+
+  <para>
+  The "newbie" method can be very helpful to a new user, but
+  takes a very long time to install. This method will install all the
+  required packages, then prompt you individually for every other
+  package. The big advantage here is that is pauses and gives you a 
+  brief overview of the package contents. For a new user, this
+  introduction into what is included with Slackware can be informative.
+  For most other users it is a long and tedious process.
+  </para>
+
+  <para>
+  The "custom" and "tagpath" options should only be used by people with
+  the greatest skill and expertise with Slackware. These methods allow
+  the user to install packages from custom tagfiles. Tagfiles are
+  only rarely used. We won't discuss them in this book.
+  </para>
+
+  <imageobject>
+    <imagedata fileref="png/setup-install.png" format="PNG"/>
+  </imageobject>
+
   </section>
 
   <section>
   <title>Configure</title>
+
+  <para>
+  Once all the packages are installed you're nearly finished. At this
+  stage, Slackware will prompt you with a variety of configuration
+  tasks for your new operating system. Many of these are optional, but
+  most users will need to set something up here. Depending on the 
+  packages you've installed, you may be offered different configuration
+  options than the ones shown here, but we've included all the really
+  important ones.
+  </para>
+
+  <para>
+  The first thing you'll likely be prompted to do is setup a boot disk.
+  In the past this was typically a 1.44MB floppy disk, but today's
+  Linux kernel is far too larger to fit on a single floppy, so
+  Slackware offers to create a bootable USB flash memory stick. Of
+  course, your computer must support booting from USB in order to use
+  a USB boot stick (most modern computers do). If you do not intend to
+  use LILO or another traditional boot loader, you should consider
+  making a USB boot stick. Please note that doing so will erase the 
+  contents of whatever memory stick you're using, so be careful.
+  </para>
+
   <imageobject>
     <imagedata fileref="png/usb-boot-stick.png" format="PNG"/>
   </imageobject>
+
+  <para>
+  Nearly everyone will need to setup the LInux LOader, LILO. LILO is
+  in charge of booting the Linux kernel and connecting to an initrd or
+  the root filesystem. Without it (or some other boot loader), your new
+  Slackware operating system will not boot. Slackware offers a few
+  options here. The "simple" method attempts to automatically configure
+  LILO for your computer, and works well with very simple systems. If 
+  Slackware is the only operating system on your computer, it should
+  configure and install LILO for you without any hassels. If you don't
+  trust the simpler method to work, or if you want to take an in-depth
+  look at how to configure LILO, the "expert" method is really not all
+  that complicated. This method will take you through each step and
+  offer to setup dual-boot for Windows and other Linux operating
+  systems. It also allows you to append kernel command parameters (most
+  users will not need to specify any though).
+  </para>
+
+  <para>
+  LILO is a very important part of your Slackware system, so an entire
+  section of the next chapter is devoted to it. If you're having
+  difficulty configuring LILO at this stage, you may want to skip ahead
+  and read Chapter 3 first, then return here.
+  </para>
 
   <imageobject>
     <imagedata fileref="png/setup-lilo.png" format="PNG"/>
   </imageobject>
 
+  <para>
+  This simple step allows you to configure and activate a console mouse
+  for use outside of the graphical desktops. By activating a console
+  mouse, you'll be able to easily copy and paste from within the
+  Slackware terminal. Most users will need to choose one of the first
+  three options, but many are offered, and yes those ancient two-button
+  serial mice do work.
+  </para>
+
+  <imageobject>
+    <imagedata fileref="png/setup-mouse.png" format="PNG"/>
+  </imageobject>
+
+  <para>
+  netconfig!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  </para>
+
+  <para>
+  services!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  FILL THIS IN!!!!!!
+  </para>
+
+  <para>
+  Every computer needs to keep track of the current time, and with so
+  many timezones how does Slackware know which one to use? Well, you
+  have to tell it which one to use, and that's why this step is here.
+  If your computer's hardware clock is set to UTC (Coordinated
+  Universal Time), you'll need to select that; most hardware clocks are
+  not set to UTC from the factory (though you could set it that way on
+  your own; Slackware doesn't care). Then simply select your timezone
+  from the list provided and off you go.
+  </para>
+
+  <imageobject>
+    <imagedata fileref="png/setup-timezone.png" format="PNG"/>
+  </imageobject>
+
+  <para>
+  If you installed the X disk set, you'll be prompted to select a
+  default window manager or desktop environment. What you select
+  here will apply to every user on your computer, unless that user
+  decides to run <application>xwmconfig</application>(1) and choose
+  a different one. Don't be alarmed if the options you see below do
+  not match the ones Slackware offers you. 
+  <application>xwmconfig</application> only offers choices that you
+  installed. So for example, if you elected to skip the "KDE" disk set,
+  KDE will not be offered.
+  </para>
+
   <imageobject>
     <imagedata fileref="png/setup-xwmconfig.png" format="PNG"/>
   </imageobject>
+
+  <para>
+  The last configuration step is setting a root password. The root
+  user is the "super user" on Slackware and all other UNIX-like
+  operating systems. Think of root as the Administrator user. root
+  knows all, sees all, and can do all, so setting a strong root
+  password is just common sense.
+  </para>
+
+  <para>
+  With this last step complete, you can now exit the Slackware
+  installer and reboot with a good old <keycap>CTRL</keycap> +
+  <keycap>ALT</keycap> + <keycap>DELETE</keycap>. Remove the 
+  Slackware installation disk, and if you performed all the steps
+  correctly, your computer will boot into your new Slackware
+  linux system. If something went wrong, you probably skipped the
+  LILO configuration step or made an error there somehow. Thankfully,
+  the next chapter should help you sort that out.
+  </para>
+
   </section>
 
 </section>
