@@ -13,8 +13,9 @@ list_imgs:
 define png_template
 $(1): $(2)
 	mkdir -p $(CWD)png && \
-	convert $(2) -antialias -flatten $(1)
+	convert -channel RGBA -density 196 $(2) -resample 72 -geometry 800x600 -trim +repage -flatten $(1)
 endef
+	#convert $(2) -geometry 800x600 -quality 100 -depth 24 -weight 10 -render -flatten $(1)
 
 # this is a little voodoo, to iterate over the *.eps files, 
 # and create a make target of the png output name, that will
@@ -58,7 +59,7 @@ view.html: book.html
 	rm -fr png/
 
 .PHONY: clean
-clean: .clean.pdf .clean.html .clean.images
+clean: .clean.pdf .clean.html
 	
 
 .DEFAULT_GOAL := book.html
