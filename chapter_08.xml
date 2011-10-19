@@ -46,7 +46,13 @@ merit some clarification.
 </section>
 
 <section>
-<title>Commandline Printing Tools</title>
+<title>Commandline Print Utilities</title>
+
+<para>
+Using the command <command>lpr</command>(1) to print files, is a simple task.
+It can queue a print job using a file or standard input (stdin).
+Refer to the manpages for more options.
+</para>
 
 <para>
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
