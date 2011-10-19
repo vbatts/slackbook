@@ -94,7 +94,50 @@ is consuming when <application>ps</application> is run.
 </para>
 
 <para>
-Finally, <application>ps</application> can also create a process tree.
+To accomplish bits of this, on a per process basis, <command>ps</command> allows
+one or more process IDs (PIDs) to be provided in the command line, and has the '-o' flag
+to show a particular attribute of the PID.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ps -o cmd -o etime $$</userinput>
+CMD                             ELAPSED
+/bin/bash                         12:22
+</screen>
+
+<para>
+What this is displaying, is the PID's command name (cmd), and its elapsed time (etime). 
+The PID in this example, is a shell variable for the PID of the current shell. So you
+can see, in this example, the shell process has existed for 12 minutes, 22 seconds.
+</para>
+
+<para>
+Using the <command>pgrep</command>(1) command, this can get more automatable.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>ps -o cmd -o rss -o vsz $(pgrep httpd)</userinput>
+CMD                           RSS    VSZ
+/usr/sbin/httpd -k restart  33456  84816
+/usr/sbin/httpd -k restart  33460  84716
+/usr/sbin/httpd -k restart  33588  84472
+/usr/sbin/httpd -k restart  30424  81608
+/usr/sbin/httpd -k restart  33104  84900
+/usr/sbin/httpd -k restart  33268  85112
+/usr/sbin/httpd -k restart  30640  82724
+/usr/sbin/httpd -k restart  15168  67396
+/usr/sbin/httpd -k restart  33180  84416
+/usr/sbin/httpd -k restart  33396  84592
+/usr/sbin/httpd -k restart  32804  84232
+</screen>
+
+<para>
+In this example, a subshell execution, using <command>pgrep</command>,
+is returning the PIDs of any process, whose command
+name includes 'httpd'. Then <command>ps</command> displaying the command name, 
+resident memory size, and virtual memory size.
+</para>
+
+<para>
+Finally, <command>ps</command> can also create a process tree.
 This shows you which processes have children processes. Ending the
 parent of a child process also ends the child. We do this with the
 <arg>-ejH</arg> argument.
@@ -115,11 +158,35 @@ parent of a child process also ends the child. We do this with the
 </screen>
 
 <para>
-As you can see, <application>ps</application> is an incredibly powerful
+As you can see, <command>ps</command>(1) is an incredibly powerful
 tool for determining not only what processes are currently active on
 your system, but also for learning lots of important information about
 them.
 </para>
+
+<para>
+As is the case with many of the applications, there is often several tools 
+for the job. Similar to the <command>ps -ejH</command> output, but more terse,
+is <command>pstree</command>(1). It displays the process tree, a bit more visually.
+</para>
+
+<screen><prompt>darkstar:~$ </prompt><userinput>pstree</userinput>
+init-+-atd
+     |-crond
+     |-dbus-daemon
+     |-httpd---10*[httpd]
+     |-inetd
+     |-klogd
+     |-mysqld_safe---mysqld---8*[{mysqld}]
+     |-screen-+-4*[bash]
+     |        |-bash---pstree
+     |        |-2*[bash---ssh]
+     |        `-bash---irssi
+     |-2*[sendmail]
+     |-ssh-agent
+     |-sshd---sshd---sshd---bash---screen
+     `-syslogd
+</screen>
 
 </section>
 
@@ -130,7 +197,7 @@ them.
 Managing processes isn't only about knowing which ones are running, but
 also about communicating with them to change their behavior. The most
 common way of managing a program is to terminate it. Thus, the tool for
-the job is named <application>kill</application>(1). Despite the name,
+the job is named <command>kill</command>(1). Despite the name,
 <application>kill</application> doesn't actually terminate processes,
 but sends signals to them. The most common signal is a SIGTERM, which
 tells the process to finish up what it is doing and terminate. There
