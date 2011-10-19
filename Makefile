@@ -10,22 +10,20 @@ list_imgs:
 	@echo $(imgs_ps)
 	@echo $(imgs_png)
 
-define png_template
-$(1): $(2)
+# cleaning up the voodoo a bit.
+# now it matches a pattern instead of generating a bunch of rules
+# -- vbatts
+png/%.png: ps-imgs/%.eps .convert
 	mkdir -p $(CWD)png && \
-	convert -channel RGBA -density 196 $(2) -resample 72 -geometry 800x600 -trim +repage -flatten $(1)
-endef
-	#convert $(2) -geometry 800x600 -quality 100 -depth 24 -weight 10 -render -flatten $(1)
+	convert -channel RGBA -density 196 $< -resample 72 -geometry 800x600 -trim +repage -flatten $@
 
-# this is a little voodoo, to iterate over the *.eps files, 
-# and create a make target of the png output name, that will
-# build those *.png files
-# :) --vbatts
-$(foreach ps,$(imgs_ps),$(eval $(call png_template,$(addsuffix .png,$(addprefix png/,$(basename $(notdir $(ps))))),$(ps))))
+dummy:
+	convert $(2) -geometry 800x600 -quality 100 -depth 24 -weight 10 -render -flatten $(1)
 
-images: $(imgs_png)
+images: $(imgs_ps)
 
-book.html: build.sh main.xml $(chapters) $(imgs_png) .clean.html
+#book.html: build.sh main.xml $(chapters) $(imgs_png) .clean.html
+book.html: build.sh main.xml $(chapters) $(imgs_png)
 	sh build.sh && \
 	ls -l $@
 
@@ -42,8 +40,11 @@ view.pdf: book.pdf
 view.html: book.html
 	xdg-open $<
 
+.convert:
+	@which convert 2>/dev/null >/dev/null || echo "ERROR: 'convert' REQUIRED, this is in imagemagick" && touch $@
+
 .dblatex:
-	$(shell which dblatex 2>/dev/null >/dev/null || echo "ERROR: 'dblatex' REQUIRED, SEE http://github.com/vbatts/SlackBuilds/ FOR THE SlackBuild")
+	@which dblatex 2>/dev/null >/dev/null || echo "ERROR: 'dblatex' REQUIRED, SEE http://github.com/vbatts/SlackBuilds/ FOR THE SlackBuild" && touch $@
 
 
 .PHONY: .clean.html
@@ -54,12 +55,16 @@ view.html: book.html
 .clean.pdf:
 	rm -f book.pdf
 
+.PHONY: .clean.stuff
+.clean.stuff:
+	rm -fr .convert .dblatex
+
 .PHONY: .clean.images
 .clean.images:
 	rm -fr png/
 
 .PHONY: clean
-clean: .clean.pdf .clean.html
+clean: .clean.pdf .clean.html .clean.images .clean.stuff
 	
 
 .DEFAULT_GOAL := book.html
