@@ -2,7 +2,7 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter>
+<chapter id="ch_network-utils">
 <title>Basic Networking Utilities</title>
 
 <para>
@@ -12,7 +12,7 @@ correctly? And just what do you do now that it's setup? Well this
 chapter is for you.
 </para>
 
-<section>
+<section id="network-utils_network-diagnostics">
 <title>Network Diagnostic Tools</title>
 
 <para>
@@ -25,7 +25,7 @@ graphical front-ends, but we're going to deal almost exclusively with
 command-line tools for now.
 </para>
 
-<section>
+<section id="network-utils_ping">
 <title>ping</title>
 
 <para>
@@ -48,7 +48,7 @@ functioning properly, but still not send replies.
 </para>
 
 
-<screen><prompt>darkstar:~# </prompt><userinput>ping -c 3 www.slackware.com</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>ping -c 3 www.slackware.com</userinput>
 64 bytes from slackware.com (64.57.102.34): icmp_seq=1 ttl=47 time=87.1 ms
 64 bytes from slackware.com (64.57.102.34): icmp_seq=2 ttl=47 time=86.2 ms
 64 bytes from slackware.com (64.57.102.34): icmp_seq=3 ttl=47 time=86.7 ms
@@ -60,7 +60,7 @@ rtt min/avg/max/mdev = 86.282/86.718/87.127/0.345 ms
 
 </section>
 
-<section>
+<section id="network-utils_traceroute">
 <title>traceroute</title>
 
 <para>
@@ -77,7 +77,7 @@ picture when using it. Still, it remains a handy tool for network
 troubleshooting.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>traceroute www.slackware.com</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>traceroute www.slackware.com</userinput>
 traceroute to slackware.com (64.57.102.34), 30 hops max, 46 byte
 packets
  1  gw.ctsmacon.com (192.168.1.254)  1.468 ms  2.045 ms  1.387 ms
@@ -101,7 +101,7 @@ packets
 </screen>
 </section>
 
-<section>
+<section id="network-utils_telnet">
 <title>telnet</title>
 
 <para>
@@ -127,26 +127,26 @@ pages or check your e-mail. Simply inform
 all set.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>telnet www.slackware.com 80</userinput>
+<screen><prompt>darkstar:~&#36; </prompt><userinput>telnet www.slackware.com 80</userinput>
 Trying 64.57.102.34...
 Connected to www.slackware.com.
 Escape character is '^]'.
-<userinput>HEAD / HTTP/1.1
+<userinput>HEAD &#47; HTTP&#47;1.1
 Host: www.slackware.com
 </userinput>
-HTTP/1.1 200 OK
+HTTP&#47;1.1 200 OK
 Date: Thu, 04 Feb 2010 18:01:35 GMT
-Server: Apache/1.3.27 (Unix) PHP/4.3.1
+Server: Apache&#47;1.3.27 (Unix) PHP&#47;4.3.1
 Last-Modified: Fri, 28 Aug 2009 01:30:27 GMT
 ETag: "61dc2-5374-4a973333"
 Accept-Ranges: bytes
 Content-Length: 21364
-Content-Type: text/html
+Content-Type: text&#47;html
 </screen>
 
 </section>
 
-<section>
+<section id="network-utils_ssh">
 <title>ssh</title>
 
 <para>
@@ -169,9 +169,9 @@ because it is possible that some one is attempting to hijack the
 connection using what is known as a man-in-the-middle attack.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>ssh alan@slackware.com</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>ssh alan@slackware.com</userinput>
 alan@slackware.com's password: <userinput>secret</userinput>
-<prompt>alan@slackware.com:~$ </prompt>
+<prompt>alan@slackware.com:~&#36; </prompt>
 </screen>
 
 <para>
@@ -202,17 +202,17 @@ and change the manner in which it is displayed, but that is best
 explained by the man page and other reference material.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>tcpdump -i wlan0</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>tcpdump -i wlan0</userinput>
 tcpdump: verbose output suppressed, use -v or -vv for full protocol
 decode
 listening on wlan0, link-type EN10MB (Ethernet), capture size 96 bytes
-13:22:28.221985 IP gw.ctsmacon.com.microsoft-ds > 192.168.1.198.59387:
+13:22:28.221985 IP gw.ctsmacon.com.microsoft-ds &#62; 192.168.1.198.59387:
 Flags [P.], ack 838190560, win 3079, options [nop,nop,TS val 1382697489
 ecr 339048583], length 164WARNING: Short packet. Try increasing the
 snap length by 140
 SMB PACKET: SMBtrans2 (REPLY)
 
-13:22:28.222392 IP 192.168.1.198.59387 > gw.ctsmacon.com.microsoft-ds:
+13:22:28.222392 IP 192.168.1.198.59387 &#62; gw.ctsmacon.com.microsoft-ds:
 Flags [P.], ack 164, win 775, options [nop,nop,TS val 339048667 ecr
 1382697489], length 134WARNING: Short packet. Try increasing the snap
 length by 110
@@ -221,7 +221,7 @@ SMB PACKET: SMBtrans2 (REQUEST)
 
 </section>
 
-<section>
+<section id="network-utils_nmap">
 <title>nmap</title>
 
 <para>
@@ -244,13 +244,13 @@ you like.
 </para>
 
 <para>
-In order to "ping" hosts, you'll have to use the <arg>-sP</arg>
+In order to &#34;ping&#34; hosts, you'll have to use the <arg>-sP</arg>
 argument. The following command instructs
-<application>nmap</application> to "ping" www.slackware.com and the 16
+<application>nmap</application> to &#34;ping&#34; www.slackware.com and the 16
 IP addresses starting at 72.168.24.0 and ending at 72.168.24.15.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>nmap -sP www.slackware.com 72.168.24.0/28</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>nmap -sP www.slackware.com 72.168.24.0/28</userinput>
 </screen>
 
 <para>
@@ -262,25 +262,27 @@ hosts specified. There are also options to make
 scanning to return results quicker or fool intrusion detection
 services. For a full discussion, you should refer to the rather
 exhaustive man page. The following three commands perform a regular
-port scan, a SYN scan, and a "Christmas tree" scan.
+port scan, a SYN scan, and a &#34;Christmas tree&#34; scan.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>nmap www.example.com</userinput>
-<prompt>darkstar:~# </prompt><userinput>nmap -sS www.example.com</userinput>
-<prompt>darkstar:~# </prompt><userinput>nmap -sX www.example.com</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>nmap www.example.com</userinput>
+<prompt>darkstar:~&#35; </prompt><userinput>nmap -sS www.example.com</userinput>
+<prompt>darkstar:~&#35; </prompt><userinput>nmap -sX www.example.com</userinput>
 </screen>
 
-<para>
-Be warned! Some Internet Service Providers frown heavily on port
-scanning and may take measures to prevent you from doing it.
-<application>nmap</application> and applications like it are best used
-on your own systems for maintenance and security purposes, not as
-general purpose Internet scanners.
-</para>
+<warning>
+  <para>
+    Be warned! Some Internet Service Providers frown heavily on port
+    scanning and may take measures to prevent you from doing it.
+    <application>nmap</application> and applications like it are best
+    used on your own systems for maintenance and security purposes,
+    not as general purpose Internet scanners.
+  </para>
+</warning>
 
 </section>
 
-<section>
+<section id="network-utils_host">
 <title>host</title>
 
 <para>
@@ -291,7 +293,7 @@ this is run, your computer will perform a few common DNS lookups and
 return the results.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>host www.slackware.com</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>host www.slackware.com</userinput>
 www.slackware.com is an alias for slackware.com.
 slackware.com has address 64.57.102.34
 slackware.com mail is handled by 1 mail-mx.cwo.com.
@@ -312,30 +314,30 @@ far too many command-line options and lookup types to go into depth
 here, but the man page lists all the common use cases.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>dig @207.69.188.185 www.slackware.com a</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>dig @207.69.188.185 www.slackware.com a</userinput>
 
-; &lt;&lt;&gt;&gt; DiG 9.4.3-P4 &lt;&lt;&gt;&gt; @207.69.188.185 www.slackware.com a
-; (1 server found)
-;; global options:  printcmd
-;; Got answer:
-;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 57965
-;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 2, ADDITIONAL: 0
+&#59; &lt;&lt;&gt;&gt; DiG 9.4.3-P4 &lt;&lt;&gt;&gt; @207.69.188.185 www.slackware.com a
+&#59; (1 server found)
+&#59;&#59; global options:  printcmd
+&#59;&#59; Got answer:
+&#59;&#59; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 57965
+&#59;&#59; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 2, ADDITIONAL: 0
 
-;; QUESTION SECTION:
-;www.slackware.com.		IN	A
+&#59;&#59; QUESTION SECTION:
+&#59;www.slackware.com.		IN	A
 
-;; ANSWER SECTION:
+&#59;&#59; ANSWER SECTION:
 www.slackware.com.	86400	IN	CNAME	slackware.com.
 slackware.com.		86400	IN	A	64.57.102.34
 
-;; AUTHORITY SECTION:
+&#59;&#59; AUTHORITY SECTION:
 slackware.com.		86400	IN	NS	ns2.cwo.com.
 slackware.com.		86400	IN	NS	ns1.cwo.com.
 
-;; Query time: 348 msec
-;; SERVER: 207.69.188.185#53(207.69.188.185)
-;; WHEN: Sat Jul  3 16:25:10 2010
-;; MSG SIZE  rcvd: 105
+&#59;&#59; Query time: 348 msec
+&#59;&#59; SERVER: 207.69.188.185#53(207.69.188.185)
+&#59;&#59; WHEN: Sat Jul  3 16:25:10 2010
+&#59;&#59; MSG SIZE  rcvd: 105
 
 </screen>
 
@@ -344,7 +346,7 @@ Let's take a took at the command-line options used above.  The
 <arg>@207.69.188.185</arg> argument tells
 <application>dig</application> what DNS server to query. If it is not
 specified, <application>dig</application> will simply use whatever
-servers are listed in <filename>/etc/resolv.conf</filename>.  The
+servers are listed in <filename>&#47;etc&#47;resolv.conf</filename>.  The
 <arg>a</arg> argument at the end is the type of DNS record to lookup.
 In this case we looked for an "A" record which returned an IPv4 address.
 </para>
@@ -364,16 +366,16 @@ it can be a useful tool for keeping track of your friends and
 co-workers.
 </para>
 
-<screen><prompt>darkstar:~$ </prompt><userinput>finger alan@cardinal.lizella.net</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>finger alan@cardinal.lizella.net</userinput>
 [cardinal.lizella.net]
 Login: alan           			Name: Alan Hicks
-Directory: /home/alan               	Shell: /bin/bash
+Directory: &#47;home&#47;alan               	Shell: /bin/bash
 Office: 478 808 9919, 478 935 8133
-On since Wed Apr 13 17:43 (UTC) on pts/9 from
+On since Wed Apr 13 17:43 (UTC) on pts&#47;9 from
 75-150-12-113-atlanta.hfc.comcastbusiness.net
     32 minutes 24 seconds idle
      (messages off)
-On since Wed Apr 13 17:45 (UTC) on pts/10 from :pts/9:S.0
+On since Wed Apr 13 17:45 (UTC) on pts&#47;10 from :pts/9:S.0
    48 minutes 56 seconds idle
 Mail forwarded to alan@lizella.net
 No mail.
@@ -384,16 +386,19 @@ No Plan.
 
 </section>
 
-<section><title>Web Browsers</title>
+<section id="network-utils_web-browsers">
+<title>Web Browsers</title>
 
 <para>
 Slackware includes a variety of web browsers. If you're using a
-graphical desktop, you'll find Firefox, Seamonkey, and others you may
-already be familiar with, but what about console access? Fortunately,
-there are a number of capable web browsers here as well.
+graphical desktop, you'll find <application>Firefox</application>,
+<application>Seamonkey</application>, and others you may already be
+familiar with, but what about console access? Fortunately, there are a
+number of capable web browsers here as well.
 </para>
 
-<section><title>lynx</title>
+<section id="network-utils_lynx">
+  <title>lynx</title>
 
 <para>
 The oldest console-based web browser included with Slackware is
@@ -412,7 +417,8 @@ console, which can then be piped to other programs.
 
 </section>
 
-<section><title>links</title>
+<section id="network-utils_links">
+<title>links</title>
 
 <para>
 A more feature-rich alternative is the popular
@@ -446,20 +452,20 @@ exclusively on HTTP content; it also supports FTP and several other
 protocols.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>wget ftp://ftp.osuosl.org/pub/slackware/slackware-current/ChangeLog.txt</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>wget ftp:&#47;&#47;ftp.osuosl.org&#47;pub&#47;slackware&#47;slackware-current&#47;ChangeLog.txt</userinput>
 --2010-05-01 13:51:19--
-ftp://ftp.osuosl.org/pub/slackware/slackware-current/ChangeLog.txt
-           => `ChangeLog.txt'
+ftp:&#47;&#47;ftp.osuosl.org&#47;pub&#47;slackware&#47;slackware-current&#47;ChangeLog.txt
+           =&#62; `ChangeLog.txt'
 Resolving ftp.osuosl.org... 64.50.236.52
 Connecting to ftp.osuosl.org|64.50.236.52|:21... connected.
 Logging in as anonymous ... Logged in!
-==> SYST ... done.    ==> PWD ... done.
-==> TYPE I ... done.  ==> CWD /pub/slackware/slackware-current ...  done.
-==> SIZE ChangeLog.txt ... 75306
-==> PASV ... done.    ==> RETR ChangeLog.txt ... done.
+==&#62; SYST ... done.    ==&#62; PWD ... done.
+==&#62; TYPE I ... done.  ==&#62; CWD &#47;pub&#47;slackware&#47;slackware-current ...  done.
+==&#62; SIZE ChangeLog.txt ... 75306
+==&#62; PASV ... done.    ==&#62; RETR ChangeLog.txt ... done.
 Length: 75306 (74K)
 
-100%[======================================>] 75,306       110K/s   in 0.7s    
+100%[======================================&#62;] 75,306       110K/s   in 0.7s    
 
 2010-05-01 13:51:22 (110 KB/s) - `ChangeLog.txt' saved [75306]
 </screen>
@@ -468,7 +474,7 @@ Length: 75306 (74K)
 
 </section>
 
-<section>
+<section id="network-utils_mail-clients">
 <title>Mail Clients</title>
 
 <section><title>pine</title>
@@ -480,12 +486,16 @@ user-friendly. <application>pine</application> was created by the
 University of Washington and carries with it both a trademark and a
 copyright license that are difficult to work with. Thankfully back in
 2005, the university saw fit to re-write it without the trademark and
-with a more open license, so <application>alpine</application>(1) was
-born. This is the pine-clone distributed with Slackware. To start using
-it, simply type <application>pine</application> at the command line.
+with a more open license, so <application>alpine</application>(1), the
+pine-clone distributed with Slackware, was born.
+</para>
+
+<para>
+To start using <application>alpine</application>,
+simply type <application>pine</application> at the command line.
 Using it is very simple due to its menu-driven system as well as the
 command referance neatly located at the bottom of the screen. See for
-yourself.
+yourself&#58;
 </para>
 
 <screen>
@@ -516,7 +526,8 @@ O OTHER CMDS > [ListFldrs] N NextCmd                 K KBLock
 
 </section>
 
-<section><title>mutt</title>
+<section id="network-utils_mutt">
+  <title>mutt</title>
 
 <para>
 Some people don't like <application>pine</application>. Some people
@@ -560,7 +571,8 @@ for that, muttrc(5). You might want to read up on it.
 
 </section>
 
-<section><title>mailx</title>
+<section id="network-utils_mailx">
+  <title>mailx</title>
 
 <para>
 So those are great and everything, but what if you just want a mail
@@ -568,11 +580,124 @@ client that isn't menu-driven? Thankfully
 <application>mailx</application> is here to save you. 
 </para>
 
-</section>
+<para>
+  <application>mailx</application> is based on the Berkeley Mail
+  application, with a <application>mail</application> command
+  appearing as early as Version 1 of AT&#38;T&#39;s UNIX. It can be
+  used either interactively or non-interactively.
+</para>
+
+<para>
+  To launch <application>mailx</application>, type
+  <command>mail</command> at a shell prompt.
+  <application>mailx</application> reads mail from your computer's
+  mail spool and displays the usual combination of sender, subject,
+  status, and size in a list, leaving the user at an interactive
+  prompt. In fact, it might look familiar to you if you bothered
+  checking your mail immediately after installing Slackware and read
+  Pat Volkerding's greeting.
+</para>
+
+<screen>
+root@darkstar:&#47;home&#47;klaatu&#35; mail
+Heirloom mailx version 12.4 7&#47;29&#47;08.  Type ? for help.
+"&#47;var&#47;spool&#47;mail&#47;root": 2 messages 2 new
+&#62;N  1 To root            Thu Mar 10 23:33   52&#47;1902  Register with the Linux counter project
+ N  2 To root            Thu Mar 10 23:35  321&#47;15417 Welcome to Linux (Slackware 13.37)!
+&#63;
+</screen>
+
+<para>
+  To read a message, enter the number of the message at the
+  prompt. This displays the message using
+  <application>more</application>, so use the <keycap>RETURN</keycap>
+  key to view the next page. Once the end of the message has been
+  reached, press <keycap>q</keycap> to return to the list view, or
+  <keycap>RETURN</keycap> to continue to the next message.
+</para>
+
+<para>
+  To see a list of available commands, type &#63; at the
+  <application>mail</application> prompt; using the commands provided,
+  you can view the headers of mail in the spool, reply, delete, save,
+  and many other common email tasks.
+</para>
+
+<para>
+  <application>mailx</application> is most powerful when used in
+  scripting. For all of the options available for
+  <application>mailx</application>, view its man page. A simple way to
+  send an email to someone requires only the command itself and the
+  destination address&#58;
+</para>
+
+<screen>
+  <prompt>darkstar:~&#36; </prompt> <command>mail</command>
+  alan@lizella.net
+</screen>
+
+<para>
+  After the command has been issued, an interactive prompt appears for
+  a subject line, the message body, and the end character (a single
+  dot on an otherwise empty line).
+</para>
+
+<para>
+  <application>mailx</application> can be used entirely without human
+  intervention, however. Generally, it's safe to assume that any
+  attribute you can define in the interactive shell for
+  <application>mailx</application> can also be defined while scripting
+  it or using it as one non-interactive command&#58;
+</para>
+
+<screen>
+  <prompt>darkstar:~&#36; </prompt> <command>mail</command> -n -s "Test message" alan@lizella.net &#60; ~&#47;message.txt
+</screen>
+
+<para>
+  In this example, the contents of the file
+  <filename>message.txt</filename> would be sent as the message body
+  to the specified recipient. No interaction from the user is required.
+</para>
+
+<para>
+  Within one's own computer (localhost) or one's own network, sending
+  email in this manner is entirely possible. But over the internet a
+  few more steps are usually required along the way. Of course, most
+  notably there is usually an smtp server handling the delivery of your
+  email. This, too, can be specified as part of your
+  <application>mail</application> command&#58;
+</para>
+
+<screen>
+  <prompt>darkstar:~&#36; </prompt> env MAILRC=&#47;dev&#47;null
+  from="klaatu@slackermedia.info (Klaatu)"
+  smtp=relay.slackermedia.info <command>mail</command> -n -s "Test message" alan@lizella.net &#60; ~&#47;message.txt
+</screen>
+
+<para>
+  In this case, the <varname>MAILRC</varname> variable is set to
+  &#47;dev&#47;null in order to override any system defaults, and the
+  smtp server as well as the <parameter>FROM&#58;</parameter> line are
+  defined. The rest of the command is the same as using
+  <application>mailx</application> internally within one's own
+  computer or network.
+</para>
+
+<para>
+  Over all, <application>mailx</application> is usually viewed as a
+  mail client with the bare-minimum features; this is largely true,
+  but when you need to be able to script sending notification emails
+  or important update messages, it quickly becomes a lot more valuable
+  than a fully interactive application like
+  <application>pine</application> or <application>mutt</application>.
+</para>
 
 </section>
 
-<section>
+</section>
+
+<section id="network-utils_ftp">
 <title>FTP Clients</title>
 
 <para>
