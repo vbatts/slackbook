@@ -2,17 +2,19 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter>
+<chapter id="ch_wireless-networking">
 <title>Wireless Networking</title>
 
-<section>
-<title><application>iwconfig</application></title>
+<section id="sect_iwconfig">
+  <title>
+    <application>iwconfig</application>
+  </title>
 
 <para>
 Wireless networking is somewhat more complicated than traditional wired
 networking, and requires additional tools for setup. Slackware includes
 a diverse collection of wireless networking tools to allow you to
-configure your wireless network interface card (WNIC) at the most basic
+configure your wireless network interface card &#40;WNIC&#41; at the most basic
 level. We won't cover everything here, but should give you a solid
 foundation to get up and running quickly.  The first tool we are going
 to look at is <application>iwconfig</application>(8). When run without
@@ -20,8 +22,7 @@ any argument, <application>iwconfig</application> displays the current
 wireless information on any and all NICs on your computer.
 </para>
 
-
-<screen><prompt>darkstar:~# </prompt><userinput>iwconfig</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>iwconfig</userinput>
 lo        no wireless extensions.
 
 eth0      no wireless extensions.
@@ -31,11 +32,11 @@ wmaster0  no wireless extensions.
 wlan0     IEEE 802.11abgn  ESSID:"nest"  
           Mode:Managed  Frequency:2.432 GHz  Access Point:
 00:13:10:EA:4E:BD   
-          Bit Rate=54 Mb/s   Tx-Power=17 dBm   
+          Bit Rate=54 Mb&#47;s   Tx-Power=17 dBm   
           Retry min limit:7   RTS thr:off   Fragment thr=2352 B   
           Encryption key:off
           Power Management:off
-          Link Quality=100/100  Signal level:-42 dBm  
+          Link Quality=100&#47;100  Signal level:-42 dBm  
           Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
           Tx excessive retries:0  Invalid misc:0   Missed beacon:0
 
@@ -43,11 +44,11 @@ tun0      no wireless extensions.
 </screen>
 
 <para>
-Unlike wired networks, wireless networks are "fuzzy". Their borders are
+Unlike wired networks, wireless networks are &#34;fuzzy&#34;. Their borders are
 hard to define, and multiple networks may overlap one another. In order
-to avoid confusion, each wireless network has (hopefully) unique
+to avoid confusion, each wireless network has &#34;hopefully&#41; unique
 identifiers. The two most basic identifiers are the Extended Service
-Set Identifier (ESSID) and the channel or frequency for radio
+Set Identifier &#40;ESSID&#41; and the channel or frequency for radio
 transmission. The ESSID is simply a name that identifies the wireless
 network in question; you may have heard it referred to as the network
 name or something similar. Typical wireless networks operate on 11
@@ -56,13 +57,13 @@ wireless network, you will have to setup these two pieces of
 information, and possibly others, before setting up things like the
 WNIC's IP address. Here you can see that my ESSID is set to "nest" and
 my laptop is transmitting at 2.432 GHz. This is all that is required to
-connect to an unencrypted wireless LAN. (For any of you out there
+connect to an unencrypted wireless LAN. &#40;For any of you out there
 expecting to come to my house and use my unencrypted wireless, you
 should know that you'll have to break a 2048-bit SSL key before the
-access point will let you communicate with my LAN.)
+access point will let you communicate with my LAN.&#41;
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>iwconfig wlan0 essid nest \
+<screen><prompt>darkstar:~&#35; </prompt><userinput>iwconfig wlan0 essid nest \
   freq 2.432G</userinput></screen>
 
 <para>
@@ -72,7 +73,7 @@ frequency or channel to use, Slackware can usually figure this out for
 you.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>iwconfig wlan0 essid nest \
+<screen><prompt>darkstar:~&#35; </prompt><userinput>iwconfig wlan0 essid nest \
   channel auto</userinput></screen>
 
 <para>
@@ -82,37 +83,37 @@ the "nest" essid operating at any frequency.
 
 </section>
 
-<section>
+<section id="sect_wep">
 <title>Wired Equivilant Protection (or Lack Thereof)</title>
 
 <para>
 Wireless networking is by its very nature less secure than wired
-networking. Having your information travelling on the airwaves makes it
-highly susceptible to interception by third paries, so over the years a
-number of methods have been devised to make wireless networking more
-secure.  The first was called Wired Equivilant Protection, or WEP for
-short, and well far short of its goal. If you are still using WEP
-today, I encourage you to consider using WPA2 or some other form of
-stronger encryption. Attacks against WEP are trivial and take only
-minutes to perform. Unfortunately there are still access points
-configured for WEP, and you may need to connect to one from time to
-time. Connecting to WEP encrypted access points is fairly simple,
-particularly if you have the key in hexidecimal format. We'll need to
-pass the <arg>key</arg> argument along with the password in hexidecimal
-or ASCII format. If using an ASCII password, you'll need to prepend it
-with "s:"; here's a couple examples.  Generally speaking, hexidecimal
-format is prefered.
+networking. Having your information travelling on the airwaves makes
+it highly susceptible to interception by third parties, so over the
+years a number of methods have been devised to make wireless
+networking more secure.  The first was called Wired Equivilant
+Protection, or WEP for short, and fell far short of its goal. If you
+are still using WEP today, I encourage you to consider using WPA2 or
+some other form of stronger encryption. Attacks against WEP are
+trivial and take only minutes to perform. Unfortunately there are
+still access points configured for WEP, and you may need to connect to
+one from time to time. Connecting to WEP encrypted access points is
+fairly simple, particularly if you have the key in hexidecimal
+format. We'll need to pass the <arg>key</arg> argument along with the
+password in hexidecimal or ASCII format. If using an ASCII password,
+you'll need to prepend it with &#34;s&#59;&#34; but generally
+speaking, hexidecimal format is preferred.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>iwconfig wlan0 \
+<screen><prompt>darkstar:~&#35; </prompt><userinput>iwconfig wlan0 \
   key cf80baf8bf01a160de540bfb1c</userinput>
-<prompt>darkstar:~# </prompt><userinput>iwconfig wlan0 \
+<prompt>darkstar:~&#35; </prompt><userinput>iwconfig wlan0 \
   key s:thisisapassword</userinput>
 </screen>
 
 </section>
 
-<section>
+<section id="sect_wpa">
 <title>Wifi Protected Access</title>
 
 <para>
@@ -139,39 +140,40 @@ page for <filename>wpa_supplicant.conf</filename>.
 </para>
 
 <screen>
-# /etc/wpa_supplicant.conf
-# ========================
-# This line enables the use of wpa_cli which is used by rc.wireless
-# if possible (to check for successful association)
+&#35; /etc/wpa_supplicant.conf
+&#35; ========================
+&#35; This line enables the use of wpa_cli which is used by rc.wireless
+&#35; if possible (to check for successful association)
 ctrl_interface=/var/run/wpa_supplicant
-# By default, only root (group 0) may use wpa_cli
+&#35; By default, only root (group 0) may use wpa_cli
 ctrl_interface_group=0
 eapol_version=1
 ap_scan=1
 fast_reauth=1
-#country=US
+&#35;country=US
 
-# WPA protected network, supply your own ESSID and WPAPSK here:
-network={
+&#35; WPA protected network, supply your own ESSID and WPAPSK here:
+network=&#123;
   scan_ssid=1
   ssid="nest"
   key_mgmt=WPA-PSK
   psk="secret passphrase"
-}
+&#125;
 </screen>
 
 <para>
 The block of text we're interested in is the network block enclosed by
-curly braces.  Here we have set the ssid for the network "nest", as well
-as the PSK to use "secret passphrase". At this point, WPA2 is setup.
-You can run <application>wpa_supplicant</application> and then obtain
-an IP address via DHCP or set a static address.  Of course, this is a
-lot of work, there must be an easier way to do this.
+curly braces.  Here we have set the ssid for the network
+<varname>&#34;nest&#34;</varname>, and <varname>&#34;secret
+passphrase&#34;</varname> as the PSK to be used. At this point, WPA2 is properly
+configured.  You can run <application>wpa_supplicant</application> and
+then obtain an IP address via DHCP or set a static address.  Of
+course, this is a lot of work; there must be an easier way to do this.
 </para>
 
-</section>
+<!-- not closing this yet /section -->
 
-<section>
+<section id="sect_rcinet1conf-revisited">
 <title>rc.inet1.conf revisited</title>
 
 <para>
@@ -190,58 +192,64 @@ networking.
 </para>
 
 <screen>
-# rc.inet1.conf (excert)
-# ======================
-## Example config information for wlan0.  Uncomment the lines you need and fill
-## in your info.  (You may not need all of these for your wireless network)
+&#35; rc.inet1.conf (excert)
+&#35; ======================
+&#35;&#35; Example config information for wlan0.  Uncomment the lines you need and fill
+&#35;&#35; in your info.  (You may not need all of these for your wireless network)
 IFNAME[4]="wlan0"
 IPADDR[4]=""
 NETMASK[4]=""
 USE_DHCP[4]="yes"
-#DHCP_HOSTNAME[4]="icculus-wireless"
-#DHCP_KEEPRESOLV[4]="yes"
-#DHCP_KEEPNTP[4]="yes"
-#DHCP_KEEPGW[4]="yes"
-#DHCP_IPADDR[4]=""
+&#35;DHCP_HOSTNAME[4]="icculus-wireless"
+&#35;DHCP_KEEPRESOLV[4]="yes"
+&#35;DHCP_KEEPNTP[4]="yes"
+&#35;DHCP_KEEPGW[4]="yes"
+&#35;DHCP_IPADDR[4]=""
 WLAN_ESSID[4]="nest"
-#WLAN_MODE[4]=Managed
-#WLAN_RATE[4]="54M auto"
-#WLAN_CHANNEL[4]="auto"
-#WLAN_KEY[4]="D5AD1F04ACF048EC2D0B1C80C7"
-#WLAN_IWPRIV[4]="set AuthMode=WPAPSK | \
-#   set EncrypType=TKIP | \
-#   set WPAPSK=96389dc66eaf7e6efd5b5523ae43c7925ff4df2f8b7099495192d44a774fda16"
+&#35;WLAN_MODE[4]=Managed
+&#35;WLAN_RATE[4]="54M auto"
+&#35;WLAN_CHANNEL[4]="auto"
+&#35;WLAN_KEY[4]="D5AD1F04ACF048EC2D0B1C80C7"
+&#35;WLAN_IWPRIV[4]="set AuthMode=WPAPSK | \
+&#35;   set EncrypType=TKIP | \
+&#35;   set WPAPSK=96389dc66eaf7e6efd5b5523ae43c7925ff4df2f8b7099495192d44a774fda16"
 WLAN_WPA[4]="wpa_supplicant"
-#WLAN_WPADRIVER[4]="ndiswrapper"
+&#35;WLAN_WPADRIVER[4]="ndiswrapper"
 </screen>
 
 <para>
-When we discussed wired ethernet, each "n" in the variable corrosponded
-with the "n" in ethn.  Here however, that no longer holds true. Notice
-that the variable IFNAME[4] has a value of "wlan0". It is common for
-wireless cards to have an interface name other than "ethn" and that is
-reflected here.  When <filename>rc.inet1.conf</filename> is read by the
-start-up scripts, Slackware knows to apply all these options to the
-"wlan0" wifi NIC instead of the (probably non-existant) eth4 wired NIC.
-Many of the other options are the same.  IP address information is
-added in exactly the same way we discussed for wired network cards in
-the previous chapter; however, we have a lot of new variables that need
-some explaination.
+When we discussed wired ethernet, each <varname>n</varname> in the
+variable corresponded with the <varname>n</varname> in
+<parameter>eth<emphasis>n</emphasis></parameter>.  Here however, that
+no longer holds true. Notice that the variable IFNAME[4] has a value
+of <varname>wlan0</varname>. It is common for wireless cards to have an interface name
+other than <varname>ethn</varname> and that is reflected here.  When
+<filename>rc.inet1.conf</filename> is read by the start-up scripts,
+Slackware knows to apply all these options to the <varname>wlan0</varname> wifi NIC
+instead of the &#40;probably non-existant&#41; eth4 wired NIC.  Many of the
+other options are the same.  IP address information is added in
+exactly the same way we discussed for wired network cards in <xref
+linkend="ch_networking"/>; however, we have a lot of new variables that need
+some explanation.
 </para>
 
 <para>
-To begin, WLAN_ESSID[n] and WLAN_CHANNEL[n] should be self-explainatory
-by now; they refer the the essid and frequency to use.  WLAN_MODE[n] is
-either "managed" or "ad-hoc".  Anyone connecting to an access point
-will want to use managed mode.  WLAN_KEY[n] is the WEP key to use, if
-you're forced to use WEP.  WLAN_IWPRIV[n] is a very complicated
-variable that sets other variables inside itself.  WLAN_IWPRIV[n] is
-used for WPA2 networks.  Here you tell Slackware what authentication
-mode, encryption type, and key to use for WPA2 connections.  Please
-note that WLAN_KEY[n] and WLAN_IWPRIV[n] are mutually exclusive; you
-can't use both on the same interface.  If you successfully configure
-all this, then Slackware will attempt to connect to your wireless
-network as soon as the system boots.
+To begin, <varname>WLAN_ESSID[n]</varname> and
+<varname>WLAN_CHANNEL[n]</varname> should be self-explainatory by now;
+they refer the the essid and frequency to
+use. <varname>WLAN_MODE[n]</varname> is either
+<parameter>managed</parameter> or <parameter>ad-hoc</parameter>.
+Anyone connecting to an access point will want to use managed mode.
+<varname>WLAN_KEY[n]</varname> is the WEP key to use, if you're forced
+to use WEP.  <varname>WLAN_IWPRIV[n]</varname> is a very complicated
+variable that sets other variables inside itself.
+<varname>WLAN_IWPRIV[n]</varname> is used for WPA2 networks.  Here you
+tell Slackware what authentication mode, encryption type, and key to
+use for WPA2 connections.  Please note that
+<varname>WLAN_KEY[n]</varname> and <varname>WLAN_IWPRIV[n]</varname>
+are mutually exclusive; you can't use both on the same interface.  If
+you successfully configure all this, then Slackware will attempt to
+connect to your wireless network as soon as the system boots.
 </para>
 
 <para>
@@ -252,21 +260,23 @@ within range.  Doing things this way is simply too much work.  You're
 absolutely correct.
 </para>
 
-</section>
+</section> <!-- closing rc.inet1.conf revisited -->
 
-<section>
-<title>wicd</title>
+</section> <!-- closing WPA discussion -->
+
+<section id="sect_wicd">
+  <title>wicd</title>
 
 <para>
 Introducing <application>wicd</application>(8), the premier wired and
 wireless network connection manager for the laptop user on the go.
-Pronounced "wicked", <application>wicd</application> is capable of
+Pronounced &#34;wicked&#34;, <application>wicd</application> is capable of
 storing information for any number of wireless networks you need and
 connecting to them with a simple command or the click of a mouse.
 <application>wicd</application> is not part of the default Slackware
 installation at this time, as it interferes somewhat with the normal
 way of configuring network adapters, but you can find it in the
-<filename>/extra</filename> directory of your Slackware install disks
+<filename>&#47;extra</filename> directory of your Slackware install disks
 or at your favorite mirror. <application>wicd</application> is both a
 network connection daemon and a graphical application for configuring
 networks.  The CLI isn't forgotten either, as
@@ -277,15 +287,15 @@ any interfaces you have in <filename>rc.inet1.conf</filename> first.
 </para>
 
 <screen>
-# rc.inet1.conf
-# =============
-# Config information for eth0:
-IPADDR[0]=""
-NETMASK[0]=""
-USE_DHCP[0]="no"
-DHCP_HOSTNAME[0]=""
-# Default gateway IP address:
-GATEWAY=""
+&#35; rc.inet1.conf
+&#35; =============
+&#35; Config information for eth0:
+IPADDR[0]=&#34;&#34;
+NETMASK[0]=&#34;&#34;
+USE_DHCP[0]=&#34;no&#34;
+DHCP_HOSTNAME[0]=&#34;&#34;
+&#35; Default gateway IP address:
+GATEWAY=&#34;&#34;
 </screen>
 
 <para>
@@ -293,9 +303,9 @@ Now we can install <application>wicd</application>, setup the daemon to
 run on system boot-up, and begin using a more friendly application.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>installpkg /path/to/extra/wicd/wicd-1.6.2.1-1.txz</userinput>
-<prompt>darkstar:~# </prompt><userinput>chmod +x /etc/rc.d/rc.wicd</userinput>
-<prompt>darkstar:~# </prompt><userinput>/etc/rc.d/rc.wicd start</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>installpkg &#47;path&#47;to&#47;extra&#47;wicd&#47;wicd-1.6.2.1-1.txz</userinput>
+<prompt>darkstar:~&#35; </prompt><userinput>chmod +x &#47;etc&#47;rc.d&#47;rc.wicd</userinput>
+<prompt>darkstar:~&#35; </prompt><userinput>&#47;etc&#47;rc.d&#47;rc.wicd start</userinput>
 </screen>
 
 <para>
@@ -303,33 +313,49 @@ If you're predominately using the console, simply run
 <application>wicd-curses</application> from your command line. If
 instead, you are using a graphical desktop provided by
 <application>X</application>, you can start the graphical front-end
-from either the KDE or XFCE menu.  Optionally, you could manually run
+from either the KDE or XFCE menu.
+</para>
+
+  <mediaobject>
+    <imageobject>
+      <imagedata
+	  fileref="./img/wicd.png" format="PNG" />
+    </imageobject>
+    <textobject>
+      <phrase>The wicd interface</phrase>
+    </textobject>
+  </mediaobject>
+
+<para>
+  Optionally, you could manually run
 <application>wicd-client</application>(1) from a terminal or run
 dialogue.
 </para>
 
 <para>
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
-ADD PICTURES OF WICD-CURSES AND WICD-CLIENT!!!!
+  If you're not running <application>X</application> or simply would
+  prefer to stay in the terminal, you can launch the command line
+  version, <application>wicd-curses</application>.
 </para>
 
-</section>
+  <mediaobject>
+    <imageobject>
+      <imagedata
+	  fileref="./img/wicd-curses.png" format="PNG" />
+    </imageobject>
+    <textobject>
+      <phrase>The wicd-curses interface</phrase>
+    </textobject>
+  </mediaobject>
+
+<para>
+  On the graphical front-end, options for different networks are
+  available via the <guibutton>Preferences</guibutton> button adjacent
+  to the ESSID listed. In the terminal client, the same options can be
+  reached by highlighting the network you wish to configure and
+  pressing <keycap>c</keycap>.
+</para>
+
+</section> <!-- closing wicd section -->
 
 </chapter>

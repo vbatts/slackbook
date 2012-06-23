@@ -2,8 +2,12 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter>
+<chapter id="ch_pkg">
 <title>Package Management</title>
+
+<indexterm>
+  <primary>Package Management</primary>
+</indexterm>
 
 <para>
 Package management is an essential part of any Linux distribution.
@@ -17,8 +21,12 @@ worked by running package management tools on a list of packages. Here
 we'll look at the various tools used for handling Slackware packages.
 </para>
 
-<section>
+<section id="pkg_pktool">
 <title><application>pkgtool</application></title>
+
+<indexterm>
+  <primary>pkgtool</primary>
+</indexterm>
 
 <para>
 The simplest way to perform package maintenance tasks is to invoke
@@ -39,8 +47,21 @@ tools are needed.
 
 </section>
 
-<section>
-<title>Installing, Removing, and Upgrading Packages</title>
+<section id="pkg_install-remove-upgrade">
+  <title>Installing, Removing, and Upgrading Packages</title>
+
+<indexterm>
+  <primary>installpkg</primary>
+</indexterm>
+<indexterm>
+  <primary>removepkg</primary>
+</indexterm>
+<indexterm>
+  <primary>upgradepkg</primary>
+</indexterm>
+<indexterm>
+  <primary>Installing software</primary>
+</indexterm>
 
 <para>
 While <application>pkgtool</application> scores points for convenience,
@@ -55,43 +76,63 @@ simplest form, <application>installpkg</application> simply takes a
 list of packages to install, and does exactly what you would expect.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>installpkg blackbox-0.70.1-i486-2.txz</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>installpkg blackbox-0.70.1-i486-2.txz</userinput>
 Verifying package blackbox-0.70.1-i486-2.txz.
 Installing package blackbox-0.70.1-i486-2.txz:
 PACKAGE DESCRIPTION:
-# blackbox (Blackbox window manager)
-#
-# Blackbox is that fast, light window manager you have been looking for
-# without all those annoying library dependencies.
-#
-# Also included in this package is the bbkeys utility for controlling
-# keyboard shortcut commands from within Blackbox.
-#
-# The Blackbox home page is http://blackboxwm.sourceforge.net
-#
+&#35; blackbox (Blackbox window manager)
+&#35;
+&#35; Blackbox is that fast, light window manager you have been looking for
+&#35; without all those annoying library dependencies.
+&#35;
+&#35; Also included in this package is the bbkeys utility for controlling
+&#35; keyboard shortcut commands from within Blackbox.
+&#35;
+&#35; The Blackbox home page is http://blackboxwm.sourceforge.net
+&#35;
 Package blackbox-0.70.1-i486-2.txz installed.</screen>
 
 <para>
 You can of course install multiple packages at a time, and in fact use
 shell wild cards.  The following installs all of the "N" series
-packages from a mounted CD-ROM.
+packages from a mounted CD-ROM:
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>installpkg /mnt/cdrom/slackware/n/*.txz</userinput></screen>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>installpkg &#47;mnt&#47;cdrom&#47;slackware&#47;n&#47;&#42;.txz</userinput></screen>
 
 <para>
-Removing a package is every bit as easy as installing one. As you might
-expect, the command to do this is
-<application>removepkg</application>(8). Simply tell it which packages
-to remove, and <application>removepkg</application> will check the
-contents of the package database and remove all the files and
-directories for that package with one caveat. If that file is included
-in multiple installed packages, it will be skipped and if a directory
-has new files in it, the directory will be left in place. Because of
-this, removing packages takes a good while longer than installing them.
+  At any given time, you can see what packages are installed on your
+  system by listing the contents of &#47;var&#47;log&#47;packages,
+  which lists not only every application on your system but also the
+  version number. Should you want to know what individual files were
+  installed as a part of that package, <application>cat</application>
+  the contents of the package:
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>removepkg blackbox-0.70.1-i486-2.txz</userinput>
+<screen>
+<prompt>darkstar:~&#35; </prompt> <userinput>cat &#47;var&#47;log&#47;packages&#47;foo-1.0-x86_64.txz</userinput>
+</screen>
+
+<para>
+  This will return everything from the size of the package, a
+  description of what it does, and the name and location of every file
+  installed as a part of the package.
+</para>
+
+<para>
+  Removing a package is every bit as easy as installing one. As you
+  might expect, the command to do this is
+  <application>removepkg</application>(8). Simply tell it which
+  packages to remove, and <application>removepkg</application> will
+  check the contents of the package database and remove all the files
+  and directories for that package with one caveat. If that file is
+  included in multiple installed packages, it will be skipped and if a
+  directory has new files in it, the directory will be left in
+  place. Because of this, removing packages takes a good while longer
+  than installing them.
+</para>
+
+<screen><prompt>darkstar:~&#35; </prompt><userinput>removepkg blackbox-0.70.1-i486-2.txz</userinput>
 </screen>
 
 <para>
@@ -100,31 +141,29 @@ Finally, upgrading is just as easy with (you guessed it),
 package, then removes whatever files and directories are left-over from
 the old package. One important thing to remember is that
 <application>upgradepkg</application> doesn't check to see if the
-previously installed package has a higher version number than the "new"
+previously installed package has a higher version number than the &#34;new&#34;
 package, so it can also be used to downgrade to older versions.
 </para>
 
-
-
-<screen><prompt>darkstar:~# </prompt><userinput>upgradepkg blackbox-0.70.1-i486-2.txz</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>upgradepkg blackbox-0.70.1-i486-2.txz</userinput>
 
 +==============================================================================
 | Upgrading blackbox-0.65.0-x86_64-4 package using
-./blackbox-0.70.1-i486-2.txz
+.&#47;blackbox-0.70.1-i486-2.txz
 +==============================================================================
 
 Pre-installing package blackbox-0.70.1-i486-2...
 
 Removing package
-/var/log/packages/blackbox-0.65.0-x86_64-4-upgraded-2010-02-23,16:50:51...
-  --> Deleting symlink /usr/share/blackbox/nls/POSIX
-  --> Deleting symlink /usr/share/blackbox/nls/US_ASCII
-  --> Deleting symlink /usr/share/blackbox/nls/de
-  --> Deleting symlink /usr/share/blackbox/nls/en
-  --> Deleting symlink /usr/share/blackbox/nls/en_GB
+&#47;var&#47;log&#47;packages&#47;blackbox-0.65.0-x86_64-4-upgraded-2010-02-23,16:50:51...
+  --> Deleting symlink &#47;usr&#47;share&#47;blackbox&#47;nls&#47;POSIX
+  --> Deleting symlink &#47;usr&#47;share&#47;blackbox&#47;nls&#47;US_ASCII
+  --> Deleting symlink &#47;usr&#47;share&#47;blackbox&#47;nls&#47;de
+  --> Deleting symlink &#47;usr&#47;share&#47;blackbox&#47;nls&#47;en
+  --> Deleting symlink &#47;usr&#47;share&#47;blackbox&#47;nls&#47;en_GB
 ...
 Package blackbox-0.65.0-x86_64-4 upgraded with new package
-./blackbox-0.70.1-i486-2.txz.</screen>
+.&#47;blackbox-0.70.1-i486-2.txz.</screen>
 
 <para>
 All of these tools have useful arguments. For example, the
@@ -132,48 +171,248 @@ All of these tools have useful arguments. For example, the
 packages into an arbitrary directory. The <arg>--dry-run</arg> argument
 will instruct <application>upgradepkg</application> to simply tell you
 what it would attempt without actually making any changes to the
-system. For complete details, you should (as always) refer to the man
+system. For complete details, you should &#40;as always&#41; refer to the man
 pages.
 </para>
 
 </section>
 
-<section>
-<title>Package Compression Formats</title>
+<section id="pkg_compression">
+  <title>Package Compression Formats</title>
 
 <para>
-We won't go in depth into the details of package formats, but a few
-words should be given here.  In the past, all Slackware packages were
-compressed with the <application>gzip</application>(1) compression
-utility, which was a good compromise between compression speed and
-size.  Recently, new compression schemes have been added and the
-package management tools have been upgraded to handle these. Today,
-official Slackware packages are compressed with the
-<application>xz</application> utility and end with .txz extensions.
-Older packages (and many third party packages) still use the .tgz
-extension.
+  In the past, all Slackware packages were compressed with the
+  <application>gzip</application>(1) compression utility, which was a
+  good compromise between compression speed and size.  Recently, new
+  compression schemes have been added and the package management tools
+  have been upgraded to handle these. Today, official Slackware
+  packages are compressed with the <application>xz</application>
+  utility and end with .txz extensions.  Older packages (and many
+  third party packages) still use the .tgz extension.
 </para>
 
-</section>
+<para>
+  It's worth emphasizing that .tgz and .txz (or, more succinctly, .t?z
+  files) are very standard, non-unique extensions for compressed .tar
+  files. This has many advantages; they're easy to build on nearly any
+  UNIX system (many other package formats require special toolchains),
+  and they're just as simple to de-construct.
+</para>
 
-<section>
+<para>
+  However, it is also important to realize that just because all Slackware
+  packages <emphasis>are</emphasis> .t?z files, not all .t?z files are
+  Slackware packages. <application>Installpkg</application> won't
+  magically install just any .t?z file, only Slackware packages.
+</para>
+
+<section id="pkg_slackpkg">
 <title><application>slackpkg</application></title>
 
+<indexterm>
+  <primary>
+    slackpkg
+  </primary>
+</indexterm>
+
 <para>
-  The <application>slackpkg</application> is an automated tool for
-management of Slackware Linux Packages. It was in /extra for 
-the release of slackware-12.1, and since the release of 
-slackware-12.2 it is included in the ap/ series of a base 
-installation.
+  <application>Slackpkg</application> is an automated tool for
+  management of Slackware Linux Packages. It originally appeared in
+  &#47;extra for the release of slackware-12.1, and since the release
+  of slackware-12.2 it has been included in the ap&#47; series of a
+  base installation.
 </para>
+
 <para>
-  For more information see the <application>man</application> pages for
-slackpkg(8) and slackpkg.conf(5).
+  Just as you are able to use <application>installpkg</application> to
+  install Slackware packages from the &#47;extra directory included on
+  the install media, you can use <application>slackpkg</application>
+  to pull packages from the Internet and install them. This is
+  particularly useful for security updates or significant application
+  upgrades that are posted to the Slackware servers, some of which you
+  may want to start using on your own system.
 </para>
+
 <para>
-Homepage: <ulink url="http://www.slackpkg.org/">http://www.slackpkg.org/</ulink>
+  Without <application>slackpkg</application>, the process would be:
+</para>
+
+<orderedlist>
+  <listitem>
+    <para>
+      Notice in the Slackware changelog that an update has been
+      released.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Look on your local Slackware mirror to find a download link of
+      the package.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Download the package from a Slackware mirror to your hard drive.
+    </para>
+  </listitem>
+
+  <listitem>
+    Use either <application>installpkg</application> or
+  <application>pkgtool</application> to install the downloaded
+  package.
+  </listitem>
+</orderedlist>
+
+<para>
+  With <application>slackpkg</application>, this is reduced to:
+</para>
+
+<orderedlist>
+  <listitem>
+    <para>
+      Notice in the Slackware changelog that an update for
+      <application>foo</application> has been released.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      <command>slackpkg</command> <arg>install</arg> foo
+    </para>
+  </listitem>
+</orderedlist>
+
+<para>
+  Clearly, this streamlines a fairly common task.
+</para>
+
+<para>
+ To use <application>slackpkg</application>, configure your system
+ with a Slackware mirror by editing
+ <filename>&#47;etc&#47;slackpkg&#47;mirrors</filename> as root. Find
+ the mirror that is associated with your Slackware version and
+ architecture, and uncomment it. This list of mirrors offers ftp and
+ http access, but you must uncomment <emphasis>only one</emphasis>
+ mirror.
+</para>
+
+<para>
+  Once a mirror has been selected, update the list of remote files by
+  issuing the initial command <command>slackpkg update</command>. This
+  should be done any time you notice that a new package has been
+  posted (regularly checking in with the Slackware changelog is
+  recommended; see <xref linkend="ch_updates"/> for more information).
+</para>
+
+<para>
+  To search for a package, use <command>slackpkg search foo</command>,
+  and to install use <command>slackpkg install foo</command>.
+</para>
+
+<para>
+  Once a package has been installed with
+  <application>slackpkg</application>, it can be removed or upgraded
+  using <application>pkgtool</application> and the other package
+  management commands as detailed in <xref
+  linkend="pkg_install-remove-upgrade"/>.
+</para>
+
+<para>
+  For more information see the <application>man</application> pages
+  for slackpkg(8) and slackpkg.conf(5), and see its website at <ulink
+  url="http://www.slackpkg.org/">http://www.slackpkg.org/</ulink>
 </para>
 
 </section>
 
+<section id="pkg_rpm2tgz">
+  <title>rpm2tgz</title>
+
+<indexterm>
+  <primary>rpm2tgz</primary>
+</indexterm>
+
+<para>
+  One of the most ubiquitous package formats for Linux software is
+  RPM; it's not uncommon to find a developer offering their
+  application for download as either source code or an RPM file, and
+  no more. In this case, you would have three options:
+</para>
+
+<orderedlist>
+  <listitem>
+    <para>
+      Build your own Slackware package.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Compile and install directly from source code.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Convert and install from RPM.
+    </para>
+  </listitem>
+</orderedlist>
+
+<para>
+  Building from source code or creating your own Slackware package is
+  usually not as complex as you might think but installing directly from
+  source code is generally discouraged because there is no easy way to
+  track what has been installed on your system after issuing the
+  <command>make install</command> command. Building your own Slackware
+  packages is outside the scope of this chapter. So this leaves us with
+  the helpful tool <application>rpm2tgz</application>.
+</para>
+
+<indexterm>
+<primary>rpm</primary>
+<secondary>redhat package manager</secondary>
+</indexterm>
+
+<para>
+  <application>rpm2tgz</application> converts RPM packages into a
+  Slackware package that can then be installed via
+  <application>pkgtool</application> or
+  <application>installpkg</application>. This circumvents the need to
+  create your own Slackware package but grants you the benefit of
+  being able to remove, update, and track what you've installed.
+</para>
+
+<warning>
+  <para>
+    While a Slackware package is just a shell script and source code,
+    an RPM package can by comparison be a maze of dependency listings
+    and special instructions. Therefore,
+    <application>rpm2tgz</application> will not always work,
+    especially on very complex applications, and it will never
+    magically resolve dependencies.
+  </para>
+</warning>
+
+<para>
+  To try <application>rpm2tgz</application>, download an RPM file from
+  a trusted source and convert it:
+</para>
+
+<programlisting>
+  rpm2tgz foo-x.x.xx.rpm
+</programlisting>
+
+<para>
+  The result is a .tgz file, so after the conversion is finished, the
+  original RPM can safely be discarded. Use
+  <application>installpkg</application> to install the Slackware
+  package you've just created, provided that you've
+  installed all dependency code for the application to actually function.
+</para>
+
+</section>
+</section>
 </chapter>

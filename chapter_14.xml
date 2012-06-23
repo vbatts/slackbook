@@ -2,10 +2,10 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter>
+<chapter id="ch_networking">
 <title>Networking</title>
 
-<section>
+<section id="sect_netconfig">
 <title><application>netconfig</application></title>
 
 <para>
@@ -43,7 +43,7 @@ book.
 
 </section>
 
-<section>
+<section id="sect_manual-configuration">
 <title>Manual Configuration</title>
 
 <para>
@@ -63,10 +63,10 @@ to use it to display and change the network addresses of some ethernet
 controllers.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>ifconfig</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>ifconfig</userinput>
 lo        Link encap:Local Loopback  
           inet addr:127.0.0.1  Mask:255.0.0.0
-          inet6 addr: ::1/128 Scope:Host
+          inet6 addr: ::1&#47;128 Scope:Host
           UP LOOPBACK RUNNING  MTU:16436  Metric:1
           RX packets:699 errors:0 dropped:0 overruns:0 frame:0
           TX packets:699 errors:0 dropped:0 overruns:0 carrier:0
@@ -75,7 +75,7 @@ lo        Link encap:Local Loopback
 
 wlan0     Link encap:Ethernet  HWaddr 00:1c:b3:ba:ad:4c  
           inet addr:192.168.1.198  Bcast:192.168.1.255  Mask:255.255.255.0
-          inet6 addr: fe80::21c:b3ff:feba:ad4c/64 Scope:Link
+          inet6 addr: fe80::21c:b3ff:feba:ad4c&#47;64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:1630677 errors:0 dropped:0 overruns:0 frame:0
           TX packets:1183224 errors:0 dropped:0 overruns:0 carrier:0
@@ -99,10 +99,10 @@ your system. The above represents a typical wireless connection from my
 laptop, so don't be afraid if what you see on your system doesn't
 match.  If you don't see any ethX or wlanX interfaces though, the
 interface may be down. To show all currently present NICs whether they are
-"up" or "down", simply pass the <arg>-a</arg> argument.
+&#34;up&#34; or &#34;down&#34;, simply pass the <arg>-a</arg> argument.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>ifconfig -a</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>ifconfig -a</userinput>
 eth0      Link encap:Ethernet  HWaddr 00:19:e3:45:90:44  
           UP BROADCAST MULTICAST  MTU:1500  Metric:1
           RX packets:122780 errors:0 dropped:0 overruns:0 frame:0
@@ -113,7 +113,7 @@ eth0      Link encap:Ethernet  HWaddr 00:19:e3:45:90:44
 
 lo        Link encap:Local Loopback  
           inet addr:127.0.0.1  Mask:255.0.0.0
-          inet6 addr: ::1/128 Scope:Host
+          inet6 addr: ::1&#47;128 Scope:Host
           UP LOOPBACK RUNNING  MTU:16436  Metric:1
           RX packets:699 errors:0 dropped:0 overruns:0 frame:0
           TX packets:699 errors:0 dropped:0 overruns:0 carrier:0
@@ -122,7 +122,7 @@ lo        Link encap:Local Loopback
 
 wlan0     Link encap:Ethernet  HWaddr 00:1c:b3:ba:ad:4c  
           inet addr:192.168.1.198  Bcast:192.168.1.255  Mask:255.255.255.0
-          inet6 addr: fe80::21c:b3ff:feba:ad4c/64 Scope:Link
+          inet6 addr: fe80::21c:b3ff:feba:ad4c&#47;4 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:1630677 errors:0 dropped:0 overruns:0 frame:0
           TX packets:1183224 errors:0 dropped:0 overruns:0 carrier:0
@@ -144,7 +144,7 @@ and subnet mask, but you can change virtually any parameters.
 </para>
 
 <screen><prompt>darkstar:~# </prompt><userinput>ifconfig eth0 192.168.1.1 netmask 255.255.255.0</userinput>
-<prompt>darkstar:~# </prompt><userinput>ifconfig eth0</userinput>
+<prompt>darkstar:~&#35; </prompt><userinput>ifconfig eth0</userinput>
 eth0      Link encap:Ethernet  HWaddr 00:19:e3:45:90:44  
           inet addr:192.168.1.1  Bcast:192.168.1.255  Mask:255.255.255.0
           UP BROADCAST MULTICAST  MTU:1500  Metric:1
@@ -177,7 +177,7 @@ For now, let's take a look at our routing table immediately after
 setting up eth0.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>route</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>route</userinput>
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 192.168.1.0     *               255.255.255.0   U     0      0        0 eth0
@@ -198,8 +198,8 @@ itself.  In order to reach the rest of the world, we'll need to
 setup a default gateway.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>route add default gw 192.168.1.254</userinput>
-<prompt>darkstar:~# </prompt><userinput>route</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>route add default gw 192.168.1.254</userinput>
+<prompt>darkstar:~&#35; </prompt><userinput>route</userinput>
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 192.168.1.0     *               255.255.255.0   U     0      0        0 eth0
@@ -227,17 +227,17 @@ Don't ask me what happened to the <keycap>e</keycap>. On my computer,
 </para>
 
 <screen>
-# /etc/resolv.conf
+&#35; &#47;etc&#47;resolv.conf
 search lizella.net
 nameserver 192.168.1.254
 </screen>
 
 <para>
-Most users won't need the "search" line. This is used to map hostnames
+Most users won't need the <parameter>search</parameter> line. This is used to map hostnames
 to domain names. Basically, if I attempt to connect to "barnowl", the
 computer knows to look for "barnowl.lizella.net" thanks to this search
-line. We're mainly interested in the "nameserver" line. This tells
-Slackware what domain name servers (DNS) to connect to. Generally
+line. We're mainly interested in the <parameter>nameserver</parameter> line. This tells
+Slackware what domain name servers &#40;DNS&#41; to connect to. Generally
 speaking, these should always be specified by IP address. If you know
 what DNS servers you should use, you can just add them one at a time to
 individual nameserver lines. In fact, I don't know of any practical
@@ -268,7 +268,7 @@ your network, and that you have an operating DHCP server on that
 network, you can configure your NIC in one shot.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>dhcpcd eth0</userinput>
+<screen><prompt>darkstar:~&#47; </prompt><userinput>dhcpcd eth0</userinput>
 </screen>
 
 <para>
@@ -281,17 +281,17 @@ on your network, and with the Internet at large. If for some reason,
 <application>dhcpcd</application> and works in basically the same way.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>dhclient eth0</userinput>
-Listening on LPF/eth0/00:1c:b3:ba:ad:4c
-Sending on   LPF/eth0/00:1c:b3:ba:ad:4c
-Sending on   Socket/fallback
+<screen><prompt>darkstar:~&#47; </prompt><userinput>dhclient eth0</userinput>
+Listening on LPF&#47;eth0&#47;00:1c:b3:ba:ad:4c
+Sending on   LPF&#47;eth0&#47;00:1c:b3:ba:ad:4c
+Sending on   Socket&#47;fallback
 DHCPREQUEST on eth0 to 255.255.255.255 port 67
 DHCPACK from 192.168.1.254
 bound to 192.168.1.198 -- renewal in 8547 seconds.
 </screen>
 
 <para>
-So why does Slackware include two DHCP clients? Sometimes a particular
+Why does Slackware include two DHCP clients? Sometimes a particular
 DHCP server may be broken and not respond well to either 
 <application>dhcpcd</application> or
 <application>dhclient</application>. In those cases, you can fall back
@@ -305,8 +305,10 @@ clients, so use whichever you prefer.
 
 </section>
 
-<section>
-<title>Automatic Configuration with rc.inet1.conf</title>
+<section id="sect_automatic-configuration">
+  <title>
+    Automatic Configuration with <filename>rc.inet1.conf</filename>
+  </title>
 
 <para>
 Manually configuring interfaces is an important skill to have, but it
@@ -314,7 +316,7 @@ can become tedious.  No one wants to manually setup their Internet
 connection every time the system boots.  More importantly, you may not
 always have physical access to the machine when it boots.  Slackware
 makes it easy to automatically configure ethernet (and wireless) cards
-at system startup with <filename>/etc/rc.d/rc.inet1.conf</filename>.
+at system startup with <filename>&#47;etc&#47;rc.d&#47;rc.inet1.conf</filename>.
 For now, we're going to focus on traditional wired ethernet networking;
 the next chapter will discuss various wireless options.
 </para>
@@ -329,13 +331,13 @@ one of my personal machines.
 </para>
 
 <screen>
-# Config information for eth0:
-IPADDR[0]="192.168.1.250"
-NETMASK[0]="255.255.255.0"
-USE_DHCP[0]=""
-DHCP_HOSTNAME[0]=""
-# Some lines ommitted.
-GATEWAY="192.168.1.254"
+&#35; Config information for eth0:
+IPADDR&#91;0&#93;=&#34;192.168.1.250&#34;
+NETMASK&#91;=&#93;&#34;255.255.255.0&#34;
+USE_DHCP&#91;0&#93;=&#34;&#34;
+DHCP_HOSTNAME&#91;0&#93;=&#34;&#34;
+&#35; Some lines ommitted.
+GATEWAY=&#34;192.168.1.254&#34;
 </screen>
 
 <para>
@@ -350,25 +352,29 @@ basics.
 </para>
 
 <para>
-As you may have already guessed, IPADDR[n] is the Internet Protocol
-Address for the "n" network interface card.  Typically, "n" corrosponds
-to eth0, eth1, and so on, but this isn't always the case.  You can
-specify these values to pertain to a different network controller with
-the INFAME[n] variable, but we will reserve that for the next chapter
-on wireless networking, as it more commonly pertains to wireless
-network controllers.  Likewise, NETMASK[n] is the subnet mask to use
-for the network controller.  If these lines are left empty, then static
-IP addresses will not be automatically assigned to this network
-controller.  The USE_DHCP[n] variable tells Slackware to (naturally)
-use DHCP to configure the interface.  DHCP_HOSTNAME[n] is rarely used,
-but some DHCP servers may require it.  In that case, it must be set to
-a valid hostname. Finally, we come to the GATEWAY variable.  It is
-actually set lower in the file than it appears in my example, and it
-controls the default gateway to use. You may be wondering why there is
-no GATEWAY[n] variable. The answer to that lies in how Internet
-Protocol works. I won't go into an indepth discussion on that subject,
-but suffice it to say that there is only ever one default route that a
-computer can use no matter how many interfaces are attached to it.
+As you may have already guessed, IPADDR&#91;n&#93; is the Internet
+Protocol Address for the <varname>n</varname> network interface card.
+Typically, <varname>n</varname> corrosponds to
+<parameter>eth0</parameter>, <parameter>eth1</parameter>, and so on,
+but this isn't always the case.  You can specify these values to
+pertain to a different network controller with the INFAME&#91;n&#93;
+variable, but we will reserve that for the next chapter on wireless
+networking, as it more commonly pertains to wireless network
+controllers. Likewise, NETMASK&#91;n&#93; is the subnet mask to use
+for the network controller.  If these lines are left empty, then
+static IP addresses will not be automatically assigned to this network
+controller.  The <varname>USE_DHCP&#91;n&#93;</varname> variable tells
+Slackware &#40;naturally&#41; to use DHCP to configure the interface.
+<varname>DHCP_HOSTNAME&#91;n&#93;</varname> is rarely used, but some
+DHCP servers may require it.  In that case, it must be set to a valid
+hostname. Finally, we come to the GATEWAY variable.  It is actually
+set lower in the file than it appears in my example, and it controls
+the default gateway to use. You may be wondering why there is no
+<varname>GATEWAY&#91;n&#93;</varname> variable. The answer to that
+lies in how Internet Protocol works. I won't go into an in-depth
+discussion on that subject, but suffice it to say that there is only
+ever one default route that a computer can use no matter how many
+interfaces are attached to it.
 </para>
 
 <para>
@@ -384,18 +390,19 @@ computer.
 </para>
 
 <screen>
-# Config information for eth1:
-IPADDR[1]=""
-NETMASK[1]=""
-USE_DHCP[1]="yes"
-DHCP_HOSTNAME[1]=""
+&#35; Config information for eth1:
+IPADDR&#91;1&#93;=&#34;&#34;
+NETMASK&#91;1&#93;=&#34;&#34;
+USE_DHCP&#91;1&#93;=&#34;yes&#34;
+DHCP_HOSTNAME&#91;1&#93;=&#34;&#34;
 </screen>
 
 <para>
-Here I am telling Slackware to configure eth1 using DHCP. I do not need
-to set the IPADDR[1] or NETMASK[1] variables when using DHCP (in fact,
-if they are set, they will be ignored). Slackware will happily contact
-a DHCP server as soon as the machine begins to boot.
+Here I am telling Slackware to configure eth1 using DHCP. I do not
+need to set the <varname>IPADDR&#91;1&#93;</varname> or
+<varname>NETMASK&#91;1&#93;</varname> variables when using DHCP &#40;in
+fact, if they are set, they will be ignored&#41;. Slackware will happily
+contact a DHCP server as soon as the machine begins to boot.
 </para>
 
 </section>

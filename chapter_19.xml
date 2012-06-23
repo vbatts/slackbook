@@ -5,7 +5,7 @@
 <chapter>
 <title>The Linux Kernel</title>
 
-<section>
+<section id="ch_kernel">
 <title>What Does the Kernel Do?</title>
 
 <para>
@@ -26,8 +26,17 @@ of software on your computer and the most complex.
 
 </section>
 
-<section>
+<section id="kernel_modules">
 <title>Working with Modules</title>
+
+<indexterm>
+  <primary>kernel</primary>
+  <secondary>modules</secondary>
+</indexterm>
+
+<indexterm>
+<primary>modules</primary>
+</indexterm>
 
 <para>
 The complexity of a modern linux kernel is staggering. The source code
@@ -49,10 +58,14 @@ It's important to realize that Slackware will automatically handle
 loading most modules for you. When your system boots,
 <application>udevd</application>(8) is started and begins to probe your
 system's hardware. For each device it finds, it loads the proper module
-and created a device node in <filename>/dev</filename>. This usually
+and created a device node in <filename>&#47;dev</filename>. This usually
 means that you will not need to load any modules in order to use your
 computer, but occasionally this is necessary.
 </para>
+
+<indexterm>
+  <primary>lsmod</primary>
+</indexterm>
 
 <para>
 So what modules are currently loaded on your computer and how do we
@@ -61,7 +74,7 @@ handling this. As you might have guessed, the tool for listing modules
 is <application>lsmod</application>(8).
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>lsmod</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>lsmod</userinput>
 Module                  Size  Used by
 nls_utf8                1952  1 
 cifs                  240600  2 
@@ -77,6 +90,13 @@ In addition to showing you what modules are loaded, it displays the
 size of each module and tells you what other modules are using it.
 </para>
 
+<indexterm>
+  <primary>modprobe</primary>
+</indexterm>
+<indexterm>
+  <primary>insmod</primary>
+</indexterm>
+
 <para>
 There are two applications for loading modules:
 <application>insmod</application>(8) and
@@ -87,9 +107,9 @@ preferred because it can load any module dependencies. Using either is
 straight-forward.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>insmod ext3</userinput>
-<prompt>darkstar:~# </prompt><userinput>modprobe ext4</userinput>
-<prompt>darkstar:~# </prompt><userinput>lsmod | grep ext</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>insmod ext3</userinput>
+<prompt>darkstar:~&#35; </prompt><userinput>modprobe ext4</userinput>
+<prompt>darkstar:~&#35; </prompt><userinput>lsmod | grep ext</userinput>
 ext4                  239928  1 
 jbd2                   59088  1 ext4
 crc16                   1984  1 ext4
@@ -98,6 +118,10 @@ jbd                    48520  1 ext3
 mbcache                 8068  2 ext4,ext3
 </screen>
 
+<indexterm>
+  <primary>rmmod</primary>
+</indexterm>
+
 <para>
 Removing modules can be a tricky process, and once again we have two
 programs for removing them: <application>rmmod</application>(8) and
@@ -105,49 +129,61 @@ programs for removing them: <application>rmmod</application>(8) and
 modprobe, you'll need to use the <arg>-r</arg> argument.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>rmmod ext3</userinput>
-<prompt>darkstar:~# </prompt><userinput>modprobe -r ext4</userinput>
-<prompt>darkstar:~# </prompt><userinput>lsmod | grep ext</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>rmmod ext3</userinput>
+<prompt>darkstar:~&#35; </prompt><userinput>modprobe -r ext4</userinput>
+<prompt>darkstar:~&#35; </prompt><userinput>lsmod | grep ext</userinput>
 </screen>
 
 </section>
 
-<section>
+<section id="kernel_compile">
 <title>Compiling A Kernel and Why to do So</title>
+
+<indexterm>
+  <primary>kernel</primary>
+  <secondary>compiling</secondary>
+</indexterm>
 
 <para>
 Most Slackware users will never need to compile a kernel. The huge and
 generic kernels contain virtually all the support you will need.
+</para>
+
+<para>
 However, some users may need to compile a kernel. If your computer
 contains bleeding edge hardware, a newer kernel may offer improved
 support. Sometimes a kernel patch my be available that corrects a
 problem you are experiencing. In these cases a kernel compile is
-probably warranted.  Users who simply want the latest and greatest
+probably warranted. Users who simply want the latest and greatest
 version or who believe using a custom compiled kernel will give them
-greater performance can certainly upgrade, but are unlikely to notice
-any major changes. If you still think compiling your own kernel is
-something you want or need to do, this section should walk you through
-the many steps.
+greater performance can certainly upgrade, but are unlikely to
+actually notice any major changes. 
+</para>
+
+<para>
+If you still think compiling your own kernel is something you want or
+need to do, this section should walk you through the many steps.
 Compiling and installing a kernel is not that difficult, but there are
 a number of mistakes that can be made along the way, many of which can
 prevent your computer from booting and cause major frustration.
 </para>
 
 <para>
-The first step is ensuring you have the kernel source code installed on
-your system.  The kernel source package is included in the "k" disk set
-in the Slackware installer, or you can download another version from
-<ulink url="http://www.kernel.org/">http://www.kernel.org/</ulink>.
+The first step is ensuring you have the kernel source code installed
+on your system.  The kernel source package is included in the
+&#34;k&#34; disk set in the Slackware installer, or you can download
+another version from <ulink
+url="http://www.kernel.org/">http://www.kernel.org/</ulink>.
 Traditionally, the kernel source is located in
-<filename>/usr/src/linux</filename>, a symbolic link that points to the
-specific kernel release used, but this is by no means set in stone. You
-can place the kernel source code virtually anywhere without
-encountering any problems.
+<filename>&#47;usr&#47;src&#47;linux</filename>, a symbolic link that
+points to the specific kernel release used, but this is by no means
+set in stone. You can place the kernel source code virtually anywhere
+without encountering any problems.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>ls -l /usr/src</userinput>
-lrwxrwxrwx  1 root root   14 2009-07-22 19:59 linux -> linux-2.6.29.6/
-drwxr-xr-x 23 root root 4096 2010-03-17 19:00 linux-2.6.29.6/
+<screen><prompt>darkstar:~&#35; </prompt><userinput>ls -l &#47;usr&#47;src</userinput>
+lrwxrwxrwx  1 root root   14 2009-07-22 19:59 linux -&#62; linux-2.6.29.6&#47;
+drwxr-xr-x 23 root root 4096 2010-03-17 19:00 linux-2.6.29.6&#47;
 </screen>
 
 <para>
@@ -170,14 +206,14 @@ compile the kernel again and again until you get it right.  The best
 kernel <filename>.config</filename> files to start with are those used
 by Slackware's default kernels. You can find them on your Slackware
 install disks or at your favorite mirror in the
-<filename>kernels/</filename> directory.
+<filename>kernels&#47;</filename> directory.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>mount /mnt/cdrom</userinput>
-<prompt>darkstar:~# </prompt><userinput>cd /mnt/cdrom/kernels</userinput>
-<prompt>darkstar:/mnt/cdrom/kernels# </prompt><userinput>ls</userinput>
-VERSIONS.TXT  huge.s/  generic.s/ speakup.s/
-<prompt>darkstar:/mnt/cdrom/kernels# </prompt><userinput>ls genric.s</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>mount &#47;mnt&#47;cdrom</userinput>
+<prompt>darkstar:~&#35; </prompt><userinput>cd &#47;mnt&#47;cdrom&#47;kernels</userinput>
+<prompt>darkstar:&#47;mnt&#47;cdrom&#47;kernels&#35; </prompt><userinput>ls</userinput>
+VERSIONS.TXT  huge.s&#47;  generic.s&#47;  speakup.s&#47;
+<prompt>darkstar:&#47;mnt&#47;cdrom&#47;kernels&#35; </prompt><userinput>ls genric.s</userinput>
 System.map.gz  bzImage  config
 </screen>
 
@@ -191,26 +227,29 @@ and thus creates a smaller kernel image, but it usually requires the
 use of an initrd.
 </para>
 
-<screen><prompt>darkstar:/mnt/cdrom/kernels# </prompt><userinput>cp generic.s/config /usr/src/linux/.config</userinput>
+<screen><prompt>darkstar:&#47;mnt&#47;cdrom&#47;kernels&#35; </prompt><userinput>cp generic.s&#47;config &#47;usr&#47;src&#47;linux&#47;.config</userinput>
 </screen>
 
-<note><para>
-The Slackware kernel file lacks the "dot" while the kernel
-file includes it. If you forget, or simply copy the
-<filename>config</filename> to <filename>/usr/src</filename> whatever
-<filename>.config</filename> file was already present will be used
-instead.
-</para></note>
+<important>
+  <para>
+    The Slackware kernel file lacks the "dot" while the kernel file
+    includes it. If you forget, or simply copy the
+    <filename>config</filename> to
+    <filename>&#47;usr&#47;src</filename> whatever
+    <filename>.config</filename> file was already present will be used
+    instead.
+</para>
+</important>
 
 <para>
 If you want to use the configuration for the currently running kernel
 as your base, you may be able to locate it at
-<filename>/proc/config.gz</filename>. This is a special kernel-related
+<filename>&#47;proc&#47;config.gz</filename>. This is a special kernel-related
 file that includes the entire kernel configuration in a compressed
 format and requires that your kernel was built to support it.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>zcat /proc/config.gz > /usr/src/linux/.config</userinput>
+<screen><prompt>darkstar:~&#35; </prompt><userinput>zcat &#47;proc&#47;config.gz &#62; &#47;usr&#47;src&#47;linux&#47;.config</userinput>
 </screen>
 
 <para>
@@ -230,14 +269,14 @@ options. Since options are added at virtually every kernel release,
 this is generally a good thing to do.
 </para>
 
-<screen><prompt>darkstar:/usr/src/linux# </prompt><userinput>make oldconfig</userinput>
-scripts/kconfig/conf -o arch/x86/Kconfig
-*
-* Restart config...
-*
-*
-* File systems
-*
+<screen><prompt>darkstar:&#47;usr&#47;src&#47;linux&#35; </prompt><userinput>make oldconfig</userinput>
+scripts&#47;kconfig&#47;conf -o arch&#47;x86&#47;Kconfig
+&#42;
+&#42; Restart config...
+&#42;
+&#42;
+&#42; File systems
+&#42;
 Second extended fs support (EXT2_FS) [M/n/y/?] m
   Ext2 extended attributes (EXT2_FS_XATTR) [N/y/?] n
   Ext2 execute in place support (EXT2_FS_XIP) [N/y/?] n
@@ -281,6 +320,11 @@ Automatically append version information to the version string (LOCALVERSION_AUT
 Support for paging of anonymous memory (swap) (SWAP) [Y/n/?]
 </screen>
 
+<indexterm>
+  <primary>kernel</primary>
+  <secondary>menuconfig</secondary>
+</indexterm>
+
 <para>
 Fortunately, there are two much easier ways to configure your kernel,
 <arg>menuconfig</arg> and <arg>xconfig</arg>. Both of these create a
@@ -302,13 +346,16 @@ the arrow keys.
 
 <imagedata fileref="img/make-menuconfig-w.png" format="PNG"/>
 
-<warning><para>
-If you are compiling a kernel that is the same release as the stock
-Slackware kernel, you must set the "Local version" option. This is
-found on the "General setup" submenu. Failure to set this will result
-in your kernel compile over-writing all the modules used by the stock
-kernels. This can quickly render your system unbootable.
-</para></warning>
+<warning>
+  <para>
+    If you are compiling a kernel that is the same release as the
+    stock Slackware kernel, you must set the "Local version"
+    option. This is found on the "General setup" submenu. Failure to
+    set this will result in your kernel compile over-writing all the
+    modules used by the stock kernels. This can quickly render your
+    system unbootable.
+  </para>
+</warning>
 
 <para>
 Once you've finished configuring the kernel, it's time to begin
@@ -339,7 +386,8 @@ configuration first. Compile errors are usually caused by a fault
 we're still not entirely finished, as we need to build the modules.
 </para>
 
-<screen><prompt>darkstar:/usr/src/linux# </prompt><userinput>make modules</userinput>
+<screen>
+<prompt>darkstar:/usr/src/linux# </prompt><userinput>make modules</userinput>
   CHK     include/linux/version.h
   CHK     include/linux/utsrelease.h
   SYMLINK include/asm -> include/asm-x86
@@ -358,8 +406,9 @@ images located there. Traditionaly kernel images are named
 appended.
 </para>
 
-<screen><prompt>darkstar:/usr/src/linux# </prompt><userinput>cat arch/x86/boot/bzImage > /boot/vmlinuz-release_number-local_version</userinput>
-<prompt>darkstar:/usr/src/linux# </prompt><userinput>make modules_install</userinput>
+<screen>
+  <prompt>darkstar:/usr/src/linux# </prompt><userinput>cat arch/x86/boot/bzImage > /boot/vmlinuz-release_number-local_version</userinput>
+  <prompt>darkstar:/usr/src/linux# </prompt><userinput>make modules_install</userinput>
 </screen>
 
 <para>
