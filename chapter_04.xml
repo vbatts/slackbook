@@ -2,7 +2,7 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter>
+<chapter id="ch_shell">
 <title>Basic Shell Commands</title>
 
 <!-- ls, cd, mkdir, touch, rmdir, rm, file -->
@@ -15,18 +15,18 @@ probably need a little assistance in knowing how to get around, and
 that is what this chapter is all about.
 </para>
 
-<section>
+<section id="shell_sysdocs">
 <title>System Documentation</title>
 
 <para>
 Your Slackware Linux system comes with lots of built-in documentation
-for nearly every installed application.  Perhaps the most common method
-of reading system documentation is 
+for nearly every installed application.  Perhaps the most common
+method of reading system documentation is
 <application>man</application>(1).  <application>man</application>
-(short for manual) will bring up the included man-page for any
-application, system call, configuration file, or library you tell it
-too.  For example, <userinput>man man</userinput> will bring up the
-man-page for <application>man</application> itself.
+(short for <emphasis>manual</emphasis>) will bring up the included
+man-page for any application, system call, configuration file, or
+library you tell it too.  For example, <userinput>man man</userinput>
+will bring up the man-page for <application>man</application> itself.
 </para>
 
 <para>
@@ -122,7 +122,7 @@ printf               (3)  - formatted output conversion
 <application>ls</application>(1) is used to list files and directories,
 their permissions, size, type, inode number, owner and group, and
 plenty of additional information.  For example, let's list what's in
-the <filename>/</filename> directory for your new Slackware Linux system.
+the <filename>&#47;</filename> directory for your new Slackware Linux system.
 </para>
 
 <screen><prompt>darkstar:~$ </prompt><userinput>ls /</userinput>
@@ -130,7 +130,8 @@ bin/   dev/  home/  lost+found/  mnt/  proc/  sbin/  sys/  usr/
 boot/  etc/  lib/   media/       opt/  root/  srv/   tmp/  var/
 </screen>
 
-<para>Notice that each of the listings is a directory.  These are
+<para>
+Notice that each of the listings is a directory.  These are
 easily distinguished from regular files due to the trailing /; standard
 files do not have a suffix.  Additionally, executable files will have an
 asterisk suffix.  But <application>ls</application> can do so much
@@ -185,7 +186,7 @@ in chapter 5.
 
 </section>
 
-<section>
+<section id="shell_moving">
 <title>Moving Around the Filesystem</title>
 
 <para>
@@ -224,7 +225,7 @@ shell for you by Slackware.)
 
 </section>
 
-<section>
+<section id="shell_creating-deleting">
 <title>File and Directory Creation and Deletion</title>
 
 <para>
@@ -240,13 +241,13 @@ file, but if that file doesn't exist, it will be created.
 </para>
 
 <screen><prompt>darkstar:~/foo$ </prompt><userinput>ls -l</userinput>
--rw-r--r-- 1 alan users 0 2008-01-18 15:01 bar1
+-rw-r--r-- 1 alan users 0 2012-01-18 15:01 bar1
 <prompt>darkstar:~/foo$ </prompt><userinput>touch bar2</userinput>
--rw-r--r-- 1 alan users 0 2008-01-18 15:01 bar1
--rw-r--r-- 1 alan users 0 2008-01-18 15:05 bar2
+-rw-r--r-- 1 alan users 0 2012-01-18 15:01 bar1
+-rw-r--r-- 1 alan users 0 2012-01-18 15:05 bar2
 <prompt>darkstar:~/foo$ </prompt><userinput>touch bar1</userinput>
--rw-r--r-- 1 alan users 0 2008-01-18 15:05 bar1
--rw-r--r-- 1 alan users 0 2008-01-18 15:05 bar2
+-rw-r--r-- 1 alan users 0 2012-01-18 15:05 bar1
+-rw-r--r-- 1 alan users 0 2012-01-18 15:05 bar2
 </screen>
 
 <para>
@@ -314,7 +315,7 @@ bar_2/
 
 </section>
 
-<section>
+<section id="shell_archive-compression">
 <title>Archive and Compression</title>
 
 <para>
@@ -361,7 +362,7 @@ archive file.
 
 </section>
 
-<section>
+<section id="shell_gzip">
 <title>gzip</title>
 
 <para>
@@ -396,8 +397,8 @@ But suppose we don't want to delete the old compressed file, we just
 want to read its contents or send them as input to another program?
 The <application>zcat</application> program will read the gzip file,
 decompress it in memory, and send the contents to the standard output
-(the terminal screen unless it is redirected, see the next chapter for
-more details on output redirection).
+(the terminal screen unless it is redirected, see <xref
+linkend="bash_redirection"/> for more details on output redirection).
 </para>
 
 <screen><prompt>darkstar:~$ </prompt><userinput>zcat /tmp/large_file.gz</userinput>
@@ -414,7 +415,7 @@ suggestions during this development cycle.
 
 </section>
 
-<section>
+<section id="shell_bzip2">
 <title>bzip2</title>
 
 <para>
@@ -429,8 +430,8 @@ typicall takes much longer to run than other alternatives.
 
 </section>
 
-<section>
-<title>XZ / LZMA</title>
+<section id="shell_xz-lzma">
+<title>XZ &#47; LZMA</title>
 
 <para>
 The latest compression utility added to Slackware is
@@ -449,7 +450,7 @@ with the <arg>-z</arg> argument, and decompression with <arg>-d</arg>.
 
 </section>
 
-<section>
+<section id="shell_tar">
 <title>tar</title>
 
 <para>
@@ -555,7 +556,7 @@ compression algorithm.
 
 </section>
 
-<section>
+<section id="shell_reading">
 <title>Reading Documents</title>
 
 <para>
@@ -589,49 +590,127 @@ intelligent people sat down and began to work on an application to let
 them read documents one page at a time.  Naturally, such applications
 began to be known as "pagers".  One of the earliest of these was
 <application>more</application>(1), named because it would let you see
-"more" of the file whenever you wanted.  <application>more</application>
-will display the first few lines of a text file until your screen is
-full, then pause.  Once you've read through that screen, you can
-proceed down one line by pressing ENTER, or an entire screen by
-pressing SPACE.  <application>more</application> is also capable of
-searching through a text file for keywords.  Once you've displayed a
-file in <application>more</application>, simply press the / key and
-enter a keyword.  Upon pressing ENTER, the text will scroll until it
-finds the next match.  This is clearly a big improvement over
-<application>cat</application>, but still suffers from a serious flaw:
-<application>more</application> is not able to scroll back up through
-the file to allow you to read something you might have missed.  Clearly
-a better solution is called for.
+"more" of the file whenever you wanted.
+</para>
+
+<section id="shell_reading_more"> <!-- sub section of READING -->
+  <title>more</title>
+
+<para>
+<application>more</application> will display the first few lines of a
+text file until your screen is full, then pause.  Once you've read
+through that screen, you can proceed down one line by pressing ENTER,
+or an entire screen by pressing <keycap>SPACE</keycap>, or by a
+specified number of lines by typing a number and then the
+<keycap>SPACE</keycap> bar. <application>more</application> is also
+capable of searching through a text file for keywords; once you've
+displayed a file in <application>more</application>, press the &#47;
+key and enter a keyword.  Upon pressing <keycap>ENTER</keycap>, the
+text will scroll until it finds the next match.  
 </para>
 
 <para>
-In order to address the short-comings of
-<application>more</application>, a new pager was developed and
-ironically dubbed <application>less</application>(1).
-<application>less</application> is a very powerful pager that supports
-all of the functions of <application>more</application> while adding
-lots of additional features.  To begin with,
-<application>less</application> allows you to use your arrow keys to
-controll movement within the document.  Due to its popularity, many
-Linux distributions have begun to exclude
-<application>more</application> in favor of
-<application>less</application>.  Slackware includes both.  Moreover,
-Slackware also includes a handy little pre-processor for
-<application>less</application> called
-<filename>lesspipe.sh</filename>.  This allows a user to exectute
-<application>less</application> on a number of non-text files.
-<filename>lesspipe.sh</filename> will generate text output from running
-a command on these files, and display it in
-<application>less</application>.
+  This is clearly a big improvement over
+  <application>cat</application>, but still suffers from some annoying
+  flaws; <application>more</application> is not able to scroll back up
+  through a piped file to allow you to read something you might have
+  missed, the search function does not highlight its results, there is
+  no horizontal scrolling, and so on.  Clearly a better solution is
+  possible.
 </para>
+
+<note>
+  <para>
+    In fact, modern versions of <application>more</application>, such
+    as the one shipped with Slackware, do feature a
+    <emphasis>back</emphasis> function via the <keycap>b</keycap>
+    key. However, the function is only available when opening files
+    directly in <application>more</application>; not when a file is
+    piped to <application>more</application>.
+  </para>
+</note>
 
 </section>
 
-<section>
-<title>Linking</title>
+<section id="shell_reading_less">
+  <title>less</title>
 
 <para>
-Links are a method of referring to one file by more than one name.  By
+  In order to address the short-comings of
+  <application>more</application>, a new pager was developed and
+  ironically dubbed <application>less</application>(1).
+  <application>less</application> is a very powerful pager that
+  supports all of the functions of <application>more</application>
+  while adding lots of additional features.  To begin with,
+  <application>less</application> allows you to use your arrow keys to
+  control movement within the document.
+</para>
+
+<para>
+  Due to its popularity, many Linux distributions have begun to
+  exclude <application>more</application> in favor of
+  <application>less</application>.  Slackware includes both.
+  Moreover, Slackware also includes a handy little pre-processor for
+  <application>less</application> called
+  <filename>lesspipe.sh</filename>.  This allows a user to exectute
+  <application>less</application> on a number of non-text files.
+  <filename>lesspipe.sh</filename> will generate text output from
+  running a command on these files, and display it in
+  <application>less</application>.
+</para>
+
+<para>
+  <application>Less</application> provides nearly as much
+  functionality as one might expect from a text editor without
+  actually being a text editor. Movement line-by-line can be done
+  <application>vi</application>-style with <keycap>j</keycap> and
+  <keycap>k</keycap>, or with the arrow keys, or
+  <keycap>ENTER</keycap>. In the event that a file is too wide to fit
+  on one screen, you can even scroll horizontally with the left and
+  right arrow keys. The <keycap>g</keycap> key takes you to the top of
+  the file, while <keycap>G</keycap> takes you to the
+  end.
+</para>
+
+<para>
+  Searching is done as with <application>more</application>, by typing
+  the &#47; key and then your search string, but notice how the search
+  results are highlighted for you, and typing <keycap>n</keycap> will
+  take you to the next occurence of the result while
+  <keycap>N</keycap> takes you to the previous occurrence.
+</para>
+
+<para>
+  Also as with <application>more</application>, files maybe opened
+  directly in <application>less</application> or piped to it:
+</para>
+
+<screen>
+  <prompt>darkstar:~$ </prompt> <command>less
+  &#47;usr&#47;doc&#47;less-&#42;&#47;README</command>
+  <prompt>darkstar:~$ </prompt> <command>cat
+  &#47;usr&#47;doc&#47;less&#42;&#47;README
+  &#47;usr&#47;doc&#47;util-linux&#42;&#47;README | less</command>
+</screen>
+
+<para>
+  There is much more to <application>less</application>; from within
+  the application, type <keycap>h</keycap> for a full list of
+  commands. 
+</para>
+
+</section> <!-- closing less -->
+</section> <!-- closing READING -->
+
+<section id="shell_linking">
+<title>Linking</title>
+
+<indexterm>
+  <primary>symlink</primary>
+</indexterm>
+
+<para>
+  Links are a method of referring to one file by more than one name.  By
 using the <application>ln</application>(1) application, a user can
 reference one file with more than one name.  The two files are not
 carbon-copies of one another, but rather are the exact same file, just

@@ -2,10 +2,10 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter>
+<chapter id="ch_print">
 <title>Printing</title>
 
-<section>
+<section id="print_choosing-printer">
 <title>Choosing A Printer</title>
 
 <para>
@@ -32,36 +32,328 @@ firefox, konqueror, or links and go to
 
 <imagedata fileref="img/cups-01.png" format="PNG" />
 
-</section>
+<para>
+  You might find that a quick click-through of CUPS configures your
+  printer nearly automatically. Or, you may find that further
+  configuration is required. To learn more about how printing works or
+  how to get a stubborn printer configured, read on.
+</para>
+
+</section> <!-- closing intro -->
+
+<section id="print_drivers">
+  <title>Getting the driver</title>
+
+<indexterm>
+  <primary>printers</primary>
+  <secondary>drivers</secondary>
+</indexterm>
+
+  <para>
+    There are, essentially, three types of printer drivers:
+  </para>
+
+  <orderedlist>
+    <listitem>
+      <para>
+	Postscript printers use the unversal-ish language of
+	Postscript to communicate with computers.  A driver for
+	postscript printers is usually not needed, since a
+	postscript-compatible subsystem called
+	<application>Ghostscript</application> is already installed.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+	Gutenprint are drivers engineered by GNU Linux developers. It
+	provides support for roughly 700 printers.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+	Manufacturers may provide Linux drivers for their
+	printers. Find out by going to the manufacturer's driver and
+	support website and searching for your model.
+      </para>
+    </listitem>
+  </orderedlist>
+
+  <para>
+    Since <application>gutenprint</application> is already installed
+    on Slackware, from this set of three categories, we have two methods of
+    installing drivers:
+  </para>
+
+  <orderedlist>
+    <listitem>
+      <para>
+	For the manufacturer&#39;s drivers, installation is usually
+	the same as any other software on your system; use
+	<application>installpkg</application> or
+	<application>rpm2tgz</application> to install the driver
+	package. Be sure to read the documentation bundled with the
+	drivers.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+	For Postscript printers, there is no &#34;installation&#34; as
+	such; simply download the appropriate <filename>PPD</filename>
+	file and keep it in a sensible location on your hard drive.
+      </para>
+    </listitem>
+  </orderedlist>
+
+  <para>
+    Once you've located and installed or downloaded the necessary
+    components, you're ready to run <application>CUPS</application>.
+  </para>
+</section> <!-- close DRIVERS -->
 
 <section>
 <title>Setting Up a Printer in CUPS</title>
 
-<para>
-From this point onward, setting up a printer is just a series of
-following the step-by-step instructions with CUPS, but a few areas
-merit some clarification.
-</para>
-
-</section>
-
-<section>
-<title>Commandline Print Utilities</title>
+<indexterm>
+  <primary>printers</primary>
+  <secondary>CUPS</secondary>
+</indexterm>
 
 <para>
-Using the command <command>lpr</command>(1) to print files, is a simple task.
-It can queue a print job using a file or standard input (stdin).
-Refer to the manpages for more options.
+  From this point onward, setting up a printer is just a series of
+  following the step-by-step instructions with CUPS, but understanding
+  how the printing configuration actually works might help clarify
+  what CUPS does is doing.
 </para>
 
 <para>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  The file <filename>&#47;etc&#47;cups&#47;printers.conf</filename>
+  consists of definitions which detail the printing devices your
+  computer will be able to access, with one marked as the default
+  device.  If you wish to edit this file manually (and you probably
+  don't), you must stop the <application>cupsd</application>
+  <application>CUPS</application> daemon.
 </para>
 
-</section>
+<para>
+  A typical entry would look something like this:
+</para>
+
+<programlisting>
+  &#60;Printer r1060&#62;
+  Info Ricoh 1060
+  Location Downstairs
+  MakeModel Ricoh Aficio 1060 - CUPS+Gutenprint v5.2.6
+  DeviceURI lpd:&#47;&#47;192.168.4.8
+  State Idle
+  StateTime 1316011347
+  Type 12308
+  Filter application&#47;vnd.cups-raw 0 -
+  Filter application&#47;vnd.cups-raster 100 rastertogutenprint.5.2
+  &#35; standard-ish stuff below here
+  Accepting Yes
+  Shared No
+  JobSheets none none
+  QuotaPeriod 0
+  PageLimit 0
+  KLimit 0
+  OpPolicy default
+  ErrorPolicy stop-printer
+  &#60;/Printer&#62;
+</programlisting>      
+
+<para>
+  In this example, we have given the printer the name
+  <userinput>r1060</userinput>, a human-readable identifier
+  <userinput>Ricoh 1060</userinput>.
+</para>
+
+<para>
+  The <userinput>MakeModel</userinput> attribute is gained from
+  <application>lpinfo</application>, which lists all available
+  printer drivers on your system.  So, if you know that you have a
+  Ricoh 1060 that you want to print to, then you would issue this
+  command as root:
+</para>
+    
+<screen>
+  <prompt>darkstar:~&#35; </prompt><command>lpinfo -m | grep 1060</command>
+</screen>
+
+<para>
+  This lists the drivers that you have installed, grepping for the
+  string 1060:
+</para>
+
+<programlisting>
+  gutenprint.5.2:&#47;&#47;brother-hl-1060/expert Brother HL-1060 - CUPS+Gutenprint v5.2.6
+  gutenprint.5.2:&#47;&#47;ricoh-afc_1060/expert Ricoh Aficio 1060 - CUPS+Gutenprint v5.2.6
+</programlisting>
+
+<para>
+  The <userinput>MakeModel</userinput> is the last half of the
+  appropriate result; in this case <userinput>Ricoh Aficio 1060 -
+  CUPS+Gutenprint v5.2.6</userinput>
+</para>
+
+<para>
+  The final vital entry is the device URI, or where on the network
+  &#40;or physical location, such as the USB port&#41;, the printer
+  can be found.  In this example, we use <userinput>DeviceURI
+  lpd:&#47;&#47;192.168.4.8</userinput> because we are using the
+  <application>lpd</application> &#40;line printer daemon&#41;
+  protocol to send data to the printer.
+</para> 
+
+<para>
+  Now you understand what is being configured, and you can use the
+  more common &#40;and easier&#41; method of doing this from the
+  configuration tool that runs inside of a web browser.
+</para>
+
+<para>
+  In the CUPS interface, choose the <guimenu>Administration</guimenu>
+  tab, and choose to <guibutton>Add Printer</guibutton>.  You should
+  be asked to enter administrative authorization here; enter
+  <userinput>root</userinput> as the admin and your <userinput>root
+  password</userinput>.
+</para>
+
+<para>
+  You will be presented with a list of printer interfaces and
+  protocols that you can use for a printer.  In many cases, you will
+  want to add the printer via the
+  <application>LPD&#47;LPR</application> protocol (unless you've
+  managed to find a printer that requires some other protocol).
+</para>
+
+<para>
+  Note that if the printer is plugged directly into your computer, and
+  is on, you should see it listed as a Local Printer.
+</para>
+
+<para>
+  Assuming the printer is networked, the next screen will ask for the
+  location of the printer.  Using lpd:&#47;&#47; as the protocol,
+  enter the IP address of the printer.  To find the IP address of the
+  printer, you will probably need to look at the printer&#39;s
+  settings, or you may be able to determine it from your router.
+</para>
+
+<para>
+  Whether your printer is connected via USB or network, the following
+  screen will ask for human-readable details about the printer; this
+  is for your reference only, so enter a name for the printer that
+  makes sense to you and your users &#40;the model number
+  usually&#41;, a description &#40;something that is distinctive about
+  the printer if you have more than one of the same printers&#41;, and
+  the location &#40;describing where it is in the building&#41;.
+</para>
+
+<para>
+  On the next screen, point CUPS to the printer driver.  If the
+  printer is a postscript printer &#40;as most laserprinters are&#41;
+  then you may need only the <filename>PPD</filename> for that
+  printer. If your printer is not postscript or has special features
+  that require additional drivers, then define the make
+  &#40;manufacturer&#41; and you will then be presented with a list of
+  available drivers.  Select the appropriate driver.
+</para>
+
+<para>
+  The printer is now installed and will be the default printer for all
+  of your applications.
+</para>
+
+</section> <!-- closing CUPS -->
+
+<section id="printing_lpr">
+  <title>Printing from the Command Line</title>
+
+  <para>
+    Now that you have successfully installed and configured your
+    printer, you may also use <application>lpr</application> to print
+    from the command line.
+  </para>
+
+  <para>
+    <application>lpr</application> sends documents to a printer but
+    before using it, you might want to define a default printer by
+    using <application>lpadmin</application> as root:
+  </para>
+
+  <screen>
+    <prompt>&#35; </prompt><command>lpadmin -d r1060</command>
+  </screen>
+
+  <para>
+    In this example, <userinput>r1060</userinput> is the human
+    readable name given to the printer in either
+    <filename>&#47;etc&#47;cups&#47;printers.conf</filename> or in
+    the <application>CUPS</application> configuration.
+  </para>
+
+<note>
+  <para>
+    If you do not have root privileges on the workstation you are
+    using, you can also set the <userinput>PRINTER</userinput>
+    environment variable:
+  </para>
+
+  <screen>
+    <prompt>&#36; </prompt><command>PRINTER=r1060</command>
+    <prompt>&#36; </prompt><command>export PRINTER</command>
+  </screen>
+</note>
+
+  <para>
+    Once the printer has been set, then you may print:
+  </para>
+
+  <screen>
+    <prompt>&#36; </prompt><command>lpr foo.txt</command>
+  </screen>
+
+  <section id="print_lpr_pr">
+    <title>Formatting for Print</title>
+
+    <para>
+      <application>lpr</application>, like so many other UNIX
+      applications, does one thig: sends files to a printer. It
+      doesn't much care if the file looks good or even fits on a
+      page. When printing large text files that have not been
+      formatted for print, use <application>pr</application>&#40;1&#41;.
+    </para>
+
+    <para>
+      <application>pr</application> is a simple text formatter that
+      takes any text document and makes sure that it contains line
+      breaks and page breaks, with an optional header and footer, page
+      numbering, and much more. It has many options, but the defaults
+      are usually good enough. <application>pr</application> outputs
+      the results of the formatting to standard out, meaning it simply
+      takes the text document, formats it, and displays the results in
+      the terminal.  This, of course, means that it can be redirected
+      to <application>lpr</application>:
+  </para>
+
+  <screen>
+    <prompt>darkstar:~&#36; </prompt><command>pr foo.txt | lpr</command>
+  </screen>
+
+  <para>
+    This will format <filename>foo.txt</filename> and send the
+    formatted output to the default printer.
+  </para>
+
+  <para>
+    As usual, see the <application>pr</application> man page for a
+    list of the customizations you can make to the default formatting.
+  </para>
+
+</section> <!-- closing pr -->
+</section> <!-- closing lpr -->
 
 </chapter>

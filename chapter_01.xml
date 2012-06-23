@@ -2,10 +2,10 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter>
+<chapter id="ch_intro">
 <title>Introduction to Slackware</title>
 
-<section>
+<section id="intro_why-slackware">
 <title>Why Use Slackware?</title>
 
 <para>
@@ -22,7 +22,7 @@ as well.
 
 </section>
 
-<section>
+<section id="intro_comparisons">
 <title>Differences Compared to Other Linux Distributions</title>
 
 <para>
@@ -48,15 +48,15 @@ much easier to do whatever you want with your operating system.
 <para>
 Also, you may hear users of other distributions say that Slackware has
 no package management system.  This is completely and obviously false.
-Slackware has always had package management (see Chapter 16 for more
-information).  What it does not have is automatic dependency resolution -
-Slackware's package tools trade dependency management for simplicity, 
-ease-of-use, and reliability.
+Slackware has always had package management (see <xref
+linkend="ch_pkg"/> for more information).  What it does not have is
+automatic dependency resolution - Slackware's package tools trade
+dependency management for simplicity, ease-of-use, and reliability.
 </para>
 
 </section>
 
-<section>
+<section id="intro_licensing">
 <title>Licensing</title>
 
 <para>
@@ -69,16 +69,17 @@ you different permissions regarding their use or distribution.
 
 <para>
 Probably the most popular license in use within the Free Software
-community is the GNU General Public License.  The GPL was created by 
-the Free Software Foundation, which actively works to create and distribute 
-software that guarantees the freedoms which they believe are basic rights. 
-In fact, this is the very group that coined the term "Free Software."  
-The GPL imposes no restrictions on the use of software.  In fact, you don't 
-even have to accept the terms of the license in order to use the software, 
-but you are not allowed to distribute the software or any changes to it 
-without abiding by the terms of the license agreement.  A large number of
-software projects shipped with Slackware, from the Linux kernel itself to 
-the Samba project, are released under the terms of the GPL.
+community is the GNU General Public License.  The GPL was created by
+the <ulink url="http://fsf.org">Free Software Foundation</ulink>,
+which actively works to create and distribute software that guarantees
+the freedoms which they believe are basic rights.  In fact, this is
+the very group that coined the term "Free Software."  The GPL imposes
+no restrictions on the use of software.  In fact, you don't even have
+to accept the terms of the license in order to use the software, but
+you are not allowed to distribute the software or any changes to it
+without abiding by the terms of the license agreement.  A large number
+of software projects shipped with Slackware, from the Linux kernel
+itself to the Samba project, are released under the terms of the GPL.
 </para>
 
 <para>

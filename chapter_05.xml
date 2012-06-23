@@ -2,10 +2,10 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter>
+<chapter id="ch_bash">
 <title>The Bourne Again Shell</title>
 
-<section>
+<section id="bash_intro">
 <title>What Is A Shell?</title>
 
 <para>
@@ -26,7 +26,7 @@ users should stick to <application>bash</application>.
 
 </section>
 
-<section>
+<section id="bash_env">
 <title>Environment Variables</title>
 
 <para>
@@ -108,7 +108,7 @@ Password:
 
 </section>
 
-<section>
+<section id="bash_wildcards">
 <title>Wildcards</title>
 
 <para>
@@ -171,7 +171,7 @@ it as a filename, and since that file doesn't exist,
 
 </section>
 
-<section>
+<section id="bash_tab-completion">
 <title>Tab Completion</title>
 
 <para>
@@ -188,7 +188,7 @@ matches for you.
 
 </section>
 
-<section>
+<section id="bash_redirection">
 <title>Input and Output Redirection</title>
 
 <para>

@@ -20,16 +20,6 @@ Chapter 2. Installation
 
 * Need to mention gdisk (for GPT parts) in the partitioning section
 
-* At the tail end we might wish to tell the user about adduser and
-  inform him that he can skip ahead to chapter 9 briefly if he needs
-  more info.
-
-Chapter 4. Basic Shell Commands
-
-* Section 'Reading Documents'
-
-  Perhaps split this with subsections for cat, more, and less?
-
 Chapter 10. Working with Filesystems
 
 * Section 'Network Filesystems' / 'NFS'
@@ -44,7 +34,7 @@ Chapter 14. Networking
 
 Chapter 16. Basic Networking Commands
 
-* Additional tools to discuss: finger, host, dig, pine, mutt, nail
+* Additional tools to discuss: finger, host, dig, nail
 
 ps-imgs
 
