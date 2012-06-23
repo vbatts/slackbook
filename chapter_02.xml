@@ -683,6 +683,23 @@ step-by-step. In order to do so, just type
   the next chapter should help you sort that out.
   </para>
 
+  <para>
+    When you have rebooted into your new Slackware installation, the
+    very first step you should take is to create a user. By
+    default, the only user that exists after the install is the root
+    user, and it's dangerous to use your computer as root, given that
+    there are no restrictions as to what that user can do.
+  </para>
+  
+  <para>
+    The quickest and easiest way to create a normal user for yourself
+    is to log in as root with the root password that you created at
+    the end of the intallation process, and then issue the
+    <application>adduser</application>. This will interactively assist
+    you in creating a user; see <xref linkend="users_managing"/> for more
+    information.
+  </para>
+
   </section>
 
 </section>

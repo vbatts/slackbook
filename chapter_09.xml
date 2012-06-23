@@ -2,10 +2,10 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter>
+<chapter id="ch_users">
 <title>Users and Groups</title>
 
-<section>
+<section id="users_intro">
 <title>What Are Users and Groups?</title>
 
 <para>
@@ -24,7 +24,7 @@ filesystem permissions.
 
 </section>
 
-<section>
+<section id="users_managing">
 <title>Managing Users and Groups</title>
 
 <para>
