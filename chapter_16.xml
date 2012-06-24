@@ -13,7 +13,7 @@ chapter is for you.
 </para>
 
 <section id="network-utils_network-diagnostics">
-<title>Network Diagnostic Tools</title>
+  <title>Network Diagnostic Tools</title>
 
 <para>
 Slackware Linux includes a great many networking tools for
@@ -158,7 +158,7 @@ every Linux, UNIX, and BSD distribution today makes use of OpenSSH, or
 commonly used network tools today and makes use of the strongest
 cryptographic techniques. <application>ssh</application> has many
 features, configuration options, and neat hacks, enough to fill its own
-book, so we'll only go into the basics here.  Simply run
+book, so we'll only go into the basics here. Simply run
 <application>ssh</application> with the user name and the host and
 you'll be connected to it quickly and safely. If this is the first time
 you are connecting to this computer, <application>ssh</application>
@@ -169,7 +169,8 @@ because it is possible that some one is attempting to hijack the
 connection using what is known as a man-in-the-middle attack.
 </para>
 
-<screen><prompt>darkstar:~&#35; </prompt><userinput>ssh alan@slackware.com</userinput>
+<screen>
+<prompt>darkstar:~&#35; </prompt><userinput>ssh alan@slackware.com</userinput>
 alan@slackware.com's password: <userinput>secret</userinput>
 <prompt>alan@slackware.com:~&#36; </prompt>
 </screen>
@@ -180,10 +181,13 @@ If you leave off the username part, <application>ssh</application> will
 use your current username when establishing the connection.
 </para>
 
+<!-- add stuff about ssh keys -->
+<!-- add stuff about scp -->
+
 </section>
 
-<section>
-<title>tcpdump</title>
+<section id="network-utils_tcpdump">
+  <title>tcpdump</title>
 
 <para>
 So far all the tools we've looked at have focused on making connections
@@ -232,6 +236,9 @@ each one individually, <application>telnet</application> to each port
 you're interested in, and note every detail, but that's very tedious
 and time consuming. A much easier alternative is to use a port scanner,
 and <application>nmap</application>(1) is just the tool for the job.
+</para>
+
+<para>
 <application>nmap</application> is capable of scanning TCP and UDP
 ports, determining the operating system of a network device, probing
 each located service to determine its specific type, and much much
@@ -301,7 +308,7 @@ slackware.com mail is handled by 1 mail-mx.cwo.com.
 
 </section>
 
-<section>
+<section id="network-utils_dig">
 <title>dig</title>
 
 <para>
@@ -353,7 +360,8 @@ In this case we looked for an "A" record which returned an IPv4 address.
 
 </section>
 
-<section><title>finger</title>
+<section id="network-utils_finger">
+<title>finger</title>
 
 <para>
 <application>finger</application>(1) isn't exactly a network diagnostic
@@ -387,7 +395,7 @@ No Plan.
 </section>
 
 <section id="network-utils_web-browsers">
-<title>Web Browsers</title>
+  <title>Web Browsers</title>
 
 <para>
 Slackware includes a variety of web browsers. If you're using a
@@ -436,7 +444,8 @@ formats web pages better.
 
 </section>
 
-<section><title>wget</title>
+<section id="network-utils_wget">
+  <title>wget</title>
 
 <para>
 Unlike the other browsers we've looked at,
@@ -477,7 +486,18 @@ Length: 75306 (74K)
 <section id="network-utils_mail-clients">
 <title>Mail Clients</title>
 
-<section><title>pine</title>
+<para>
+Slackware also includes a variety of email clients. If you're using a
+graphical desktop, you'll find <application>Thunderbird</application>,
+<application>Kmail</application>, <application>sylpheed</application>
+and others. As with web browsers, there are also applications that
+function within the shell. Once you start using an email client in the
+console, you may find yourself not wanting to use anything else; the
+flexibility and configurability can be addicting.
+</para>
+
+<section id="network-utils_pine">
+<title>pine</title>
 
 <para>
 <application>pine</application> is one of the oldest command-line
@@ -494,7 +514,7 @@ pine-clone distributed with Slackware, was born.
 To start using <application>alpine</application>,
 simply type <application>pine</application> at the command line.
 Using it is very simple due to its menu-driven system as well as the
-command referance neatly located at the bottom of the screen. See for
+command reference neatly located at the bottom of the screen. See for
 yourself&#58;
 </para>
 
@@ -524,6 +544,106 @@ Messages
 O OTHER CMDS > [ListFldrs] N NextCmd                 K KBLock                  
 </screen>
 
+ <para>
+   Before configuring any mail client, you should check the
+   documentation of your mail server to gather all of the pertinent
+   information about what protocols and security measures your mail
+   service uses. This will help you configure
+   <application>pine</application> correctly.
+</para>
+
+ <para>
+   To start configuring <application>pine</application>, you should be
+   able to enter the [S]ettings menu, and then the [C]onfig
+   screen. There are about a hundred different options, but the most
+   common and most important ones would be your Personal Name, Inbox
+   Path, and SMTP Server.
+</para>
+
+<variablelist>
+  <title>Pine Settings</title>
+
+  <varlistentry>
+    <term>
+      Personal Name
+    </term>
+    <listitem>
+      <para>
+	The name you wish people to see in the "From" field of your
+	emails.
+    </para>
+  </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>
+      Inbox Path
+    </term>
+
+    <listitem>
+      <para>
+	Your mail server.  The server itself is often something like
+	mail.example.com (although it may not be; check with your
+	host to be sure), but if that server requires login information then you
+	may need to set it to something like alan@mail.slackermedia.info
+	or similar.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>SMTP Server</term>
+    <listitem>
+      <para>
+	The server through which you will send your email; often this
+	is smtp.example.com or outgoing.example.com or some variation
+	on that theme.  It often requires authentication, but you
+	should be prompted for this in
+	<application>pine</application> when sending mail.
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+
+<para>
+  A sample configuration might look a little something like this:
+</para>
+
+<table>
+  <title>Sample Pine Configuration</title>
+  <tgroup cols="2">
+    <tbody>
+      <row>
+	<entry>Personal Name</entry>
+	<entry>Alan Hicks</entry>
+      </row>
+      <row>
+	<entry>SMTP Server</entry>
+	<entry>smtp.lizella.net</entry>
+      </row>
+      <row>
+	<entry>Inbox Path</entry>
+	<entry>{imap.lizella.net/user=alan@lizella.net}inbox</entry>
+      </row>
+      <row>
+	<entry>Warn if Blank Subject</entry>
+	<entry>X</entry>
+      </row>
+      <row>
+	<entry>Sort Key: Arrival</entry>
+	<entry>X</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</table>
+
+<para>
+  And so on.  Once you have it configured according to your mail
+  server&#39;s settings, you will be able to navigate the application from
+  the main menu.  It&#39;s quite intuitive, with a persistent list of
+  keyboard shortcuts at the bottom of the screen.
+</para>
+
 </section>
 
 <section id="network-utils_mutt">
@@ -535,7 +655,7 @@ want more control. Some people want a fully-configurable mail client
 with plugin support and a no-nonsense attitude. Those people use
 <application>mutt</application>(1). <application>mutt</application>
 isn't as user friendly as <application>pine</application>, but makes up
-for it with power. You won't find the user-friendly command referance
+for it with power. You won't find the user-friendly command reference
 at the bottom of the screen, <application>mutt</application> uses every
 last inch of real-estate for mail processing duty. It's feature support
 is extensive: threaded displays are no problem for the mighty
@@ -562,14 +682,266 @@ for that, muttrc(5). You might want to read up on it.
 3185 N   Jan 11 Robby Workman   (3.4K) └─>
 3186 N   Jan 12 SlackBuilds@cat (3.4K)   └─>
 3187 N   Jan 11 Robby Workman   (4.5K)     └─>
-3188 N   Jan 12 Robby Workman   (2.3K) [Slackbuilds-users] Unavailability of mai
-3189 N   Jan 13 Mr. B-o-B       (3.7K) └─>
-3190 N   Jan 13 Josiah Boothby  (3.2K) [Slackbuilds-users] Ted's Word Processor
-3191 N   Jan 14 Adam Swift      (7.4K) [Slackbuilds-users] Web submission failur
-3192 N   Jan 14 Rob McGee       (3.5K) └─>
+3188 D   Jan 12 Klaatu          (3.5K) [Slackbuilds-users] LiVES updates
+3189 N   Jan 12 Robby Workman   (2.3K) [Slackbuilds-users] Unavailability of mai
+3190 N   Jan 13 Mr. B-o-B       (3.7K) └─>
+3191 N   Jan 13 Josiah Boothby  (3.2K) [Slackbuilds-users] Ted's Word Processor
+3192 N   Jan 14 Adam Swift      (7.4K) [Slackbuilds-users] Web submission failur
+3193 N   Jan 14 Rob McGee       (3.5K) └─>
 </screen>
 
-</section>
+<para>
+  Using <application>mutt</application> is unique because it is by
+  nature a Mail User Agent (MUA), meaning its true purpose is to read
+  and sort email. This was its only job originally, although some
+  additional features such as retrieving mail via POP3 and even very
+  basic transfering messages via SMTP have snuck into the application.
+</para>
+
+<para>
+  As is so often the case with robust console-based applications, the
+  configuration options are myriad, and there is no &#34;right&#34; or
+  &#34;wrong&#34; way of using <application>mutt</application> as long
+  as it does what you want it to do. Here is a simple example of a
+  system utilizing <application>mutt</application>, with a toolchain
+  consisting of:
+</para>
+
+<itemizedlist>
+  <listitem>
+    <para>
+      <application>fetchmail</application> to pull mail from your mail server
+      via POP3
+    </para>
+</listitem>
+
+  <listitem>
+    <para>
+      <application>procmail</application> to sort the mail as needed.
+  </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      <application>mutt</application> to read, sort, and send email.
+    </para>
+</listitem>
+
+  <listitem>
+    <para>
+      <command>formail</command> to re-format your mail if needed
+      &#40;depending on your mail server settings&#41;
+    </para>
+</listitem>
+</itemizedlist>
+
+<para>
+  <application>fetchmail</application> is a simple application that exists
+  only to pull mail from mail servers and copy those email messages to
+  your local hard drive.  The configuration is fairly simple:
+</para>
+
+<screen>
+  <prompt>darkstar:~&#36; </prompt> &#39;poll pop.slackermedia.info with proto pop3: user
+"klaatu@slackermedia.info" there has password "secretpassword" is klaatu
+here and wants mds "/usr/bin/procmail"&#39; &#62;&#62; ~&#47;.fetchmailrc
+</screen>
+
+<variablelist>
+<title>Fetchmail Configuration Explained</title>    
+
+<varlistentry>
+  <term>poll</term>
+  <listitem>
+    <para>
+      Defines the mail server to check
+    </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>with proto</term>
+  <listitem>
+    <para>
+      Defines the protocol used; in this case, POP3.
+  </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>user</term>
+  <listitem>
+    <para>
+      Your email username. Sometimes this is just the string in front
+      of the @ at symbol, othertimes it is your whole email address.
+      Again, see your provider&#39;s documentation to find out what
+      you should be using.
+    </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>there has password</term>
+
+  <listitem>
+    <para>
+      Your email password.  This is entered as plaintext into your
+      config file, but since this is in your home directory, it is only
+      readable by you.
+    </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>is username here</term>
+  <listitem>
+    <para>
+      Defines which user on your local computer this email account
+      actually belongs to.  For instance, if my email account is
+      notklaatu@slackermedia.info but my username on my Slackware box
+      is klaatu, then obviously there would be no way for
+      <application>fetchmail</application> to know who
+      notklaatu@slackermedia.info is.  This defines it.
+    </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>and wants mda &#34;&#47;usr&#47;bin&#47;procmail&#34;</term>
+
+  <listitem>
+    <para>
+      Tells <application>fetchmail</application> what application will
+      be sorting the email once it is pulled from the mail server.
+      <application>Procmail</application> ships with Slackware, so this
+      will probably not change for you and is not dependent upon your
+      mail server whatsoever.
+    </para>
+  </listitem>
+</varlistentry>
+</variablelist>
+
+<para>
+  Now that fetchmail is configured, it will successfully pull your
+  email from the server.  But what will your computer do with all of
+  that mail?  This is the job of <application>procmail</application>.
+</para>
+
+<para>
+  The settings for <application>procmail</application> can be stored
+  in ~&#47;.procmailrc and is also fairly simple; for example:
+</para>
+
+<screen>
+    PATH=/usr/bin
+    MAILDIR=$HOME/Mail
+    DEFAULT=$MAILDIR/Inbox
+    LOGFILE=$MAILDIR/logs
+</screen>
+
+<para>
+  Now <application>procmail</application> is configured, so your mail
+  will be sent to the right place.  There is much more you can do with
+  <application>procmail</application> so feel free to investigate its
+  many filtering functions (or &#34;recipes&#34;) later, once you have
+  everything working.
+</para>
+
+<para>
+  At this point, your email will be pulled from the server by
+  <application>fetchmail</application> and sorted on your local system
+  by way of <application>procmail</application>.  You need to
+  configure <application>mutt</application> so that it knows where to
+  find your email messages so that you can view them.
+</para>
+
+<para>
+  Because <application>mutt</application> is such an extensible program, it&#39;s
+  a good idea to make a folder for its configuration file.  Your
+  initial configuration will be frightfully simple, but if you ever
+  look for new configurations of mutt you might be happy to have a
+  whole folder to play around in.
+</para>
+
+  <screen>
+    <prompt>darkstar:~&#36; </prompt> <command>cat</command> ~&#47;.mutt&#47;.muttrc
+    set realname=&#34;klaatu&#34;
+    set from=&#34;notklaatu@slackermedia.info&#34;
+    set spoolfile=&#47;home&#47;klaatu&#47;Mail&#47;Inbox
+    set mbox=&#47;home&#47;klaatu&#47;Mail&#47;mbox
+    set record=&#47;home&#47;klaatu&#47;Mail&#47;sent
+    set postponed=&#47;home&#47;klaatu&#47;Mail&#47;postponed
+    set sort=reverse-date
+    set editor=emacs
+    set smtp_url=&#34;smtp:&#47;&#47;notklaatu:secretpassword@smtp.slackermedia.info:465&#34;
+  </screen>
+
+<para>
+  In this sample configuration, the <varname>spoolfile</varname>
+  defines the incoming messages that you have not read yet &#40;you
+  might recognize it as the end destination for
+  <application>procmail</application>&#41;, while <varname>mbox</varname>
+  defines where mail that you have read and responded to will be
+  stored. All other settings are self-explanatory, and all have been
+  drawn directly from the muttrc man page.
+</para>
+
+<note>
+<para>
+  If your mail server delivers your email in a format that
+  <command>mutt</command> cannot understand, use the
+  <application>formail</application> mailbox converter, a part of the
+  <application>procmail</application> distribution. For example:
+</para>
+
+<screen>
+  <prompt>darkstar:~&#36; </prompt> formail -ds &lt; ~&#47;Mail&#47;Inbox &#62;&#62; ~&#47;Mail&#47;Muttbox
+  </screen>
+</note>
+
+
+<para>
+  The commands used to navigate around in <application>mutt</application> are highly
+  customizable but the defaults can be listed by typing
+  <keycap>?</keycap>.
+</para>
+
+<section id="network-utils_ssl">
+  <title>Adding SSL Support</title>
+
+  <para>
+    If your mail server supports SSL then you can and should use SSL
+    for better security. Most graphical clients have common SSL
+    certificates built into them; <application>mutt</application> does
+    not but it's trivial to configure.
+  </para>
+
+  <para>
+    Download an SSL trust certificate &#40;the most common set is from
+    Thawte&#41; and place it in your Mutt or Mail folder, and list it
+    as a <varname>certificate_file</varname> in your
+    <filename>.muttrc</filename> file.  If your mail server is not using
+    Thawte, then they may be using either another SSL certificate
+    authority or they may be their own certificate authority, but
+    if an unknown certificate is encountered,
+    <application>mutt</application> will prompt you to accept it (or
+    not). If you do accept it, the certificate can be saved into
+    this certificate file.
+  </para>
+
+  <para>
+    To obtain the Thawte certificate:
+  </para>
+
+  <screen>
+    bash$ wget
+    http://www.thawte.com/roots/thawte_Premium_Server_CA.pem -P
+    ~/Mail/
+  </screen>
+
+</section> <!-- closing SSL --> 
+
+</section> <!-- closing mutt -->
 
 <section id="network-utils_mailx">
   <title>mailx</title>
@@ -708,7 +1080,8 @@ downloaded in source code or binary form via FTP, so knowing how to
 retrieve this information is a handy skill.
 </para>
 
-<section><title>ftp</title>
+<section id="network-utils_bsd-ftp">
+<title>ftp</title>
 
 <para>
 The simplest FTP client included with Slackware is named simply,
@@ -753,7 +1126,8 @@ ftp> <userinput>bye</userinput>
 
 </section>
 
-<section><title>ncftp</title>
+<section id="network-utils_ncftp">
+<title>ncftp</title>
 
 <para>
 <application>ncftp</application>(1) (pronounced nick-f-t-p), is a more
@@ -788,7 +1162,8 @@ ncftp ...ware/slackware-current > <userinput>bye</userinput>
 
 </section>
 
-<section><title>lftp</title>
+<section id="network-utils_lftp">
+<title>lftp</title>
 
 <para>
 The last client we're going to look at is
@@ -815,7 +1190,7 @@ lftp ftp.osuosl.org:/pub/slackware/slackware-current> <userinput>bye</userinput>
 
 </section>
 
-<section>
+<section id="network-utils_rsync">
 <title>rsync</title>
 
 <para>

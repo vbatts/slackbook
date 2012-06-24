@@ -2,7 +2,7 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter>
+<chapter id="ch_boot">
 <title>Booting</title>
 
 <para>
@@ -20,7 +20,7 @@ multiple operating systems, such as other Linux distributions or Microsoft
 Windows.
 </para>
 
-<section>
+<section id="boot_mkinitrd">
 <title><application>mkinitrd</application></title>
 
 <para>
@@ -120,7 +120,8 @@ explanation, check the manpage or run
 argument.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>mkinitrd --help</userinput>
+<screen>
+<prompt>darkstar:~# </prompt><userinput>mkinitrd --help</userinput>
 mkinitrd creates an initial ramdisk (actually an initramfs cpio+gzip
 archive) used to load kernel modules that are needed to mount the
 root filesystem, or other modules that might be needed before the
@@ -142,7 +143,8 @@ using the huge kernel, you can easily find this information with the
 <filename>/proc/mounts</filename>.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>mount</userinput>
+<screen>
+<prompt>darkstar:~# </prompt><userinput>mount</userinput>
 /dev/sda1 on / type ext4 (rw,barrier=1,data=ordered)
 proc on /proc type proc (rw)
 sysfs on /sys type sysfs (rw)
@@ -227,7 +229,7 @@ mkinitrd -c -k 2.6.33.4 -f ext3 -r /dev/sda3 -m \
 
 </section>
 
-<section>
+<section id="boot_lilo">
 <title>LILO</title>
 
 <para>
@@ -235,7 +237,7 @@ LILO is the Linux Loader and is currently the default boot loader
 installed with Slackware Linux.  If you've used other Linux
 distributions before, you may be more familiar with GRUB.  If you prefer
 to use GRUB instead, you can easily find it in the 
-<filename>extra/</filename> directory on one of your Slackware CDs. 
+<filename>extra&#47;</filename> directory on one of your Slackware CDs. 
 However, since LILO is the default Slackware bootloader, we'll focus 
 exclusively on it.
 </para>
@@ -375,7 +377,7 @@ other = /dev/sda3
 For Linux operating systems like Slackware, the image line specifies
 which kernel to boot.  In this case, we're booting
 <filename>/boot/vmlinuz-generic-2.6.29.4</filename>. The remaining
-sections are pretty self-explainatory.  They tell LILO where to find the
+sections are pretty self-explanatory.  They tell LILO where to find the
 root filesystem, what initrd (if any) to use, and to initially mount
 the root filesystem read-only.  That initrd line is very important for
 anyone running a generic kernel or using LVM or software RAID.  It
@@ -407,6 +409,263 @@ should be just fine. In particular, the LBA32 addressing warning is
 commonplace.
 </para>
 
-</section>
+</section> <!-- closing lilo -->
+
+<section id="boot_dual">
+<title>Dual Booting</title>
+
+<para>
+  A bootloader (like LILO) is a very flexible thing, since it exists
+  only to determine which hard drive, partition, or even a specific
+  kernel on a partition to boot. This inherently suggests a choice
+  when booting, so the idea of having more than one operating system
+  on a computer comes very naturally to a LILO or GRUB user.
+</para>
+
+<para>
+  People &#34;dual boot&#34; for a number of reasons; some people want
+  to have a stable Slackware install on one partition or drive and a
+  development sandbox on another, other people might want to have
+  Slackware on one and another Linux or BSD distribution on another,
+  and still other people may have Slackware on one partition and a
+  proprietary operating system (for work or for that one application
+  that Linux simply cannot offer) on the other.
+</para>
+
+<para>
+  Dual booting should not be taken lightly, however, since it usually
+  means that you'll now have two different operating systems
+  attempting to manage the bootloader. If you dual boot, the
+  likelihood of one OS over-writing or updating the bootloader entries
+  without your direct intervention is great; if this happens, you'll
+  have to modify GRUB or LILO manually so you can get into each OS.
+</para>
+
+<para>
+  There are two ways to dual (or multi) boot; you can put each
+  operating system on its own hard drive (common on a desktop, with
+  their luxury of having more than one drive bay) or each operating
+  system on its own partition (common on a laptop where only one
+  physical drive is present).
+</para>
+
+<section id="boot_dual_partition">
+<title>Dual Booting with Partitions</title>
+
+<para>
+  In order to set up a dual-boot system with each operating system on
+  its own partition, you must first create partitions. This is easiest
+  if done prior to installing the first operating system, in which
+  case it's a simple case of pre-planning and carving up your hard
+  drive as you feel necessary. See <xref linkend="install_part"/> for
+  information on using the <application>fdisk</application> or
+  <application>cfdisk</application> partitioning applications.
+</para>
+
+<important>
+  <para>
+    If you're dual booting two Linux distributions, it is inadvisable
+    to attempt to share a &#47;home directory between the
+    systems. While it is technically possible, doing so will increase
+    the chance of your personal configurations from becoming mauled by
+    competing desktop environments or versions.
+  </para>
+
+  <para>
+    It is, however, safe to use a common swap partition.
+  </para>
+</important>
+
+<para>
+  You should partition your drive into at least three parts:
+</para>
+  
+<itemizedlist>
+  <listitem>
+    <para>
+      One partition for Slackware
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      One partition for the secondary OS
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      One partition for swap
+    </para>
+  </listitem>
+</itemizedlist>
+
+<para>
+  First, install Slackware Linux onto the first partition of the hard
+  drive as described in <xref linkend="ch_install"/>.
+</para>
+
+<para>
+  After Slackware has been installed, booted, and you've confirmed
+  that everything works as expected, then reboot to the installer for
+  the second OS. This OS will invariably offer to utilize the entire
+  drive; you obviously do <emphasis>not</emphasis> want to do that, so
+  constrain it to only the second partition. Furthermore, the OS will
+  attempt to install a boot loader to the beginning of the hard drive,
+  overwriting LILO.
+</para>
+
+<para>
+  You have a few possible courses of action with regards to the boot
+  loader:
+</para>
+
+<variablelist>
+  <title>
+    Possible Boot Loader Scenarios
+  </title>
+
+<varlistentry>
+  <term>
+    If the secondary OS is Linux, disallow it from installing a boot
+    manager.
+  </term>
+
+  <listitem>
+    <para>
+      If you're dual booting to another Linux distribution, the
+      installer of that distribution usually asks if you want a boot
+      loader installed. You're certainly free to not install a boot
+      manager for it at all, and manually manage both Slackware and
+      the other distribution with LILO.
+    </para>
+
+    <para>
+      Depending on the distribution, you might be editing LILO more
+      frequently than you would if you were only running Slackware;
+      some distributions are notorious for frequent kernel updates,
+      meaning that you'll need to edit LILO to reflect the new
+      configuration after such an update. But if you didn't want to
+      edit configuration files every now and again, you probably
+      wouldn't have chosen Slackware.  
+    </para>    
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+      If the secondary OS is Linux, let it overwrite LILO with GRUB.
+  </term>
+
+  <listitem>
+    <para>
+      If you're dual booting to another Linux distribution, you are
+      perfectly capable of just using GRUB rather than LILO, or
+      install Slackware last and use LILO for both. Both LILO and GRUB
+      have very good auto-detection features, so whichever one gets
+      installed last should pick up the other distribution's presence
+      and make an entry for it.
+    </para>
+
+    <para>
+      Since other distributions often attempt to auto-update their
+      GRUB menus, there is always the chance that during an update
+      something will become maligned and you suddenly find you can't
+      boot into Slackware. If this happens, don't panic; just boot
+      into the other Linux partition and manually edit GRUB so that it
+      points to the correct partition, kernel, and initrd (if
+      applicable) for Slackware in its menu.
+    </para>
+  </listitem>
+</varlistentry>
+
+<varlistentry>
+  <term>
+      Allow the secondary OS to overwrite LILO and go back later to
+      manually re-install and re-configure LILO. 
+  </term>
+  <listitem>
+    <para>
+      This is not a bad choice, especially when Windows is the
+      secondary OS, but potential pitfalls are that when Windows
+      updates itself, it may attempt to overwrite the MBR (master boot record)
+      again, and you'll have to re-install LILO manually again.
+    </para>
+
+    <para>
+      To re-establish LILO after another OS has erased it, you can
+      boot from your Slackware install media and enter the setup
+      stage. Do <emphasis>not</emphasis> re-partition your drive or
+      re-install Slackware; skip immediately to <xref
+      linkend="install_setup_config"/>. 
+    </para>
+
+    <para>
+      Even when using the &#34;simple&#34; option to install, LILO
+      should detect both operating systems and automatically configure
+      a sensible menu for you. If it fails, then add the entries
+      yourself.
+    </para>
+
+<!-- i do not have access to windows and cannot confirm this
+    <para>
+      An entry in LILO for a Windows partition might look something
+      like this:
+    </para>
+
+    <programlisting>
+      other = /dev/sda2
+      label = non-linux
+    </programlisting>
+-->
+  </listitem>
+</varlistentry>
+
+</variablelist>
+
+</section> <!-- closing dual parts -->
+
+<section id="boot_dual_drive">
+  <title>Dual Booting from Hard Drives</title>
+
+  <para>
+    Dual booting between different physical hard drives is often
+    easier than with partitions since the computer's BIOS or EFI
+    almost invariably has a boot device chooser that allows you to
+    interrupt the boot process immediately after POST and choose what
+    drive should get priority.
+  </para>
+
+  <para>
+    The snag key to enter the boot picker is different for each brand
+    of motherboard; consult the motherboard's manual or read the
+    splash screen to find out what your computer requires. Typical
+    keys are <keycap>F1</keycap>, <keycap>F12</keycap>,
+    <keycap>DEL</keycap>. For Apple computers, it is always the
+    <keycap>Option</keycap> (Alt) key.
+  </para>
+
+  <para>
+    If you manage the boot priority via BIOS or EFI, then each boot
+    loader on each hard drive is only aware of its own drive and will
+    never interfere with one another. This is rather contrary to what
+    a boot loader is designed to do but can be a useful workaround
+    when dealing with proprietary operating systems which insist upon
+    being the only OS on the system, to the detriment of the user's
+    preference.
+  </para>
+
+  <para>
+    If you don't have the luxury of having multiple internal hard
+    drives and don't feel comfortable juggling another partition and
+    OS on your computer, you might also consider using a bootable USB thumbdrive or even a
+    virtual machine to give you access to another OS. Both of these
+    options is outside the scope of this book, but they've commonplace
+    and might be the right choice for you, depending on your needs.
+  </para>
+
+</section> <!-- closing dual drives -->
+
+</section> <!-- closing dual boot -->
 
 </chapter>
