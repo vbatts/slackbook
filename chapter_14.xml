@@ -2,10 +2,10 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter id="ch_networking">
+<chapter id="ch_network">
 <title>Networking</title>
 
-<section id="sect_netconfig">
+<section id="network_netconfig">
 <title><application>netconfig</application></title>
 
 <para>
@@ -43,24 +43,23 @@ book.
 
 </section>
 
-<section id="sect_manual-configuration">
+<section id="network_manual-configuration">
 <title>Manual Configuration</title>
 
 <para>
 Ok, so you've installed Slackware, you've setup a desktop, but you
 can't get it to connect to the Internet or your business's LAN (local
-area network), what do you do? Fortunately, the answer to that question
-is simple. Slackware includes a number of tools to configure your
-network connection. The first we will look at today is the very
-powerful <application>ifconfig</application>(8).
-<application>ifconfig</application> is used to setup or modify the
-configuration of a Network Interface Card (NIC or Ethernet Card), the
-most common hardware for connecting to networks today.
-<application>ifconfig</application> is an incredibly powerful tool
-capable of doing much more than setting IP addresses. For a complete
-introduction, you should read its man page. For now, we're just going
-to use it to display and change the network addresses of some ethernet
-controllers.
+area network), what do you do? Fortunately, the answer to that
+question is simple. Slackware includes a number of tools to configure
+your network connection. The first we will look at is the very
+powerful <application>ifconfig</application>(8), which is used to
+setup or modify the configuration of the most common hardware for
+connecting to networks: a Network Interface Card (NIC or
+Ethernet Card). <application>ifconfig</application> is an incredibly powerful
+tool capable of doing much more than setting IP addresses. For a
+complete introduction, you should read its man page. For now, we're
+just going to use it to display and change the network addresses of
+some ethernet controllers.
 </para>
 
 <screen><prompt>darkstar:~&#35; </prompt><userinput>ifconfig</userinput>
@@ -177,7 +176,8 @@ For now, let's take a look at our routing table immediately after
 setting up eth0.
 </para>
 
-<screen><prompt>darkstar:~&#35; </prompt><userinput>route</userinput>
+<screen>
+<prompt>darkstar:~&#35; </prompt><userinput>route</userinput>
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 192.168.1.0     *               255.255.255.0   U     0      0        0 eth0
@@ -198,7 +198,8 @@ itself.  In order to reach the rest of the world, we'll need to
 setup a default gateway.
 </para>
 
-<screen><prompt>darkstar:~&#35; </prompt><userinput>route add default gw 192.168.1.254</userinput>
+<screen>
+<prompt>darkstar:~&#35; </prompt><userinput>route add default gw 192.168.1.254</userinput>
 <prompt>darkstar:~&#35; </prompt><userinput>route</userinput>
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
@@ -233,7 +234,7 @@ nameserver 192.168.1.254
 </screen>
 
 <para>
-Most users won't need the <parameter>search</parameter> line. This is used to map hostnames
+Many users won't need the <parameter>search</parameter> line. This is used to map hostnames
 to domain names. Basically, if I attempt to connect to "barnowl", the
 computer knows to look for "barnowl.lizella.net" thanks to this search
 line. We're mainly interested in the <parameter>nameserver</parameter> line. This tells
@@ -305,7 +306,7 @@ clients, so use whichever you prefer.
 
 </section>
 
-<section id="sect_automatic-configuration">
+<section id="network_automatic-configuration">
   <title>
     Automatic Configuration with <filename>rc.inet1.conf</filename>
   </title>
@@ -357,14 +358,17 @@ Protocol Address for the <varname>n</varname> network interface card.
 Typically, <varname>n</varname> corrosponds to
 <parameter>eth0</parameter>, <parameter>eth1</parameter>, and so on,
 but this isn't always the case.  You can specify these values to
-pertain to a different network controller with the INFAME&#91;n&#93;
-variable, but we will reserve that for the next chapter on wireless
-networking, as it more commonly pertains to wireless network
-controllers. Likewise, NETMASK&#91;n&#93; is the subnet mask to use
-for the network controller.  If these lines are left empty, then
-static IP addresses will not be automatically assigned to this network
-controller.  The <varname>USE_DHCP&#91;n&#93;</varname> variable tells
-Slackware &#40;naturally&#41; to use DHCP to configure the interface.
+pertain to a different network controller with the IFNAME&#91;n&#93;
+variable, but we will reserve that for <xref linkend="ch_wireless"/>,
+as it more commonly pertains to wireless network controllers.
+</para>
+
+<para>
+Likewise, NETMASK&#91;n&#93; is the subnet mask to use for the network
+controller.  If these lines are left empty, then static IP addresses
+will not be automatically assigned to this network controller.  The
+<varname>USE_DHCP&#91;n&#93;</varname> variable tells Slackware
+&#40;naturally&#41; to use DHCP to configure the interface.
 <varname>DHCP_HOSTNAME&#91;n&#93;</varname> is rarely used, but some
 DHCP servers may require it.  In that case, it must be set to a valid
 hostname. Finally, we come to the GATEWAY variable.  It is actually
@@ -379,13 +383,14 @@ interfaces are attached to it.
 
 <para>
 If you need to use static IP addressing, you will have to obtain a
-unique static IP address and the subnet mask for the interface, as well
-as the default gateway address, and enter those here. There is no place
-to enter DNS information in <filename>rc.inet1.conf</filename>, so DNS
-servers will have to be manually placed into
-<filename>resolv.conf</filename> as we discussed above. Of course, if
-you use <application>netconfig</application>, this will be handled for
-you by that program.  Now let's take a look at another interface on my
+unique static IP address and the subnet mask for the interface, as
+well as the default gateway address, and enter those here. There is no
+place to enter DNS information in <filename>rc.inet1.conf</filename>,
+so DNS servers will have to be manually placed into
+<filename>resolv.conf</filename> as discussed in <xref
+linkend="network_manual-configuration"/>. Of course, if you use
+<application>netconfig</application>, this will be handled for you by
+that program.  Now let's take a look at another interface on my
 computer.
 </para>
 

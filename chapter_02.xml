@@ -2,7 +2,7 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter>
+<chapter id="ch_install">
 <title>Installation</title>
 
 <para>
@@ -28,7 +28,7 @@ or from a network card that support PXE. The files there are the best
 source of information available for such boot methods.
 </para>
 
-<section>
+<section id="install_boot">
 <title>Booting the Installer</title>
 
 <para>
@@ -142,7 +142,7 @@ need to do so and should proceed directly to partitioning.
 
 </section>
 
-<section>
+<section id="install_part">
 <title>Partitioning</title>
 
 <para>
@@ -300,7 +300,8 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 
 </screen>
 
-<para>The swap partition is a special partition that is used for
+<para>
+The swap partition is a special partition that is used for
 virtual memory by the Linux kernel.  If for some reason you run out of
 RAM, the kernel will move the contents of some of the RAM to swap in
 order to prevent a crash.  The size of your swap partition is up to
@@ -353,7 +354,7 @@ ensure that they are properly read by the kernel.
 
 </section>
 
-<section>
+<section id="install_setup">
 <title>The <application>setup</application> Program</title>
 
 <para>
@@ -369,7 +370,7 @@ step-by-step. In order to do so, just type
   <imagedata fileref="png/setup-program.png" format="PNG"/>
 </imageobject>
 
-  <section>
+  <section id="install_setup_help">
   <title>Help</title>
 
   <para>
@@ -384,9 +385,9 @@ step-by-step. In order to do so, just type
     <imagedata fileref="png/setup-help.png" format="PNG"/>
   </imageobject>
 
-  </section>
+  </section> <!-- closing HELP -->
 
-  <section>
+  <section id="install_setup_keymap">
   <title>Keymap</title>
 
   <para>
@@ -404,7 +405,7 @@ step-by-step. In order to do so, just type
 
   </section>
 
-  <section>
+  <section id="install_setup_addswap">
   <title>Addswap</title>
 
   <para>
@@ -425,7 +426,7 @@ step-by-step. In order to do so, just type
   </imageobject>
   </section>
 
-  <section>
+  <section id="install_setup_target">
   <title>Target</title>
 
   <para>
@@ -446,7 +447,7 @@ step-by-step. In order to do so, just type
 
   </section>
 
-  <section>
+  <section id="install_setup_source">
   <title>Source</title>
 
   <para>
@@ -469,7 +470,7 @@ step-by-step. In order to do so, just type
   </imageobject>
   </section>
 
-  <section>
+  <section id="install_setup_select">
   <title>Select</title>
 
   <para>
@@ -490,7 +491,7 @@ step-by-step. In order to do so, just type
   </imageobject>
   </section>
 
-  <section>
+  <section id="install_setup_install">
   <title>Install</title>
 
   <para>
@@ -534,7 +535,7 @@ step-by-step. In order to do so, just type
 
   </section>
 
-  <section>
+  <section id="install_setup_config">
   <title>Configure</title>
 
   <para>
@@ -605,32 +606,119 @@ step-by-step. In order to do so, just type
   </imageobject>
 
   <para>
-  netconfig!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
+    The next stage in configuring your install is the network
+    configuration. If you don't wish to configure your network at this
+    stage, you may decline, but otherwise you'll be prompted to
+    provide a hostname for your computer. Do not enter a domain name,
+    only the hostname.
   </para>
 
   <para>
-  services!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
-  FILL THIS IN!!!!!!
+    The following screen will prompt you for a domainname, such as
+    example.org. The combination of the hostname and the domainname
+    can be used to navigate between computers in your network if you
+    use an internal DNS service or maintain your
+    <filename>&#47;etc&#47;hosts</filename> file.
+  </para>
+
+  <para>
+    You have three options when setting your IP address; you may
+    assign it a static IP, or you may use DHCP, or you may configure a
+    loopback connection. The simplest option, and probably the most
+    common for laptops or computers on a basic network, is to let a
+    DHCP server assign IP addresses dynamically. In practice, this
+    often results in a consistent address since both
+    <application>dhcpcd</application> and
+    <application>dhclient</application> initially request the same
+    address previously assigned. If the address is unavailable then
+    the machine gets a new one, but on small networks this may never
+    happen.
+  </para>
+
+  <para>
+    If the DHCP server on your network requires a specific DHCP
+    hostname before you're permitted to connect. You can enter this on
+    the <guilabel>Set DHCP Hostname</guilabel> screen.
+  </para>
+
+  <para>
+    To use a static IP address, you must provide:
+  </para>
+
+  <variablelist>
+    <title>Static IP Address</title>
+
+    <varlistentry>
+      <term>IP Address</term>
+      <listitem>
+	<para>
+	  The address of your computer, such as 192.168.1.1 (for
+	  IPv4). Also, you should verify that no DHCP server on your
+	  network is set to assign that same address out as a part of
+	  its DHCP pool, or you may encounter address conflicts.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Netmask</term>
+      <listitem>
+	<para>
+	  The subnet mask for your network; often 255.255.255.0 for
+	  small networks.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Gateway Address</term>
+      <listitem>
+	<para>
+	  The address of the gateway server providing internet access
+	  to your network. On small networks, this will probably be
+	  provided by your ISP while on larger networks you may use an
+	  internal server which handles the traffic. In other words,
+	  this may be an internal address like 192.168.1.1 or it might
+	  be an address provided by your ISP, such as 75.146.49.79
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Nameserver</term>
+      <listitem>
+	<para>
+	  Most likely, you'll want to utilize DNS; in this initial
+	  setup, provide your primary domain name server. Edit
+	  <filename>&#47;etc&#47;resolv.conf</filename> to add
+	  secondary and tertiary servers later.
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+
+  <para>
+    The final screen during static IP address configuration is a
+    confirmation screen, where you're permitted to accept your
+    choices, edit them, or even restart the IP address configuration
+    in case you decide to use DHCP instead.
+  </para>
+
+  <para>
+    Your network configuration is now complete. The next screen
+    prompts you to configure the startup services that you wish to run
+    automatically upon boot. Read the descriptions that appear both to
+    the right of the service name as well as at the bottom of the
+    screen in order to decide whether that service should be turned on
+    by default. These can always be modified later with
+    <application>pkgtool</application> &#62; <guimenu>Setup</guimenu>
+    &#62; <guimenuitem>Services</guimenuitem>.
+  </para>
+
+  <para>
+    As the startup services window warns, you should only turn on the
+    startup services that you actually intend to use. This not only
+    decreases boot time but makes for a more secure system.
   </para>
 
   <para>

@@ -433,9 +433,9 @@ A more feature-rich alternative is the popular
 <application>links</application>(1), a console-based web browser that
 supports frames and has better table rendering than
 <application>lynx</application>. Like its predecessor,
-<application>links</application> is navigated with the arrow keys, and
-the use of a mouse is supported.  Unlike,
-<application>lynx</application> it also includes a handy menu (simply
+<application>links</application> is navigable with the arrow keys, and
+the use of a mouse is supported.  Unlike
+<application>lynx</application>, it also includes a handy menu (simply
 click on the top line with your mouse to activate) and generally
 formats web pages better.
 </para>
@@ -729,7 +729,7 @@ for that, muttrc(5). You might want to read up on it.
 
   <listitem>
     <para>
-      <command>formail</command> to re-format your mail if needed
+      Optionally, <command>formail</command> to re-format your mail if needed
       &#40;depending on your mail server settings&#41;
     </para>
 </listitem>
@@ -822,9 +822,10 @@ here and wants mds "/usr/bin/procmail"&#39; &#62;&#62; ~&#47;.fetchmailrc
 </variablelist>
 
 <para>
-  Now that fetchmail is configured, it will successfully pull your
-  email from the server.  But what will your computer do with all of
-  that mail?  This is the job of <application>procmail</application>.
+  Now that <application>fetchmail</application> is configured, it will
+  successfully pull your email from the server.  But what will your
+  computer do with all of that mail?  This is the job of
+  <application>procmail</application>.
 </para>
 
 <para>
@@ -850,8 +851,8 @@ here and wants mds "/usr/bin/procmail"&#39; &#62;&#62; ~&#47;.fetchmailrc
 <para>
   At this point, your email will be pulled from the server by
   <application>fetchmail</application> and sorted on your local system
-  by way of <application>procmail</application>.  You need to
-  configure <application>mutt</application> so that it knows where to
+  by way of <application>procmail</application>.  All that's left to
+  do is to configure <application>mutt</application> so that it knows where to
   find your email messages so that you can view them.
 </para>
 
@@ -883,7 +884,7 @@ here and wants mds "/usr/bin/procmail"&#39; &#62;&#62; ~&#47;.fetchmailrc
   <application>procmail</application>&#41;, while <varname>mbox</varname>
   defines where mail that you have read and responded to will be
   stored. All other settings are self-explanatory, and all have been
-  drawn directly from the muttrc man page.
+  drawn directly from the muttrc man page; refer to it for more options.
 </para>
 
 <note>
@@ -897,8 +898,13 @@ here and wants mds "/usr/bin/procmail"&#39; &#62;&#62; ~&#47;.fetchmailrc
 <screen>
   <prompt>darkstar:~&#36; </prompt> formail -ds &lt; ~&#47;Mail&#47;Inbox &#62;&#62; ~&#47;Mail&#47;Muttbox
   </screen>
-</note>
 
+  <para>
+    Rather than performing this conversion every time you check your
+    email, you might want to script it to happen automatically after
+    procmail is finished its job.
+  </para>
+</note>
 
 <para>
   The commands used to navigate around in <application>mutt</application> are highly

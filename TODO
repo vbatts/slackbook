@@ -28,10 +28,6 @@ Chapter 10. Working with Filesystems
   allows you to find out exactly what NFS exports a remote server has made 
   available.
 
-Chapter 14. Networking
-
-* Add netconfig.  This is mandatory!
-
 Chapter 16. Basic Networking Commands
 
 * Additional tools to discuss: finger, host, dig, nail
