@@ -1,0 +1,246 @@
+<appendix id="ap_emacspeak">
+  <title>Emacspeak for Blind Users</title>
+
+<para>
+  Slackware Linux includes two methods of creating a blind-accessible
+  distribution: the Speakup.s kernel and
+  <application>emacspeak</application>.
+</para>
+
+<para>
+  The Speakup.s kernel is configured to work with hardware
+  speech-synthesizers which connect to a non-sighted user's computer
+  and &#34;speaks&#34; whatever is sent to standard out.
+</para>
+
+<para>
+  Not all non-sighted users have access to hardware
+  speech-synthesizers and even those that do might find it cumbersome
+  to carry one along with their laptop every time they go out. To
+  account for this, <application>Emacspeak</application> was
+  developed, by a non-sighted programmer, to create audio output from normal
+  interactions in <application>Emacs</application>. Since
+  <application>Emacs</application> is so extensible and has modes for
+  shell access, office work, email, web browsing, file management, and
+  so much more, it can act as the primary UI for the rest of the OS.
+</para>
+
+<section id="emacspeak_reqs">
+  <title>Prerequisites</title>
+  
+<para>
+  Before you install <application>Emacspeak</application>, you should
+  (obviously) first have installed
+  <application>Emacs</application>. If you excluded this from your
+  initial install, then add it with
+  <application>slackpkg</application> or
+  <application>pkgtool</application> (it can be found in application
+  set &#34;e&#34;).
+</para>
+
+<para>
+  You should also have at least one user (not including root) on the
+  system, and this user should be a member of the audio group.
+</para>
+</section>
+
+<section id="emacspeak_install">
+<title>Installing Emacspeak</title>
+  
+<para>
+  <application>Emacspeak</application> can be installed over the
+  network with <application>slackpkg</application>. See <xref
+  linkend="pkg_slackpkg"/> for more information.
+</para>
+
+<screen>
+  <prompt>darkstar:~&#35; </prompt><command>slackpkg</command> install emacspeak
+</screen>
+
+<para>
+  You can also install it from the install media using
+  <application>pkgtool</application> or
+  <application>installpkg</application>. <application>Emacspeak</application>
+  can be found in the <filename>&#47;extra</filename> directory on the
+  disc.
+</para>
+
+<para>
+  Once <application>Emacspeak</application> has been installed, it
+  needs to be configured, but you can test that it has been installed
+  by simply typing <command>emacspeak</command> at a shell
+  prompt. <application>Emacs</application> will start and return some
+  errors in the minibuffer; this is expected, since we have yet to
+  configure the backend for sound.
+</para>
+
+<para>
+  To exit <application>emacs</application>, type
+  <keycap>control</keycap>-x <keycap>control</keycap>-c</para>.
+
+<!-- not closing install section cuz we are still sorta installing -->
+
+<section id="emacspeak_config">
+<title>Configuring Emacspeak</title>
+
+<para>
+  In order for <application>emacspeak</application> to produce sound,
+  your system requires speech synthesizer software. As of this
+  writing, <application>flite</application> is the most actively
+  maintained and most reliable free speech synthesizer for
+  Linux. While it does not ship with Slackware, it can be obtained
+  as an RPM package from <ulink
+  url="dl.fedoraproject.org/blah/blah/">LINK HERE</ulink>
+  <!-- Its homepage <ulink
+       url="http://www.speech.cs.cmu.edu/flite/packed/flite-1.3/flite-1.3-release.tar.gz">http:&#47;&#47;www.speech.cs.cmu.edu&#47;flite&#47;packed&#47;flite-1.3&#47;flite-1.3-release.tar.gz</ulink-->
+</para>
+
+<para>
+  Use <application>rpm2tgz</application> to convert the RPM package to
+  a Slackware Package, and install using
+  <application>installpkg</application> as discussed in <xref linkend="pkg_rpm2tgz"/>.
+</para>
+
+<para>
+  You can test <application>flite</application> once it has been
+  installed with the command <command>flite</command> <arg>-t</arg>
+  <userinput>foo</userinput>. You should hear
+  <application>flite</application> speak &#34;foo&#34;. If you do not,
+  then either <application>flite</application> has not been installed
+  correctly, or your computer's sound is not working or is
+  muted. Check <application>alsamixer</application> to adjust the
+  levels of your speakers, use <application>lsmod</application> to
+  find out if your computer speakers are being recognized at all, and
+  <command>which</command> <userinput>flite</userinput> to ensure that
+  <application>flite</application> actually got installed.
+</para>
+
+<para>
+  With <application>flite</application> and
+  <application>emacspeak</application> confirmed, your system now has
+  both the user interface and the speech synthesizer to vocalize input
+  and output. The final component necessary is a speech server to
+  bridge these two separate parts. The speech server that has been
+  developed for <application>flite</application> is
+  <application>eflite</application>, and is available directly from
+  its homepage at <ulink
+  url="http://eflite.sourceforge.net">eflite.sourceforge.net</ulink>.
+</para>
+
+<para>
+  To build eflite from source code:
+</para>
+
+<screen>
+  <prompt>darkstar:~&#36; </prompt>tar -xf eflite*gz &#38;&#38; cd eflite*
+  <prompt>darkstar:~&#36; </prompt>make
+  <prompt>darkstar:~&#36; </prompt>make test
+</screen>
+
+<para>
+  The test should play a voice confirming that eflite is working
+  properly.  If you hear nothing, do not install
+  <application>eflite</application> until you diagnose and repair the
+  problem.
+</para>
+
+<para>
+  Assuming all goes well, install <application>eflite</application>&#58;
+</para>
+
+<screen>
+    <prompt>darkstar:~&#36; </prompt>su -c &#39;make install&#39;
+</screen>
+
+<para>
+  An environment variable needs to be established so that
+  <application>emacspeak</application> knows what speech server to
+  use:
+</para>
+
+<screen>
+    <prompt>darkstar:~&#36; </prompt> echo
+    &#34;DTK_PROGRAM=&#47;usr&#47;local&#47;bin&#47;eflite&#34; &#62;&#62; ~&#47;.bash_profile
+    <prompt>darkstar:~&#36; </prompt> echo &#34;export DTK_PROGRAM"
+    &#62;&#62; ~&#47;.bash_profile
+    <prompt>darkstar~:&#36; </prompt> source ~&#47;.bash_profile
+</screen>
+
+<para>
+  Launch <application>emacspeak</application> and you will find that
+  every interaction is narrated.
+</para>
+</section>
+
+<section id="emacspeak_usability">
+<title>Usability Hacks</title>
+
+<para>
+  Strictly speaking, the <application>emacspeak</application> system
+  is now fully configured. However, there are two useful modifications
+  that should be made to help usability. As it is now, when the system
+  boots, it runs through the usual init sequence and stops silently at
+  a login prompt waiting for the user to enter their
+  information. Obviously a silent prompt is meaningless to a
+  non-sighted user.
+</para>
+
+<para>
+  To create an audible login prompt, modify a startup script such that
+  some command is initiated at the end of the boot sequence. The final
+  script to be executed during the normal init sequence is
+  <filename>&#47;etc&#47;rc.d&#47;rc.local</filename>, so modify it as root:
+</para>
+
+<screen>
+  <prompt>darkstar:~&#35; </prompt> <command>echo</command> &#39;exec
+  &#47;usr&#47;bin&#47;flite -t &#34;please log in.&#34;&#39; >>
+  &#47;etc&#47;rc.d&#47;rc.local
+</screen>
+
+<para>
+  Now the non-sighted user will know when it is time to log in to
+  the computer, but immediately after logging in the same problem
+  exists: the user is given a silent shell prompt without any
+  confirmation that their login was successful or that the computer
+  awaits their next command.  
+</para>
+
+<para>
+  Probably the most sensible way to deal with this problem is to have
+  <application>emacspeak</application> automatically launch after a
+  successful login; this provides audio cues that the login was
+  successful as well as eliminating the redundancy of manually
+  launching <application>emacspeak</application> every time the user
+  logs into the system.
+</para>
+
+<screen>
+  <prompt>darkstar:~&#36; </prompt> <command>echo</command> &#39;exec
+  &#47;usr&#47;bin&#47;emacspeak&#39; &#62;&#62; ~&#47;.bash_profile
+</screen>
+
+<para>
+  Reboot and test the new configuration; not only should the user be
+  audibly prompted to login, but immediately after login
+  <application>emacspeak</application> should launch. In fact, any new
+  shell that the user creates will launch an instance of
+  <application>emacspeak</application>.
+</para>
+</section> <!-- close configure section -->
+
+</section> <!-- close install section -->
+
+<para>
+  Combined with the inherent power of GNU <application>emacs</application>
+  and the addition of all of its extensions such as the
+  <application>w3m</application> web browser,
+  <application>eshell</application> console,
+  <application>wl</application> email client,
+  <application>org-mode</application> organizer,
+  <application>dired</application> file manager,
+  <application>emms</application> multimedia player, a non-sighted user
+  has a robust, stable, and powerful Slackware Linux system.
+</para>
+
+</appendix>

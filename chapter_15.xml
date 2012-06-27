@@ -243,7 +243,7 @@ Slackware knows to apply all these options to the <varname>wlan0</varname> wifi 
 instead of the &#40;probably non-existant&#41; eth4 wired NIC.  Many of the
 other options are the same. IP address information is added in
 exactly the same way we discussed for wired network cards in <xref
-linkend="ch_networking"/>; however, we have a lot of new variables that need
+linkend="ch_network"/>; however, we have a lot of new variables that need
 some explanation.
 </para>
 
