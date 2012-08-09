@@ -15,6 +15,9 @@ General
   * need to mention persistent rules that are system-generated, especially
     in reference to how the admin might be misled into thinking that they are
     causing breakage...
+  * need to point out that the persistent rules themselves are (according
+    to upstream) a bad idea - not sure I completely agree, but there is a 
+    lot of potential for breakage, it seems...
 
 Chapter 2. Installation
 
