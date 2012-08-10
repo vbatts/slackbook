@@ -38,7 +38,10 @@ view.pdf: book.pdf
 	xdg-open $<
 
 view.html: book.html
-	xdg-open $<
+	xdg-open $< || links $<
+
+.PHONY: view
+view: view.html
 
 .convert:
 	@which convert 2>/dev/null >/dev/null || echo "ERROR: 'convert' REQUIRED, this is in imagemagick" && touch $@
@@ -63,8 +66,10 @@ view.html: book.html
 .clean.images:
 	rm -fr png/
 
-.PHONY: clean
-clean: .clean.pdf .clean.html .clean.images .clean.stuff
+.PHONY: dist-clean clean
+dist-clean: clean .clean.images .clean.stuff
+
+clean: .clean.pdf .clean.html 
 	
 
 .DEFAULT_GOAL := book.html
