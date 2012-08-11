@@ -377,7 +377,7 @@ co-workers.
 <screen><prompt>darkstar:~&#35; </prompt><userinput>finger alan@cardinal.lizella.net</userinput>
 [cardinal.lizella.net]
 Login: alan           			Name: Alan Hicks
-Directory: &#47;home&#47;alan               	Shell: /bin/bash
+Directory: &#47;home&#47;alan               	Shell: &#47;bin&#47;bash
 Office: 478 808 9919, 478 935 8133
 On since Wed Apr 13 17:43 (UTC) on pts&#47;9 from
 75-150-12-113-atlanta.hfc.comcastbusiness.net
@@ -585,7 +585,7 @@ O OTHER CMDS > [ListFldrs] N NextCmd                 K KBLock
 	Your mail server.  The server itself is often something like
 	mail.example.com (although it may not be; check with your
 	host to be sure), but if that server requires login information then you
-	may need to set it to something like alan@mail.slackermedia.info
+	may need to set it to something like bob@mail.example.com
 	or similar.
       </para>
     </listitem>
@@ -742,9 +742,9 @@ for that, muttrc(5). You might want to read up on it.
 </para>
 
 <screen>
-  <prompt>darkstar:~&#36; </prompt> &#39;poll pop.slackermedia.info with proto pop3: user
-"klaatu@slackermedia.info" there has password "secretpassword" is klaatu
-here and wants mds "/usr/bin/procmail"&#39; &#62;&#62; ~&#47;.fetchmailrc
+  <prompt>darkstar:~&#36; </prompt> cat ~&#47;.fetchmailrc
+poll pop.example.com with proto pop3
+  user "bob@example.com" there has password "secretpassword" is bdobbs here and wants mds "/usr/bin/procmail"
 </screen>
 
 <variablelist>
@@ -787,7 +787,8 @@ here and wants mds "/usr/bin/procmail"&#39; &#62;&#62; ~&#47;.fetchmailrc
     <para>
       Your email password.  This is entered as plaintext into your
       config file, but since this is in your home directory, it is only
-      readable by you.
+      readable by you. For good measure though, it is safe to 
+      <prompt> chmod 0600 ~/.fetchmailrc </prompt>
     </para>
   </listitem>
 </varlistentry>
@@ -798,10 +799,10 @@ here and wants mds "/usr/bin/procmail"&#39; &#62;&#62; ~&#47;.fetchmailrc
     <para>
       Defines which user on your local computer this email account
       actually belongs to.  For instance, if my email account is
-      notklaatu@slackermedia.info but my username on my Slackware box
-      is klaatu, then obviously there would be no way for
+      bob@example.com, but my username on my Slackware box
+      is bdobbs, then obviously there would be no way for
       <application>fetchmail</application> to know who
-      notklaatu@slackermedia.info is.  This defines it.
+      bob@example.com is.  This defines it.
     </para>
   </listitem>
 </varlistentry>
@@ -866,15 +867,15 @@ here and wants mds "/usr/bin/procmail"&#39; &#62;&#62; ~&#47;.fetchmailrc
 
   <screen>
     <prompt>darkstar:~&#36; </prompt> <command>cat</command> ~&#47;.mutt&#47;.muttrc
-    set realname=&#34;klaatu&#34;
-    set from=&#34;notklaatu@slackermedia.info&#34;
-    set spoolfile=&#47;home&#47;klaatu&#47;Mail&#47;Inbox
-    set mbox=&#47;home&#47;klaatu&#47;Mail&#47;mbox
-    set record=&#47;home&#47;klaatu&#47;Mail&#47;sent
-    set postponed=&#47;home&#47;klaatu&#47;Mail&#47;postponed
+    set realname=&#34;Bob Dobbs&#34;
+    set from=&#34;bob@example.com&#34;
+    set spoolfile=&#47;home&#47;bdobbs&#47;Mail&#47;Inbox
+    set mbox=&#47;home&#47;bdobbs&#47;Mail&#47;mbox
+    set record=&#47;home&#47;bdobbs&#47;Mail&#47;sent
+    set postponed=&#47;home&#47;bdobbs&#47;Mail&#47;postponed
     set sort=reverse-date
     set editor=emacs
-    set smtp_url=&#34;smtp:&#47;&#47;notklaatu:secretpassword@smtp.slackermedia.info:465&#34;
+    set smtp_url=&#34;smtp:&#47;&#47;bob:secretpassword@smtp.example.com:465&#34;
   </screen>
 
 <para>
@@ -977,7 +978,7 @@ client that isn't menu-driven? Thankfully
 </para>
 
 <screen>
-root@darkstar:&#47;home&#47;klaatu&#35; mail
+root@darkstar:&#47;home&#47;bdobbs&#35; mail
 Heirloom mailx version 12.4 7&#47;29&#47;08.  Type ? for help.
 "&#47;var&#47;spool&#47;mail&#47;root": 2 messages 2 new
 &#62;N  1 To root            Thu Mar 10 23:33   52&#47;1902  Register with the Linux counter project
@@ -1049,8 +1050,8 @@ Heirloom mailx version 12.4 7&#47;29&#47;08.  Type ? for help.
 
 <screen>
   <prompt>darkstar:~&#36; </prompt> env MAILRC=&#47;dev&#47;null
-  from="klaatu@slackermedia.info (Klaatu)"
-  smtp=relay.slackermedia.info <command>mail</command> -n -s "Test message" alan@lizella.net &#60; ~&#47;message.txt
+  from="bob@example.com (Bob Dobbs)"
+  smtp=relay.example.com <command>mail</command> -n -s "Test message" connie@example.com &#60; ~&#47;message.txt
 </screen>
 
 <para>
