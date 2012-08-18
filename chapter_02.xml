@@ -84,7 +84,7 @@ you'll be given an option to load support for non-us keyboards.
 <screen>
 &lt;OPTION TO LOAD SUPPORT FOR NON-US KEYBOARD&gt;
 
-If you are not using a US keyboard, you may not load a different
+If you are not using a US keyboard, you may need to load a different
 keyboard map.  To select a different keyboard map, please enter 1
 now.  To continue using the US map, just hit enter.
 
@@ -147,13 +147,22 @@ need to do so and should proceed directly to partitioning.
 
 <para>
 Unlike many other Linux distributions, Slackware does not make use of a
-graphical disk partitioning tool in its installer; rather, Slackware
-makes use of <application>fdisk</application>(8) and
+dedicated graphical disk partitioning tool in its installer. Rather,
+Slackware makes use of the traditional Linux partitioning tools, the
+very same tools that you will have available once you've installed
+Slackware. Traditionally, partitioning is performed with either
+<application>fdisk</application>(8) or
 <application>cfdisk</application>(8), both of which are console tools.
-<application>cfdisk</application> is a curses-based partitioning tool
-while <application>fdisk</application> is not.  Which one you decide 
-to use should only rarely matter.  In this book, we'll only discuss
-<application>fdisk</application>.
+<application>cfdisk</application> is preferred by many people because
+it is curses menu-based, but either works well. Additionally, Slackware
+includes <application>sfdisk</application>(8) and
+<application>gdisk</application>(8). These are more powerful command-line
+partitioning tools. <application>gdisk</application> is required to
+alter GUID partition tables found on some of today's larger hard
+drives. In this book, we're going to focus on using
+<application>fdisk</application>, but the other tools are similar. You
+can find additional instructions for using these other tools online or
+in their man pages.
 </para>
 
 <para>
@@ -178,9 +187,8 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 <para>
 Here, you can see that my system has a hard drive located at
 <filename>/dev/sda</filename> that is 72.7 GB in size.  You can also
-see some additional information about this hard drive (in my case, this 
-is actually three SCSI hard drives on a hardware RAID controller that
-makes them appear as a single drive).  The <arg>-l</arg> argument to
+see some additional information about this hard drive.
+The <arg>-l</arg> argument to
 <application>fdisk</application> tells it to display the hard drives
 and all the partitions it finds on those drives, but it won't make any
 changes to the disks.  In order to actually partition our drives, we'll
@@ -311,8 +319,7 @@ swap partition about twice the size of your system's RAM.  Since my machine
 has only 512MB of RAM, I decided to make my swap partition 1GB.  You may 
 wish to experiment with your swap partition's size and see what works best 
 for you, but generally there is no harm in having "too much" swap.
-That being said, there's generally no good reason to follow this "rule of
-thumb" if you have a *lot* of RAM (e.g. more than 2 GB).  If you plan to
+If you plan to
 use hibernation (suspend to disk), you will need to have at least as much
 swap space as you have physical memory (RAM), so keep that in mind.
 </para>
