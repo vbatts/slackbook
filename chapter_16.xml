@@ -1011,8 +1011,7 @@ Heirloom mailx version 12.4 7&#47;29&#47;08.  Type ? for help.
 </para>
 
 <screen>
-  <prompt>darkstar:~&#36; </prompt> <command>mail</command>
-  alan@lizella.net
+  <prompt>darkstar:~&#36; </prompt> <command>mail bob@example.com</command>
 </screen>
 
 <para>
@@ -1030,7 +1029,7 @@ Heirloom mailx version 12.4 7&#47;29&#47;08.  Type ? for help.
 </para>
 
 <screen>
-  <prompt>darkstar:~&#36; </prompt> <command>mail</command> -n -s "Test message" alan@lizella.net &#60; ~&#47;message.txt
+  <prompt>darkstar:~&#36; </prompt><userinput>mail -n -s "Test message" bob@example.com &#60; ~&#47;message.txt</userinput>
 </screen>
 
 <para>
@@ -1049,9 +1048,9 @@ Heirloom mailx version 12.4 7&#47;29&#47;08.  Type ? for help.
 </para>
 
 <screen>
-  <prompt>darkstar:~&#36; </prompt> env MAILRC=&#47;dev&#47;null
+  <prompt>darkstar:~&#36; </prompt><userinput> env MAILRC=&#47;dev&#47;null
   from="bob@example.com (Bob Dobbs)"
-  smtp=relay.example.com <command>mail</command> -n -s "Test message" connie@example.com &#60; ~&#47;message.txt
+  smtp=relay.example.com mail -n -s "Test message" connie@example.com &#60; ~&#47;message.txt</userinput>
 </screen>
 
 <para>
