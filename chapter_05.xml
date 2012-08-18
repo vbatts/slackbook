@@ -139,9 +139,9 @@ ba
 No, the fun doesn't stop there!  In addition to these two we also have
 the bracket pair "[ ]" which allows us to fine tune exactly what we
 want to match.  Whenever <application>bash</application> see the
-bracket pair, it substitues the contents of the bracket.  Any
+bracket pair, it substitutes the contents of the bracket.  Any
 combination of letters or numbers may be specified in the bracket as
-long as they are comma seperacted.  Additionally, ranges of numbers and
+long as they are comma seperated.  Additionally, ranges of numbers and
 letters may be specified as well.  This is probably best shown by
 example.
 </para>
@@ -306,7 +306,7 @@ command will display a list of suspended tasks.
 <para>
 In order to return to a suspended task, run the
 <application>fg</application> built-in to bring the the most recently
-suspended task back into the fore ground. If you have mutiple suspended 
+suspended task back into the foreground. If you have mutiple suspended 
 tasks, you can specify a number as well to bring one of them to the
 foreground.
 </para>
@@ -319,7 +319,7 @@ foreground.
 You can also background a task with (surprize)
 <application>bg</application>. This will allow the process to continue
 running without maintaining control of your shell. You can bring it
-back to the fore ground with <application>fg</application> in the same
+back to the foreground with <application>fg</application> in the same
 way as suspended tasks.
 </para>
 
@@ -335,7 +335,7 @@ most useful, is the terminal. In the old days, terminals were keyboards
 and monitors (sometimes even mice) wired into a mainframe or server via
 serial connections. Today however, most terminals are virtual; that is,
 they exist only in software.  Virtual terminals allow users to connect
-to the computer without requiring expensive and often incompatabile
+to the computer without requiring expensive and often incompatible
 hardware. Rather, a user needs only to run the software and they are
 presented with a (usually) highly customizable virtual terminal.
 </para>
