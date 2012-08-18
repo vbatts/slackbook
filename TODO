@@ -22,33 +22,14 @@ General
 * Need to mention iptables somewhere - perhaps consolidate some bits from
   my iptables/netfilter presentations?  --rworkman
 
-Chapter 2. Installation
-
-* Need to mention gdisk (for GPT parts) in the partitioning section
-
-Chapter 10. Working with Filesystems
-
-* Section 'Network Filesystems' / 'NFS'
-
-  You could mention here how the command "showmount -e <remote_server> " 
-  allows you to find out exactly what NFS exports a remote server has made 
-  available.
-
 Chapter 16. Basic Networking Commands
-
-* Additional tools to discuss: finger, host, dig, nail
-
-ps-imgs
-
-* These can all be imported into the GIMP and converted to SVG, but
-  leaving them in this format for now makes them much easier to modify.
 
 * The various curses mail clients (pine, mutt) should have
 "screenshots" for consistency to match other curses programs (in
 particular the installer) so new users can get a real feel for how
 these tools work.
 
-* Additional the section on mutt needs to be reworked where it refers
+* Additionally the section on mutt needs to be reworked where it refers
 to fetchmail, procmail, formail, etc. These are all seperate tools and
 if we refer to them at all it should be as seperate tools with their
 own subsections.
