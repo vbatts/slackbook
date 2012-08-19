@@ -78,6 +78,11 @@ developed by different people (or teams of people), and each group has
 their own ideas about what it means to be "free".  Because of this,
 there are literally dozens and dozens of different licenses granting
 you different permissions regarding their use or distribution.
+Fortunately dealing with free software licenses isn't as difficult as
+it may first appear. Most things are licensed with either the Gnu
+General Public License or the BSD license. Sometimes you'll encounter a
+piece of software with a different license, but in almost all cases
+they are remarkably similar to either the GPL or the BSD license.
 </para>
 
 <para>
@@ -89,7 +94,7 @@ the freedoms which they believe are basic rights.  In fact, this is
 the very group that coined the term "Free Software."  The GPL imposes
 no restrictions on the use of software.  In fact, you don't even have
 to accept the terms of the license in order to use the software, but
-you are not allowed to distribute the software or any changes to it
+you are not allowed to redistribute the software or any changes to it
 without abiding by the terms of the license agreement.  A large number
 of software projects shipped with Slackware, from the Linux kernel
 itself to the Samba project, are released under the terms of the GPL.
@@ -97,10 +102,11 @@ itself to the Samba project, are released under the terms of the GPL.
 
 <para>
 Another very common license is the BSD license, which is arguably "more
-free" than the GPL because it imposes no restrictions on derivative works.
-The BSD license simply requires that the copyright remain intact along
-with a simple disclaimer.  Many of the utilities specific to Slackware
-are licensed with a BSD-style license.
+free" than the GPL because it imposes virtually no restrictions on 
+derivative works.  The BSD license simply requires that the copyright 
+remain intact along with a simple disclaimer.  Many of the utilities 
+specific to Slackware are licensed with a BSD-style license, and this
+is the preferred license for many smaller projects and tools.
 </para>
 
 </section>
