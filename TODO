@@ -38,6 +38,29 @@ General
 * Need to mention iptables somewhere - perhaps consolidate some bits from
   my iptables/netfilter presentations?  --rworkman
 
+Chapter 2. Installation
+
+* In the section on booting the installer, there's a <screen> section
+that mentions typing "TERM=vt100" if you don't have a color monitor. Is
+this line present in the installer anymore?
+
+* Should we include some partitioning examples using gdisk since this
+tool is increasingly required with today's modern systems? Perhaps add
+it as an appendix and mention it within the partitioning section?
+
+* Need to add images for Help and Keymap subsections of the Setup
+utility. Also, Mouse and Timezone.
+
+* The part about configuring the network (particular static IP
+addresses) in the Configure step of the install needs work. In
+particular the information was specified as a variable list. I believe
+this is something Klaatu added and probably isn't something we want
+here. It looks like he added it in chapters 3 and 16 as well. We might
+have to pull those sections out and rework them. Consistency is a major
+requirement if the book is ever going to be printed. Chasing down
+corner cases because this person did things one way and this other
+person did them another is a nightmare we want to avoid.
+
 Chapter 16. Basic Networking Commands
 
 * The various curses mail clients (pine, mutt) should have
