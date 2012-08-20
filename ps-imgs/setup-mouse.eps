@@ -1,0 +1,70 @@
+%!PS-Adobe-2.0 EPSF-1.2
+%%BoundingBox: 21 60 419 287
+
+/Outterbox
+{ newpath moveto
+0 221 rlineto
+108 0 rlineto
+23 61 moveto
+395 0 rlineto
+0 221 rlineto
+-132 0 rlineto
+23 87 moveto
+395 0 rlineto
+closepath } def
+
+/Innerbox
+{ moveto
+372 0 rlineto
+0 90 rlineto
+-372 0 rlineto
+closepath} def
+
+/TitleFont
+{ /Helvetica findfont 12 scalefont setfont
+moveto } def
+
+/PanelFont
+{ /Helvetica findfont 12 scalefont setfont
+moveto } def
+
+/ContentFont
+{ /Helvetica findfont 12 scalefont setfont
+moveto } def
+
+/ButtonFont
+{ /Helvetica findfont 11 scalefont setfont
+moveto } def
+
+23 61 Outterbox
+34 100 Innerbox
+
+135 277 TitleFont(MOUSE CONFIGURATION) show
+
+34 265 PanelFont (This part of the configuration process will create a /dev/mouse link) show
+34 252 PanelFont (pointing to your default mouse device. You can change the /dev/mouse) show
+34 239 PanelFont (link later if the mouse doesn't work, or if you switch to a different) show
+34 226 PanelFont (type of pointing device. We will also use the information about the) show
+34 213 PanelFont (mouse to set the correct protocol for gpm, the Linux mouse server.) show
+34 200 PanelFont (Please select a mouse type from the list below:) show
+
+54 173 PanelFont (ps2) show
+54 160 PanelFont (usb) show
+54 147 PanelFont (imps2) show
+54 134 PanelFont (exps2) show
+54 121 PanelFont (bare) show
+54 108 PanelFont (ms) show
+
+100 173 PanelFont (PS/2 port (most desktops and laptops) ) show
+100 160 PanelFont (USB connected mouse) show
+100 147 PanelFont (Microsoft PS/2 Intellimouse) show
+100 134 PanelFont (Intellimouse Explorer PS/2) show
+100 121 PanelFont (2 button Microsoft compatible serial mouse) show
+100 108 PanelFont (3 button Microsoft compatible serial mouse) show
+
+123 71 ButtonFont (<  OK  >) show
+237 71 ButtonFont (< Cancel >) show
+
+stroke
+showpage
+%%EOF
