@@ -629,122 +629,70 @@ step-by-step. In order to do so, just type
   </imageobject>
 
   <para>
-    The next stage in configuring your install is the network
-    configuration. If you don't wish to configure your network at this
-    stage, you may decline, but otherwise you'll be prompted to
-    provide a hostname for your computer. Do not enter a domain name,
-    only the hostname.
+  The next stage in configuring your install is the network
+  configuration. If you don't wish to configure your network at this
+  stage, you may decline, but otherwise you'll be prompted to
+  provide a hostname for your computer. If you're unsure what to do
+  here, you might want to read through <xref linkend="ch_network"/>
+  first.
   </para>
 
   <para>
-    The following screen will prompt you for a domainname, such as
-    example.org. The combination of the hostname and the domainname
-    can be used to navigate between computers in your network if you
-    use an internal DNS service or maintain your
-    <filename>&#47;etc&#47;hosts</filename> file.
+  The following screens will prompt you first for a hostname, then
+  for a domainname, such as
+  example.org. The combination of the hostname and the domainname
+  can be used to navigate between computers in your network if you
+  use an internal DNS service or maintain your
+  <filename>&#47;etc&#47;hosts</filename> file. If you skip setting
+  up your network, Slackware will name your computer "darkstar" after
+  a song by the Grateful Dead.
   </para>
 
   <para>
-    You have three options when setting your IP address; you may
-    assign it a static IP, use DHCP, or configure a
-    loopback connection. The simplest option, and probably the most
-    common for laptops or computers on a basic network, is to let a
-    DHCP server assign IP addresses dynamically. Unless you are
-    installing Slackware for use as a network server, you probably
-    do not need to setup a static IP address.
+  You have three options when setting your IP address; you may
+  assign it a static IP, use DHCP, or configure a
+  loopback connection. The simplest option, and probably the most
+  common for laptops or computers on a basic network, is to let a
+  DHCP server assign IP addresses dynamically. Unless you are
+  installing Slackware for use as a network server, you probably
+  do not need to setup a static IP address. If you're not sure which
+  of these options to choose, pick DHCP.
   </para>
 
   <para>
-    Rarely DHCP servers requires you specify a DHCP
-    hostname before you're permitted to connect. You can enter this on
-    the Set DHCP Hostname screen. This is almost always be the same
-    hostname you entered earlier.
+  Rarely DHCP servers requires you specify a DHCP
+  hostname before you're permitted to connect. You can enter this on
+  the Set DHCP Hostname screen. This is almost always be the same
+  hostname you entered earlier.
   </para>
 
   <para>
-    To use a static IP address, you must provide:
-  </para>
-
-  <variablelist>
-    <title>Static IP Address</title>
-
-    <varlistentry>
-      <term>IP Address</term>
-      <listitem>
-	<para>
-	  The address of your computer, such as 192.168.1.1 (for
-	  IPv4). Also, you should verify that no DHCP server on your
-	  network is set to assign that same address out as a part of
-	  its DHCP pool, or you may encounter address conflicts.
-	</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>Netmask</term>
-      <listitem>
-	<para>
-	  The subnet mask for your network; often 255.255.255.0 for
-	  small networks.
-	</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>Gateway Address</term>
-      <listitem>
-	<para>
-	  The address of the gateway server providing internet access
-	  to your network. On small networks, this will probably be
-	  provided by your ISP while on larger networks you may use an
-	  internal server which handles the traffic. In other words,
-	  this may be an internal address like 192.168.1.1 or it might
-	  be an address provided by your ISP, such as 75.146.49.79
-	</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>Nameserver</term>
-      <listitem>
-	<para>
-	  Most likely, you'll want to utilize DNS; in this initial
-	  setup, provide your primary domain name server. Edit
-	  <filename>&#47;etc&#47;resolv.conf</filename> to add
-	  secondary and tertiary servers later.
-	</para>
-      </listitem>
-    </varlistentry>
-  </variablelist>
-
-  <para>
-    The final screen during static IP address configuration is a
-    confirmation screen, where you're permitted to accept your
-    choices, edit them, or even restart the IP address configuration
-    in case you decide to use DHCP instead.
+  If you choose to set a static IP address, Slackware will ask you to
+  enter it along with the netmask, gateway IP address, and what
+  nameserver to use.
   </para>
 
   <para>
-    Your network configuration is now complete. The next screen
-    prompts you to configure the startup services that you wish to run
-    automatically upon boot. Read the descriptions that appear both to
-    the right of the service name as well as at the bottom of the
-    screen in order to decide whether that service should be turned on
-    by default. These can always be modified later with
-    <application>pkgtool</application> &#62; <guimenu>Setup</guimenu>
-    &#62; <guimenuitem>Services</guimenuitem>.
+  The final screen during static IP address configuration is a
+  confirmation screen, where you're permitted to accept your
+  choices, edit them, or even restart the IP address configuration
+  in case you decide to use DHCP instead.
   </para>
 
   <para>
-    As the startup services window warns, you should only turn on the
-    startup services that you actually intend to use. This not only
-    decreases boot time but makes for a more secure system.
+  Once your network configuration is completed Slackware will
+  prompt you to configure the startup services that you wish to run
+  automatically upon boot. Helpful descriptions of each service appear
+  both to the right of the service name as well as at the bottom of the
+  screen. If you're not sure what to turn on, you can safely leave the
+  defaults in place. What services are started at boot time can be
+  easily modified later with <application>pkgtool</application>.
   </para>
 
   <para>
   Every computer needs to keep track of the current time, and with so
-  many timezones how does Slackware know which one to use? Well, you
-  have to tell it which one to use, and that's why this step is here.
+  many timezones around the world you
+  have to tell Slackware which one to use.
   If your computer's hardware clock is set to UTC (Coordinated
   Universal Time), you'll need to select that; most hardware clocks are
   not set to UTC from the factory (though you could set it that way on
@@ -803,7 +751,7 @@ step-by-step. In order to do so, just type
     The quickest and easiest way to create a normal user for yourself
     is to log in as root with the root password that you created at
     the end of the intallation process, and then issue the
-    <application>adduser</application>. This will interactively assist
+    <application>adduser</application> command. This will interactively assist
     you in creating a user; see <xref linkend="users_managing"/> for more
     information.
   </para>
