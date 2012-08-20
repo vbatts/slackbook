@@ -51,15 +51,9 @@ it as an appendix and mention it within the partitioning section?
 * Need to add images for Help and Keymap subsections of the Setup
 utility. Also, Mouse and Timezone.
 
-* The part about configuring the network (particular static IP
-addresses) in the Configure step of the install needs work. In
-particular the information was specified as a variable list. I believe
-this is something Klaatu added and probably isn't something we want
-here. It looks like he added it in chapters 3 and 16 as well. We might
-have to pull those sections out and rework them. Consistency is a major
-requirement if the book is ever going to be printed. Chasing down
-corner cases because this person did things one way and this other
-person did them another is a nightmare we want to avoid.
+Chapter 14. Networking
+
+* We should probably include a "screenshot" of netconfig somewhere.
 
 Chapter 16. Basic Networking Commands
 
