@@ -48,14 +48,3 @@ Chapter 14. Networking
 
 * We should probably include a "screenshot" of netconfig somewhere.
 
-Chapter 16. Basic Networking Commands
-
-* The various curses mail clients (pine, mutt) should have
-"screenshots" for consistency to match other curses programs (in
-particular the installer) so new users can get a real feel for how
-these tools work.
-
-* Additionally the section on mutt needs to be reworked where it refers
-to fetchmail, procmail, formail, etc. These are all seperate tools and
-if we refer to them at all it should be as seperate tools with their
-own subsections.
