@@ -581,7 +581,7 @@ predominately in scripts or for joining two or more files into one.
 </para>
 
 <screen><prompt>darkstar:~$ </prompt><userinput>cat /etc/slackware-version</userinput>
-Slackware 12.0.0
+Slackware 14.0
 </screen>
 
 <para>
@@ -725,7 +725,7 @@ to that file.)
 
 <screen><prompt>darkstar:~$ </prompt><userinput>ln /etc/slackware-version foo</userinput>
 <prompt>darkstar:~$ </prompt><userinput>cat foo</userinput>
-Slackware 12.0.0
+Slackware 14.0
 <prompt>darkstar:~$ </prompt><userinput>ls -l /etc/slackware-version foo</userinput>
 -rw-r--r-- 1 root root 17 2007-06-10 02:23 /etc/slackware-version
 -rw-r--r-- 1 root root 17 2007-06-10 02:23 foo
@@ -742,7 +742,7 @@ created with the <arg>-s</arg> argument.
 
 <screen><prompt>darkstar:~$ </prompt><userinput>ln -s /etc/slackware-version foo</userinput>
 <prompt>darkstar:~$ </prompt><userinput>cat foo</userinput>
-Slackware 12.0.0
+Slackware 140
 <prompt>darkstar:~$ </prompt><userinput>ls -l /etc/slackware-version foo</userinput>
 -rw-r--r-- 1 root root 17 2007-06-10 02:23 /etc/slackware-version
 lrwxrwxrwx 1 root root 22 2008-01-25 04:16 foo -> /etc/slackware-version

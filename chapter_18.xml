@@ -57,15 +57,18 @@ version of Slackware, you'll need to check a mirror.
 </para>
 
 <screen><prompt>darkstar:~&#35; </prompt><userinput>wget -O - \
-ftp:&#47;&#47;slackware.osuosl.org&#47;pub&#47;slackware&#47;slackware-13.0&#47;ChangeLog.txt \
+ftp://slackware.osuosl.org/pub/slackware/slackware64-current/ChangeLog.txt \
 | less</userinput>
-Sun Jan 24 20:22:46 UTC 2010
-patches&#47;packages&#47;httpd-2.2.14-i486-1_slack12.1.tgz:  Upgraded.
-  This fixes a couple of security bugs when using mod_proxy_ftp.
-  For more information, see:
-    http:&#47;&#47;cve.mitre.org&#47;cgi-bin&#47;cvename.cgi?name=CVE-2009-3094
-    http:&#47;&#47;cve.mitre.org&#47;cgi-bin&#47;cvename.cgi?name=CVE-2009-3095
-  (* Security fix *)</screen>
+Thu Aug 16 04:01:31 UTC 2012
+Getting close!  Hopefully we've cleared out most of the remaining issues
+and are nearly ready here.  We'll call this release candidate 2.
+Unless there's a very good rationale, versions are frozen.
+Any reports of remaining bugs will be gladly taken, though.
+  #include &lt;more/cowbell.h&gt;
+a/aaa_base-14.0-x86_64-4.txz:  Rebuilt.
+  Remove mention of HAL in the initial welcome email (mention udisks2
+  instead).  Thanks to Dave Margell.
+a/bash-4.2.037-x86_64-1.txz:  Upgraded.</screen>
 
 </section>
 

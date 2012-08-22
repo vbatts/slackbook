@@ -48,3 +48,8 @@ Chapter 14. Networking
 
 * We should probably include a "screenshot" of netconfig somewhere.
 
+Chapter 18. Keeping Track of Updates
+
+* Once 14.0 is released and there's a security update for it, we need
+to change the contents of the <screen> section to show what an actual
+-stable Changelog entry.
