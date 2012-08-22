@@ -37,7 +37,7 @@ packages and the list of currently installed packages in a
 user-friendly ncurses interface.
 </para>
 
-<imagedata fileref="img/pkgtool.png" format="PNG"/>
+<imagedata fileref="png/pkgtool.png" format="PNG"/>
 
 <para>
 <application>pkgtool</application> is a convenient and easy way to

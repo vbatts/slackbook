@@ -19,6 +19,7 @@ General
 * Aim to update references to kernel versions and Slackware versions to those 
   used in the most recent release of Slackware. I've seen kernel 2.6.29.4 and 
   Slackware 12.0.0 for instance.
+  - 2012-08-22 Most of the Slackware versions should be fixed now.  -Alan
 
 * more extensive CLI apps like v2.0
 
@@ -41,8 +42,8 @@ General
 Chapter 2. Installation
 
 * Should we include some partitioning examples using gdisk since this
-tool is increasingly required with today's modern systems? Perhaps add
-it as an appendix and mention it within the partitioning section?
+  tool is increasingly required with today's modern systems? Perhaps add
+  it as an appendix and mention it within the partitioning section?
 
 Chapter 14. Networking
 
@@ -51,5 +52,5 @@ Chapter 14. Networking
 Chapter 18. Keeping Track of Updates
 
 * Once 14.0 is released and there's a security update for it, we need
-to change the contents of the <screen> section to show what an actual
--stable Changelog entry.
+  to change the contents of the <screen> section to show what an actual
+  -stable Changelog entry.
