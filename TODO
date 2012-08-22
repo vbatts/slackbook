@@ -40,16 +40,9 @@ General
 
 Chapter 2. Installation
 
-* In the section on booting the installer, there's a <screen> section
-that mentions typing "TERM=vt100" if you don't have a color monitor. Is
-this line present in the installer anymore?
-
 * Should we include some partitioning examples using gdisk since this
 tool is increasingly required with today's modern systems? Perhaps add
 it as an appendix and mention it within the partitioning section?
-
-* Need to add images for Help and Keymap subsections of the Setup
-utility.
 
 Chapter 14. Networking
 
