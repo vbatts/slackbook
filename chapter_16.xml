@@ -518,130 +518,24 @@ command reference neatly located at the bottom of the screen. See for
 yourself&#58;
 </para>
 
-<screen>
-  ALPINE 2.00   MAIN MENU              Folder: INBOX               No
-Messages  
-
-
-          ?     HELP               -  Get help using Alpine           
-
-          C     COMPOSE MESSAGE    -  Compose and send a message      
-
-          I     MESSAGE INDEX      -  View messages in current folder 
-
-          L     FOLDER LIST        -  Select a folder to view         
-
-          A     ADDRESS BOOK       -  Update address book             
-
-          S     SETUP              -  Configure Alpine Options        
-
-          Q     QUIT               -  Leave the Alpine program        
-
-
-                  Copyright 2006-2008 University of Washington
-                    [Folder "INBOX" opened with 0 messages]
-? Help                     P PrevCmd                 R RelNotes                 
-O OTHER CMDS > [ListFldrs] N NextCmd                 K KBLock                  
-</screen>
+<imageobject>
+  <imagedata fileref="png/pine.png" format="PNG"/>
+</imageobject>
 
  <para>
    Before configuring any mail client, you should check the
    documentation of your mail server to gather all of the pertinent
    information about what protocols and security measures your mail
    service uses. This will help you configure
-   <application>pine</application> correctly.
-</para>
-
- <para>
-   To start configuring <application>pine</application>, you should be
-   able to enter the [S]ettings menu, and then the [C]onfig
-   screen. There are about a hundred different options, but the most
-   common and most important ones would be your Personal Name, Inbox
-   Path, and SMTP Server.
-</para>
-
-<variablelist>
-  <title>Pine Settings</title>
-
-  <varlistentry>
-    <term>
-      Personal Name
-    </term>
-    <listitem>
-      <para>
-	The name you wish people to see in the "From" field of your
-	emails.
-    </para>
-  </listitem>
-  </varlistentry>
-
-  <varlistentry>
-    <term>
-      Inbox Path
-    </term>
-
-    <listitem>
-      <para>
-	Your mail server.  The server itself is often something like
-	mail.example.com (although it may not be; check with your
-	host to be sure), but if that server requires login information then you
-	may need to set it to something like bob@mail.example.com
-	or similar.
-      </para>
-    </listitem>
-  </varlistentry>
-
-  <varlistentry>
-    <term>SMTP Server</term>
-    <listitem>
-      <para>
-	The server through which you will send your email; often this
-	is smtp.example.com or outgoing.example.com or some variation
-	on that theme.  It often requires authentication, but you
-	should be prompted for this in
-	<application>pine</application> when sending mail.
-      </para>
-    </listitem>
-  </varlistentry>
-</variablelist>
-
-<para>
-  A sample configuration might look a little something like this:
-</para>
-
-<table>
-  <title>Sample Pine Configuration</title>
-  <tgroup cols="2">
-    <tbody>
-      <row>
-	<entry>Personal Name</entry>
-	<entry>Alan Hicks</entry>
-      </row>
-      <row>
-	<entry>SMTP Server</entry>
-	<entry>smtp.lizella.net</entry>
-      </row>
-      <row>
-	<entry>Inbox Path</entry>
-	<entry>{imap.lizella.net/user=alan@lizella.net}inbox</entry>
-      </row>
-      <row>
-	<entry>Warn if Blank Subject</entry>
-	<entry>X</entry>
-      </row>
-      <row>
-	<entry>Sort Key: Arrival</entry>
-	<entry>X</entry>
-      </row>
-    </tbody>
-  </tgroup>
-</table>
-
-<para>
-  And so on.  Once you have it configured according to your mail
-  server&#39;s settings, you will be able to navigate the application from
-  the main menu.  It&#39;s quite intuitive, with a persistent list of
-  keyboard shortcuts at the bottom of the screen.
+   <application>pine</application> correctly. By default,
+   <application>pine</application> will check for new e-mails delivered
+   to a mail service running on your computer. Unless you're actually
+   running such a mail service (many people do) this probably isn't
+   what you want. Fortunately configuring
+   <application>pine</application> is a straight forward process.
+   Simply enter the [S]etup menu and chose the [C]onfig option. You'll
+   be given an option to enter you name, mail path, SMTP server, and
+   many other options.
 </para>
 
 </section>
@@ -658,37 +552,16 @@ isn't as user friendly as <application>pine</application>, but makes up
 for it with power. You won't find the user-friendly command reference
 at the bottom of the screen, <application>mutt</application> uses every
 last inch of real-estate for mail processing duty. It's feature support
-is extensive: threaded displays are no problem for the mighty
+is extensive - threaded displays are no problem for the mighty
 mixed-breed! You can configure <application>mutt</application> with a
 <filename>.muttrc</filename> file in your home directory. With all the
 many different possible configuration options, there's even a man page
 for that, muttrc(5). You might want to read up on it.
 </para>
 
-<screen>
-3172 N   Jan 17 Thomas Morper   (2.8K)     │ └─>Re: [Slackbuilds-users] Exim Sbo
-3173 N   Jan 17 TuxaneMedia     (2.5K)     └─>Re: [Slackbuilds-users] Exim Sbo
-3174 N   Jan 06 Uli Sch?fer     (4.6K) [Slackbuilds-users] mrtg-2.15.2 breaks wi
-3175 N   Jan 06 Willy Sudiarto  (4.0K) └─>
-3176 N   Jan 06 Audrius Ka??uka (3.9K)   └─>
-3177 N   Jan 06 Niels Horn      (4.4K)     └─>
-3178 N * Jan 09 King Beowulf    (6.5K) [Slackbuilds-users]  libreoffice (3.3.0rc
-3179 N * Jan 09 Niels Horn      (4.8K) └─>Re: [Slackbuilds-users] libreoffice (3
-3180   * Jan 09 Niels Horn      (  73)   └─>                                    
-3181 N * Jan 09 King Beowulf    (5.9K)     └─>
-3182 N   Jan 10 Robby Workman   (7.8K) [Slackbuilds-users] Updates - 20110110
-3183 N   Jan 10 B Watson        (3.6K) [Slackbuilds-users] Fwd: nted slackbuild
-3184 N   Jan 11 SlackBuilds@cat (2.5K) [Slackbuilds-users] /usr/share/ package s
-3185 N   Jan 11 Robby Workman   (3.4K) └─>
-3186 N   Jan 12 SlackBuilds@cat (3.4K)   └─>
-3187 N   Jan 11 Robby Workman   (4.5K)     └─>
-3188 D   Jan 12 Klaatu          (3.5K) [Slackbuilds-users] LiVES updates
-3189 N   Jan 12 Robby Workman   (2.3K) [Slackbuilds-users] Unavailability of mai
-3190 N   Jan 13 Mr. B-o-B       (3.7K) └─>
-3191 N   Jan 13 Josiah Boothby  (3.2K) [Slackbuilds-users] Ted's Word Processor
-3192 N   Jan 14 Adam Swift      (7.4K) [Slackbuilds-users] Web submission failur
-3193 N   Jan 14 Rob McGee       (3.5K) └─>
-</screen>
+<imageobject>
+  <imagedata fileref="png/mutt.png" format="PNG"/>
+</imageobject>
 
 <para>
   Using <application>mutt</application> is unique because it is by
@@ -702,251 +575,23 @@ for that, muttrc(5). You might want to read up on it.
   As is so often the case with robust console-based applications, the
   configuration options are myriad, and there is no &#34;right&#34; or
   &#34;wrong&#34; way of using <application>mutt</application> as long
-  as it does what you want it to do. Here is a simple example of a
-  system utilizing <application>mutt</application>, with a toolchain
-  consisting of:
+  as it does what you want it to do. One thing to keep in mind if you
+  are considering using <application>mutt</application> for mail
+  handling is that its mail sending and receiving abilities are very
+  limited. <application>mutt</application> focuses solely on sorting,
+  reading, and composing mail messages in addition to other traditional
+  Mail User Agent duties. This is keeping in focus with the UNIX
+  philosophy of small tools that do one thing very well and which can
+  be combined (or "chained") with other tools to complete whatever
+  tasks are required. With this in mind, you'll likely need to setup
+  some external tool to receiving mail at a minimum.
 </para>
-
-<itemizedlist>
-  <listitem>
-    <para>
-      <application>fetchmail</application> to pull mail from your mail server
-      via POP3
-    </para>
-</listitem>
-
-  <listitem>
-    <para>
-      <application>procmail</application> to sort the mail as needed.
-  </para>
-  </listitem>
-
-  <listitem>
-    <para>
-      <application>mutt</application> to read, sort, and send email.
-    </para>
-</listitem>
-
-  <listitem>
-    <para>
-      Optionally, <command>formail</command> to re-format your mail if needed
-      &#40;depending on your mail server settings&#41;
-    </para>
-</listitem>
-</itemizedlist>
-
-<para>
-  <application>fetchmail</application> is a simple application that exists
-  only to pull mail from mail servers and copy those email messages to
-  your local hard drive.  The configuration is fairly simple:
-</para>
-
-<screen>
-  <prompt>darkstar:~&#36; </prompt> cat ~&#47;.fetchmailrc
-poll pop.example.com with proto pop3
-  user "bob@example.com" there has password "secretpassword" is bdobbs here and wants mds "/usr/bin/procmail"
-</screen>
-
-<variablelist>
-<title>Fetchmail Configuration Explained</title>    
-
-<varlistentry>
-  <term>poll</term>
-  <listitem>
-    <para>
-      Defines the mail server to check
-    </para>
-  </listitem>
-</varlistentry>
-
-<varlistentry>
-  <term>with proto</term>
-  <listitem>
-    <para>
-      Defines the protocol used; in this case, POP3.
-  </para>
-  </listitem>
-</varlistentry>
-
-<varlistentry>
-  <term>user</term>
-  <listitem>
-    <para>
-      Your email username. Sometimes this is just the string in front
-      of the @ at symbol, othertimes it is your whole email address.
-      Again, see your provider&#39;s documentation to find out what
-      you should be using.
-    </para>
-  </listitem>
-</varlistentry>
-
-<varlistentry>
-  <term>there has password</term>
-
-  <listitem>
-    <para>
-      Your email password.  This is entered as plaintext into your
-      config file, but since this is in your home directory, it is only
-      readable by you. For good measure though, it is safe to 
-      <prompt> chmod 0600 ~/.fetchmailrc </prompt>
-    </para>
-  </listitem>
-</varlistentry>
-
-<varlistentry>
-  <term>is username here</term>
-  <listitem>
-    <para>
-      Defines which user on your local computer this email account
-      actually belongs to.  For instance, if my email account is
-      bob@example.com, but my username on my Slackware box
-      is bdobbs, then obviously there would be no way for
-      <application>fetchmail</application> to know who
-      bob@example.com is.  This defines it.
-    </para>
-  </listitem>
-</varlistentry>
-
-<varlistentry>
-  <term>and wants mda &#34;&#47;usr&#47;bin&#47;procmail&#34;</term>
-
-  <listitem>
-    <para>
-      Tells <application>fetchmail</application> what application will
-      be sorting the email once it is pulled from the mail server.
-      <application>Procmail</application> ships with Slackware, so this
-      will probably not change for you and is not dependent upon your
-      mail server whatsoever.
-    </para>
-  </listitem>
-</varlistentry>
-</variablelist>
-
-<para>
-  Now that <application>fetchmail</application> is configured, it will
-  successfully pull your email from the server.  But what will your
-  computer do with all of that mail?  This is the job of
-  <application>procmail</application>.
-</para>
-
-<para>
-  The settings for <application>procmail</application> can be stored
-  in ~&#47;.procmailrc and is also fairly simple; for example:
-</para>
-
-<screen>
-    PATH=/usr/bin
-    MAILDIR=$HOME/Mail
-    DEFAULT=$MAILDIR/Inbox
-    LOGFILE=$MAILDIR/logs
-</screen>
-
-<para>
-  Now <application>procmail</application> is configured, so your mail
-  will be sent to the right place.  There is much more you can do with
-  <application>procmail</application> so feel free to investigate its
-  many filtering functions (or &#34;recipes&#34;) later, once you have
-  everything working.
-</para>
-
-<para>
-  At this point, your email will be pulled from the server by
-  <application>fetchmail</application> and sorted on your local system
-  by way of <application>procmail</application>.  All that's left to
-  do is to configure <application>mutt</application> so that it knows where to
-  find your email messages so that you can view them.
-</para>
-
-<para>
-  Because <application>mutt</application> is such an extensible program, it&#39;s
-  a good idea to make a folder for its configuration file.  Your
-  initial configuration will be frightfully simple, but if you ever
-  look for new configurations of mutt you might be happy to have a
-  whole folder to play around in.
-</para>
-
-  <screen>
-    <prompt>darkstar:~&#36; </prompt> <command>cat</command> ~&#47;.mutt&#47;.muttrc
-    set realname=&#34;Bob Dobbs&#34;
-    set from=&#34;bob@example.com&#34;
-    set spoolfile=&#47;home&#47;bdobbs&#47;Mail&#47;Inbox
-    set mbox=&#47;home&#47;bdobbs&#47;Mail&#47;mbox
-    set record=&#47;home&#47;bdobbs&#47;Mail&#47;sent
-    set postponed=&#47;home&#47;bdobbs&#47;Mail&#47;postponed
-    set sort=reverse-date
-    set editor=emacs
-    set smtp_url=&#34;smtp:&#47;&#47;bob:secretpassword@smtp.example.com:465&#34;
-  </screen>
-
-<para>
-  In this sample configuration, the <varname>spoolfile</varname>
-  defines the incoming messages that you have not read yet &#40;you
-  might recognize it as the end destination for
-  <application>procmail</application>&#41;, while <varname>mbox</varname>
-  defines where mail that you have read and responded to will be
-  stored. All other settings are self-explanatory, and all have been
-  drawn directly from the muttrc man page; refer to it for more options.
-</para>
-
-<note>
-<para>
-  If your mail server delivers your email in a format that
-  <command>mutt</command> cannot understand, use the
-  <application>formail</application> mailbox converter, a part of the
-  <application>procmail</application> distribution. For example:
-</para>
-
-<screen>
-  <prompt>darkstar:~&#36; </prompt> formail -ds &lt; ~&#47;Mail&#47;Inbox &#62;&#62; ~&#47;Mail&#47;Muttbox
-  </screen>
-
-  <para>
-    Rather than performing this conversion every time you check your
-    email, you might want to script it to happen automatically after
-    procmail is finished its job.
-  </para>
-</note>
 
 <para>
   The commands used to navigate around in <application>mutt</application> are highly
   customizable but the defaults can be listed by typing
   <keycap>?</keycap>.
 </para>
-
-<section id="network-utils_ssl">
-  <title>Adding SSL Support</title>
-
-  <para>
-    If your mail server supports SSL then you can and should use SSL
-    for better security. Most graphical clients have common SSL
-    certificates built into them; <application>mutt</application> does
-    not but it's trivial to configure.
-  </para>
-
-  <para>
-    Download an SSL trust certificate &#40;the most common set is from
-    Thawte&#41; and place it in your Mutt or Mail folder, and list it
-    as a <varname>certificate_file</varname> in your
-    <filename>.muttrc</filename> file.  If your mail server is not using
-    Thawte, then they may be using either another SSL certificate
-    authority or they may be their own certificate authority, but
-    if an unknown certificate is encountered,
-    <application>mutt</application> will prompt you to accept it (or
-    not). If you do accept it, the certificate can be saved into
-    this certificate file.
-  </para>
-
-  <para>
-    To obtain the Thawte certificate:
-  </para>
-
-  <screen>
-    bash$ wget
-    http://www.thawte.com/roots/thawte_Premium_Server_CA.pem -P
-    ~/Mail/
-  </screen>
-
-</section> <!-- closing SSL --> 
 
 </section> <!-- closing mutt -->
 
@@ -967,8 +612,6 @@ client that isn't menu-driven? Thankfully
 </para>
 
 <para>
-  To launch <application>mailx</application>, type
-  <command>mail</command> at a shell prompt.
   <application>mailx</application> reads mail from your computer's
   mail spool and displays the usual combination of sender, subject,
   status, and size in a list, leaving the user at an interactive
@@ -978,12 +621,12 @@ client that isn't menu-driven? Thankfully
 </para>
 
 <screen>
-root@darkstar:&#47;home&#47;bdobbs&#35; mail
-Heirloom mailx version 12.4 7&#47;29&#47;08.  Type ? for help.
-"&#47;var&#47;spool&#47;mail&#47;root": 2 messages 2 new
-&#62;N  1 To root            Thu Mar 10 23:33   52&#47;1902  Register with the Linux counter project
- N  2 To root            Thu Mar 10 23:35  321&#47;15417 Welcome to Linux (Slackware 13.37)!
-&#63;
+<prompt>darkstar:~# </prompt><userinput>mailx</userinput>
+Heirloom mailx version 12.4 7/29/08.  Type ? for help.
+"/var/spool/mail/root": 2 messages 2 new
+&#62;N  1 To root            Thu Mar 10 23:33   52/1902  Register with the Linux counter project
+ N  2 To root            Thu Mar 10 23:35  321/15417 Welcome to Linux (Slackware 13.37)!
+?;
 </screen>
 
 <para>
@@ -996,7 +639,7 @@ Heirloom mailx version 12.4 7&#47;29&#47;08.  Type ? for help.
 </para>
 
 <para>
-  To see a list of available commands, type &#63; at the
+  To see a list of available commands, enter <keycap>?</keycap> at the
   <application>mail</application> prompt; using the commands provided,
   you can view the headers of mail in the spool, reply, delete, save,
   and many other common email tasks.
@@ -1007,17 +650,17 @@ Heirloom mailx version 12.4 7&#47;29&#47;08.  Type ? for help.
   scripting. For all of the options available for
   <application>mailx</application>, view its man page. A simple way to
   send an email to someone requires only the command itself and the
-  destination address&#58;
+  destination address.
 </para>
 
 <screen>
-  <prompt>darkstar:~&#36; </prompt> <command>mail bob@example.com</command>
+  <prompt>darkstar:~$ </prompt> <userinput>mailx bob@example.com</userinput>
 </screen>
 
 <para>
   After the command has been issued, an interactive prompt appears for
   a subject line, the message body, and the end character (a single
-  dot on an otherwise empty line).
+  period on an otherwise empty line).
 </para>
 
 <para>
@@ -1025,11 +668,11 @@ Heirloom mailx version 12.4 7&#47;29&#47;08.  Type ? for help.
   intervention, however. Generally, it's safe to assume that any
   attribute you can define in the interactive shell for
   <application>mailx</application> can also be defined while scripting
-  it or using it as one non-interactive command&#58;
+  it or using it as one non-interactive command.
 </para>
 
 <screen>
-  <prompt>darkstar:~&#36; </prompt><userinput>mail -n -s "Test message" bob@example.com &#60; ~&#47;message.txt</userinput>
+  <prompt>darkstar:~$ </prompt><userinput>mailx -n -s "Test message" bob@example.com &#60; ~/message.txt</userinput>
 </screen>
 
 <para>
@@ -1110,7 +753,7 @@ public FTP server, you'll want to use the "anonymous" username and
 simply enter your e-mail address (or a fake one) for the password.
 </para>
 
-<screen><prompt>darkstar:~# </prompt><userinput>ftp ftp.osuosl.org</userinput>
+<screen><prompt>darkstar:~$ </prompt><userinput>ftp ftp.osuosl.org</userinput>
 Name (ftp.osuosl.org:alan): <userinput>anonymous</userinput>
 331 Please specify the password.
 Password: <userinput>secret</userinput>
