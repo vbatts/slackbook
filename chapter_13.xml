@@ -2,460 +2,413 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "/usr/share/xml/docbook/xml-dtd-4.5/docbookx.dtd">
 
-<chapter id="ch_emacs">
-<title>Emacs</title>
+<chapter>
+  <title><application>Emacs</application></title>
 
-<para>
-While <application>vi</application> (with its clones) is without a
-doubt the most ubiquitous
-editor on Unix-like systems, <application>emacs</application>(1) comes
-in a good second. Instead of
-using different "modes", like <application>vi</application> does, it uses <keycap>CTRL</keycap> and <keycap>ALT</keycap> key
-combinations to enter commands, in much the same way that you can use
-<keycap>CTRL</keycap>  and <keycap>ALT</keycap> key combinations in a word processor and indeed in
-many other applications to execute certain functions. (Though it should
-be noted that the commands rarely correspond; so while many modern
-applications use Ctrl-C/ X/ V for copying, cutting and pasting, <application>emacs</application>
-uses different keys and actually a somewhat different mechanism for
-this.)
-</para>
+  <section>
+    <title>What is <application>Emacs</application>?</title>
 
-<para>
-Also unlike <application>vi</application>, which is an (excellent) editor and nothing more, <application>emacs</application>
-is a program with near endless capabilities. <application>emacs</application> is (for the most
-part) written in Lisp, which is a very powerful programming language
-that has the peculiar property that every program written in it is
-automatically a Lisp compiler of its own. This means that the user can
-extend <application>emacs</application>, and in fact write completely new programs "in <application>emacs</application>".
-</para>
+    <para>
+      <application>vi</application> and its clones are very functional
+      and powerful editors.  However, they are often considered not
+      particularly extensible.  <application>vim</application> is a
+      successful and powerful
+      <application>vi</application> variant that shrugs this trend,
+      being both extremely extensible and lightweight.  However, many
+      users prefer a more "heavy" and extensible editor.  This is why
+      many people (including the author of this chapter) prefer
+      <application>Emacs</application>.
+    </para>
 
-<para>
-As a result, <application>emacs</application> is not just an editor anymore. There are many add-on
-packages for <application>emacs</application> available (many come with the program's source) that
-provide all sorts of functionality. Many of these are related to text
-editing, which is after all <application>emacs</application>' basic task, but it doesn't stop
-there. There are for example several spreadsheet programs for <application>emacs</application>,
-there are databases, games, mail and news clients (the top one being
-Gnus), etc.
-</para>
+    <para>
+      Emacs takes extensibility up to eleven.  Outside of a core of C,
+      the rest of <application>Emacs</application> is written in a
+      Lisp variant, nearly all of which is exposed to you, so that you
+      may configure it or even extend it at will (many good Emacs Lisp
+      tutorials can be found on the Internet).  People have written
+      all sorts of extensions in Emacs Lisp, from syntax highlighting
+      for an obscure language, to a built-in terminal.  In fact,
+      there's even a <application>vi</application> emulation mode
+      within <application>Emacs</application> (called viper), so you
+      can still get the modal editing that comes with vi, while having
+      access to the power of the <application>Emacs</application>
+      core.
+    </para>
 
-<para>
-There are two main versions of <application>emacs</application>: GNU Emacs (which is the version
-that comes with Slackware) and XEmacs. The latter is not a version for
-Emacs running under X. In fact, both <application>emacs</application> and XEmacs run on the
-console as well as under X. XEmacs was once started as a project to
-tidy up the <application>emacs</application> code. Currently, both versions are being actively
-developed, and there is in fact much interaction between the two
-development teams. For the present chapter, it is immaterial whether
-you use <application>emacs</application> or XEmacs, the differences between them are not relevant
-to the normal user.
-</para>
+    <para>
+      Like <application>vi</application>, there are many variants of
+      <application>Emacs</application> (termed "emacsen").  However,
+      the one most commonly used (and the only one in Slackware) is
+      GNU Emacs.  When people reference "Emacs" directly, they almost
+      always mean GNU Emacs.
+    </para>
 
-<section id="emacs_starting-emacs">
-<title>Starting Emacs</title>
+    <para>
+      Unlike <application>vi</application>,
+      <application>Emacs</application> operates more like a
+      traditional editor by default.  This means that most keyboard
+      shortcuts can be performed without repeatedly changing modes.
+      You can open up a file and start typing away without having to
+      learn what the modes do, or forgetting which one you are
+      currently using.
+    </para>
+  </section>
 
-<para>
-Emacs can be started from the shell by simply typing <application>emacs</application>. When you
-are running X, <application>emacs</application> will (normally) come up with its own X window,
-usually with a menu bar at the top, where you can find the most
-important functions. On startup, <application>emacs</application> will first show a welcome
-message, and then after a few seconds will drop you in the *scratch*
-buffer. (See Section 17.2.)
-</para>
+  <section>
+    <title>Starting Out</title>
+    <para>
+      <application>Emacs</application> can be started simply by
+      running the <application>emacs</application> command in your
+      terminal.  When
+      you first start it in a console without arguments, you will see
+      something that resembles this:
+    </para>
+    
+    <imagedata fileref="img/emacs-startup.png" format="PNG"/>
+    
+    <para>
+      If you are in X windows, <application>Emacs</application> may
+      start a GUI instead of running in your console.  If this is the
+      case and you don't want a GUI, you can invoke it with the flag
+      <arg>'-nw'</arg>.
+    </para>
 
-<para>
-You can also start <application>emacs</application> on an existing file by typing
-</para>
+    <para>
+      While here, you can browse around using the
+      keyboard arrow keys.
+      Underlined elements are links, and you can activate them by
+      moving over them and pressing 'enter'.  The documentation
+      mentioned is very good, and can help you get your bearings
+      should you have any problems.  Also note how they describe key
+      sequences such as <keycap>C-h</keycap>, meaning press the
+      <keycap>h</keycap>
+      key while holding down the <keycap>CTRL</keycap> key.  Same deal
+      with <keycap>M-`</keycap>, meaning to hold the the
+      <keycap>Meta</keycap> key (usually "<keycap>Alt</keycap>") and
+      press the backtick "`" key.  When they say (e.g.)  <keycap>C-x
+      C-c</keycap>, this means to press the "x" key while holding down
+      the <keycap>CTRL</keycap> key, then press the "x" key while also
+      holding down the <keycap>CTRL</keycap> key.  Conveniently, this
+      is also one of the more important commands in
+      <application>Emacs</application>: to close it.
+    </para>
 
-<screen>
-    <prompt>&#37; </prompt> <command><application>emacs</application>
-    <filename>&#47;etc&#47;resolv.conf</filename>
-  </command>
-</screen>
+    <para>
+      Alternatively, if you call <application>emacs</application> with a
+      file name as an argument, it will open that file, just like
+      <application>vi</application>.  Upon doing this, you will be
+      presented with the contents of the file in question.  Here, you can
+      navigate the document using traditional arrow keys and type in
+      information at will without any issues.
+    </para>
 
-<para>
-This will cause <application>emacs</application> to load the specified file when it starts up,
-skipping the welcome message.
-</para>
+    <para>
+      Say you make some edits, and you now want to save your file.
+      The following key sequence will do that: <keycap>C-x C-s</keycap>.
+      If you made a new file, you will be prompted for this in what is
+      called the "minibuffer", the blank line below the gray line at
+      the bottom of the screen.  Type in the file name of your choice,
+      then hit <keycap>Enter</keycap>. If you don't want to
+      save the file, you can press <keycap>C-g</keycap>, which aborts
+      operations that ask for input.  Do note that tab-completion is
+      usually available for operations that use the minibuffer.
+    </para>
 
-<section id="emacs_command-keys">
-<title>Command Keys</title>
-<para>
-As mentioned above, <application>emacs</application> uses <keycap>CTRL</keycap> and <keycap>ALT</keycap> combinations for
-commands. The usual convention is to write these with <keycap>C</keycap>-letter and
-<keycap>M</keycap>-letter, respectively. So <keycap>C</keycap>-x means <keycap>CTRL</keycap>+x, and <keycap>M</keycap>-x  means <keycap>ALT</keycap>+x.
-</para>
+    <para>
+      Should you want to open a new file within your same
+      <application>Emacs</application> session, type in <keycap>C-x
+      C-f</keycap>.  You will be prompted for a file name in the
+      minibuffer.  <application>Emacs</application> doesn't care
+      whether it exists or not.  If it doesn't exist, a new buffer
+      will be created for it (the file will be created upon saving
+      with <keycap>C-x C-s</keycap>), or it will be opened as
+      expected.  However, the old file will still be open!  You can
+      switch back to it using <keycap>C-x C-b</keycap>, entering in
+      the file's name (or more technically, the buffer's name), then
+      hitting <keycap>Enter</keycap>.
+    </para>
 
-<note>
-  <para>
-    The letter M is used instead of A because originally the key was not
-the <keycap>ALT</keycap> key but the Meta key. The Meta key has all but disappeared from
-computer keyboards, and in <application>emacs</application> the <keycap>ALT</keycap> key has taken over its
-function.
-  </para>
-</note>
+  </section>
 
-<para>
-Many <application>emacs</application> commands consist of sequences of keys and key combinations.
-For example, <keycap>C</keycap>-x <keycap>C</keycap>-c &#40;that is <keycap>CTRL</keycap>-x followed by <keycap>CTRL</keycap>-c&#41; quits
-Emacs, <keycap>C</keycap>-x <keycap>C</keycap>-s saves the current file. Keep in mind that <keycap>C</keycap>-x <keycap>C</keycap>-b is not
-the same as <keycap>C</keycap>-x b. The former means <keycap>CTRL</keycap>-x followed by <keycap>CTRL</keycap>-b,
-while the latter means <keycap>CTRL</keycap>-x followed by just &#39;b&#39;.
-</para>
+  <section>
+    <title>How to Move Around</title>
+    <para>
+      Like <application>vi</application>,
+      <application>Emacs</application> is also older than the arrow
+      keys on your keyboard.  Also, like in
+      <application>vi</application>, using the arrow keys to navigate
+      files is also supported.  While the
+      <application>vi</application> movement keys are more ergonomic,
+      <application>emacs</application>'s are more "mnemonic".
+      However, it is still very possible to operate using the main
+      <application>Emacs</application> keybindings quickly and
+      efficiently.  Here is a table of the basic movement keybindings:
+    </para>
+    
+    <table pgwide="0">
+      <title>Emacs Cursor Movement</title>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry>Command</entry>
+            <entry>Result</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>C-f</entry>
+            <entry>Move the cursor one character to the right (forward)</entry>
+          </row>
+          <row>
+            <entry>C-b</entry>
+            <entry>Move the cursor one character to the left (backward)</entry>
+          </row>
+          <row>
+            <entry>C-n</entry>
+            <entry>Move the cursor one line down (next)</entry>
+          </row>
+          <row>
+            <entry>C-p</entry>
+            <entry>Move the cursor one line up (previous)</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+   
+    <para>
+    Of course, like with <application>vi</application> it is also
+    possible to repeat these commands with a numeric argument.  If you
+    type in <keycap>M-1 M-0 C-p</keycap>, or <keycap>C-u 10
+    C-p</keycap>, the cursor will move ten lines up.  If you type in
+    <keycap>M-5 C-f</keycap> or <keycap>C-u 5 C-f</keycap>, the cursor
+    will move five characters to the right.
+    </para>
+  </section>
 
-</section>
+  <section>
+    <title>Getting Help</title>
 
-</section>
+    <para>
+      <application>Emacs</application> contains a great deal of
+      documentation, to the point that it is often called a
+      "self-documenting" editor. This is because it provides
+      mechanisms for providing users with documentation while you are
+      using it.
 
-<section id="emacs_buffers">
-<title>Buffers</title>
-<para>
-In <application>emacs</application>, the concept of &#39;buffers&#39; is essential. Every file that you
-open is loaded into its own buffer. Furthermore, <application>emacs</application> has several
-special buffers, which do not contain a file but are used for other
-things. Such special buffers usually have a name that starts and ends
-with an asterisk. For example, the buffer that <application>emacs</application> shows when it is
-first started, is the so-called &#42;scratch&#42; buffer. In the &#42;scratch&#42;
-buffer, you can type text in the normal way, but text that is typed
-there is not saved when <application>emacs</application> is closed.
-</para>
-<para>
-There is one other special buffer you need to know about, and that is
-the minibuffer. This buffer consists of only one line, and is always on
-the screen: it is the very last line of the <application>emacs</application> window, below the
-status bar for the current buffer. The minibuffer is where <application>emacs</application> shows
-messages for the user, and it is also the place where commands that
-require some user input are executed. For example, when you open a
-file, <application>emacs</application> will ask for its name in the minibuffer.
-</para>
-<para>
-Switching from one buffer to another can be done with the command <keycap>C</keycap>-x
-b. This will prompt you for the name of a buffer (a buffer's name is
-usually the name of the file you are editing in it), and it gives a
-default choice, which is normally the buffer that you were in before
-you switched to or created the current buffer. Just hitting Enter will
-switch to that default buffer.
-</para>
-<para>
-If you want to switch to another buffer than the default offered by
-Emacs, just type its name. Note that you can use so-called
-Tab-completion here: type the first few letters of the buffer's name
-and hit Tab; <application>emacs</application> will then complete the name of the buffer. Tab
-completion works everywhere in <application>emacs</application> where it makes sense.
-</para>
-<para>
-You can get a list of open buffers by hitting <keycap>C</keycap>-x <keycap>C</keycap>-b. This command
-will usually split the screen in two, displaying the buffer you were
-working in in the top half, and a new buffer called &#42;Buffer List&#42; in
-the bottom half. This buffer contains a list of all the buffers, their
-sizes and modes, and the files, if any, that those buffers are visiting
-(as it is called in <application>emacs</application>). You can get rid of this split screen by
-typing <keycap>C</keycap>-x 1.
-</para>
-</section>
+      Here are some useful functions that display documentation (they
+      all start with <keycap>C-h</keycap>):
+    </para>
 
-<section id="emacs_modes">
-<title>Modes</title>
-<para>
-Every buffer in <application>emacs</application> has an associated mode. This mode is very
-different from the idea of modes in <application>vi</application>: a mode tells you what kind of
-buffer you are in. For example, there is text-mode for normal text
-files, but there are also modes such as c-mode for editing C programs,
-sh-mode for editing shell scripts, latex-mode for editing LaTeX files,
-mail-mode for editing email and news messages, etc. A mode provides
-special customizations and functionality that is useful for the kind of
-file you are editing. It is even possible for a mode to redefine keys
-and key commands. For example, in Text mode, the <keycap>Tab</keycap> key simply jumps
-to the next tab stop, but in many programming language modes, the <keycap>Tab</keycap>
-key indents the current line according to the depth of the block that
-line is in.
-</para>
+      <table pgwide="0">
+        <title>Accessing <application>Emacs</application> Documentation</title>
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry>Command</entry>
+              <entry>Result</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>C-h f FUNCTION-NAME Enter</entry>
+              <entry>Show documentation for function FUNCTION-NAME</entry>
+            </row>
+            <row>
+              <entry>C-h k C-x C-c</entry>
+              <entry>Show documentation for the function bound to the keys
+              <keycap>C-x C-c</keycap></entry>
+            </row>
+            <row>
+              <entry>C-h t</entry>
+              <entry>Show the Emacs tutorial</entry>
+              </row>
+              <row>
+                <entry>C-h ?</entry>
+                <entry>Show all help-related functions</entry>
+              </row>
+          </tbody>
+        </tgroup>
+      </table>
+    <para>
+      <keycap>C-h t</keycap> is especially useful if
+      you want or need practice using <application>Emacs</application>.
+    </para>
 
-<para>
-The modes mentioned above are called <emphasis>major modes</emphasis>. Each buffer has
-exactly one major mode. Additionally, a buffer can have one or more
-minor modes. A <emphasis>minor mode</emphasis> provides additional features that may be
-useful for certain editing tasks. For example, if you hit the <keycap>INSERT</keycap>
-key, you invoke overwrite-mode, which does what you&#39;d expect. There is
-also an auto-fill-mode, which is handy in combination with text-mode or
-latex-mode: it causes each line that you type to be automatically
-wrapped once the line reaches a certain number of characters. Without
-auto-fill-mode, you have to type <keycap>M</keycap>-q to fill out a paragraph. &#40;Which
-you can also use to reformat a paragraph after you&#39;ve edited some text
-in it and it is no longer nicely filled out.&#41;
-</para>
+  </section>
 
-<section id="emacs_opening-files">
-<title>Opening Files</title>
 
-<para>
-To open a file in <application>emacs</application>, type <keycap>C</keycap>-x <keycap>C</keycap>-f
-</para>
+  <section>
+    <title>Calling Functions</title>
+    <para>
+      As noted earlier, <application>Emacs</application> exports a
+      large number of functions to for interactive use.  Some of
+      these, like those opening and saving files, are mapped to keys.
+      Others (like the ones for moving to the beginning and end of
+      lines) are not.  To call them, you have to invoke them.  Say we
+      want to call the function "end-of-line".  We would do
+      this:
+    </para>
 
-<para>
-<application>Emacs</application> will ask you for the name of the file, filling in some default
-path for you &#40;which is usually &#126;&#47; &#41;. After you type the filename &#40;you
-can use <keycap>Tab</keycap> completion&#41; and hit <keycap>ENTER</keycap>, <application>emacs</application> will open the file in a
-new buffer and display that buffer on the screen.
-</para>
+    <para>
+      <keycap>M-x end-of-line Enter</keycap>
+    </para>
+    
+    <para>
+      And the cursor would move to the end of the line, as the function name
+      suggests.
+    </para>
+  </section>
 
-<note>
-  <para>
-    <application>Emacs</application> will automatically create a new
-    buffer, it will not load the file into the current buffer.
-  </para>
-</note>
+  <section>
+    <title>Emacs Cheat Sheet</title>
 
-  <para>
-    In order to create a new file in <application>emacs</application>,
-    you cannot just go typing right away. You first have to create a
-    buffer for it, and come up with a filename. You do this by typing
-    <keycap>C</keycap>-x <keycap>C</keycap>-f and typing a filename,
-    just as if you were opening an existing
-    file. <application>Emacs</application> will notice that the file
-    you typed doesn&#39;t exist, and will create a new buffer and report
-    &#34;&#40;New file&#41;&#34; in the minibuffer.
-  </para>
+    <para>
+      While Emacs can be simple to use, its scope can easily be
+      overwhelming.  Below are some useful Emacs commands.  Some
+      aspects have been simplified, most notably regarding text
+      selection.  These concepts, and more, are described the
+      <application>Emacs</application> manual, and various on-line
+      tutorials.  Decent summaries can also be gleaned from web
+      searches.
+    </para>
 
-  <para>
-When you type <keycap>C</keycap>-x <keycap>C</keycap>-f and then enter a directory name instead of a
-filename, <application>emacs</application> will create a new buffer in which you will find a list
-of all the files in that directory. You can move the cursor to the file
-that you are looking for and type , and
-<application>emacs</application> will open it.
-  </para>
-
-<note>
-  <para>
-    There are in fact a lot more actions you can perform here, such as
-    deleting, renaming and moving files,
-    and so on. This is the dired-mode of <application>emacs</application>, which
-    is basically a simple file manager.
-  </para>
-</note>
-
-<para>
-When you have typed <keycap>C</keycap>-x <keycap>C</keycap>-f and suddenly change your mind, you can type
-<keycap>C</keycap>-g to cancel the action. <keycap>C</keycap>-g works almost everywhere where you want to
-cancel an action or command that you've started but don&#39;t want to
-finish.
-</para>
-</section> <!-- closing OPENING FILES section --> 
-
-</section> <!-- closing MODES section --> 
-
-<section id="emacs_basic-editing">
-<title>Basic Editing</title>
-
-<para>
-When you have opened a file, you can of course move around in it with
-the cursor. The cursor keys and <keycap>PgUp</keycap>, <keycap>PgDn</keycap> do what you&#39;d expect. <keycap>Home</keycap>
-and <keycap>End</keycap> jump to the beginning and end of the line. &#40;In older versions,
-they would actually jump to the beginning and end of the buffer.&#41;
-However, there are also <keycap>CTRL</keycap> and Meta &#40;<keycap>ALT</keycap>&#41; key combos that move the
-cursor around. Because you do not need to move your hands to another
-part of the keyboard for these, they are much quicker once you get used
-to them.
-</para>
-
-<table>
-<title>Basic <application>emacs</application> Editing Commands</title>
-<tgroup cols="2">
-  <thead>
-    <row>
-      <entry>Command</entry>
-      <entry>Result</entry>
-    </row>
-  </thead>
-  <tbody>
-    <row>
-      <entry><keycap>C</keycap>-b</entry>
-      <entry>go one character back</entry>
-    </row>
-    <row>
-      <entry><keycap>C</keycap>-f</entry>
-      <entry>go one character forward</entry>
-    </row>
-    <row>
-      <entry><keycap>C</keycap>-n</entry>
-      <entry>go one line down</entry>
-    </row>
-    <row>
-      <entry><keycap>C</keycap>-p</entry>
-      <entry>go one line up</entry>
-    </row>
-    <row>
-      <entry><keycap>C</keycap>-a</entry>
-      <entry>go to the beginning of the line</entry>
-    </row>
-    <row>
-      <entry><keycap>C</keycap>-e</entry>
-      <entry>go to the end of the line</entry>
-    </row>
-    <row>
-      <entry><keycap>M</keycap>-b</entry>
-      <entry>go one word back</entry>
-    </row>
-    <row>
-      <entry><keycap>M</keycap>-f</entry>
-      <entry>go one word forward</entry>
-    </row>
-    <row>
-      <entry><keycap>M</keycap>-&#125;</entry>
-      <entry>go one paragraph forward</entry>
-    </row>
-    <row>
-      <entry><keycap>M</keycap>-&#123;</entry>
-      <entry>go one paragraph backward</entry>
-    </row>
-    <row>
-      <entry><keycap>M</keycap>-a</entry>
-      <entry>go one sentence backward</entry>
-    </row>
-    <row>
-      <entry><keycap>M</keycap>-e</entry>
-      <entry>go one sentence forward</entry>
-    </row>
-    <row>
-      <entry><keycap>C</keycap>-d</entry>
-      <entry>delete the character under the cursor</entry>
-    </row>
-    <row>
-      <entry><keycap>M</keycap>-d</entry>
-      <entry>delete until the end of the current word</entry>
-    </row>
-    <row>
-      <entry><keycap>C</keycap>-v</entry>
-      <entry>go down one screen &#40;i.e.,
-      <keycap>PgDn</keycap>&#41;</entry>
-    </row>
-    <row>
-      <entry><keycap>M</keycap>-v</entry>
-      <entry>go up one screen &#40;i.e.,
-      <keycap>PgUp</keycap>&#41;</entry>
-    </row>
-    <row>
-      <entry><keycap>M</keycap>-&lt;</entry>
-      <entry>go to the beginning of the buffer</entry>
-    </row>
-    <row>
-      <entry><keycap>M</keycap>-&gt;</entry>
-      <entry>go to the end of the buffer</entry>
-    </row>
-    <row>
-      <entry><keycap>C</keycap>-&#95;</entry>
-      <entry>undo the last change &#40;can be repeated&#41;&#59; note
-      that you actually have to type
-      <keycap>SHIFT</keycap>+<keycap>CTRL</keycap>+hyphen for this.
-      </entry>
-    </row>
-    <row>
-      <entry><keycap>C</keycap>-k</entry>
-      <entry>delete to end of line</entry>
-    </row>
-    <row>
-      <entry><keycap>C</keycap>-s</entry>
-	<entry>forward search</entry>
-    </row>
-    <row>
-      <entry><keycap>C</keycap>-r</entry>
-      <entry>reverse search</entry>
-    </row>
-  </tbody>
-</tgroup>
-</table>
-
-<para>
-Note that many Meta commands are parallel to the <keycap>CTRL</keycap> commands
-except that they operate on larger units: while <keycap>C</keycap>-f goes forward one
-character, <keycap>M</keycap>-f goes forward an entire word, etc.
-</para>
-
-<para>
-Also note that <keycap>M</keycap>-&lt; and <keycap>M</keycap>-&gt; require you to type <keycap>SHIFT</keycap>+<keycap>ALT</keycap>+comma and
-<keycap>SHIFT</keycap>+<keycap>ALT</keycap>+dot respectively, since
-&lt; and &gt; are on <keycap>SHIFT</keycap>+comma and
-<keycap>SHIFT</keycap>+dot. &#40;Unless of course you have a different keyboard layout from
-the standard US layout.&#41;
-</para>
-
-<para>
-Note that <keycap>C</keycap>-k deletes &#40;kills, as it is commonly called&#41; all the text
-after the cursor to the end of the line, but doesn't delete the line
-itself &#40;i.e., it doesn't delete the final newline&#41;. It only deletes the
-line if there was no text after the cursor. In other words, in order to
-delete a complete line, you have to put the cursor at the beginning of
-the line, and then hit <keycap>C</keycap>-k twice: once to delete the text on the line,
-and once to delete the line itself.
-</para>
-
-</section> <!-- closing EDITING section -->
-
-<section id="emacs_saving-files">
-<title>Saving Files</title>
-
-<para>
-In order to save a file, you type <keycap>C</keycap>-x <keycap>C</keycap>-s
-</para>
-
-<para>
-<application>Emacs</application> will not ask you for a filename, the buffer will just be saved to
-the file it was loaded from. If you want to save your text to another
-file, type
-
-<keycap>C</keycap>-x <keycap>C</keycap>-w
-</para>
-
-<para>
-When you save the file for the first time in this session, <application>emacs</application> will
-normally save the old version of your file to a backup file, which has
-the same name appended with a tilde: so if you&#39;re editing a file
-<filename>cars.txt</filename>, <application>emacs</application> will create a backup <filename>cars.txt~</filename>.
-</para>
-
-<para>
-This backup file is a copy of the file that you opened. While you are
-working, <application>emacs</application> will also regularly create an auto-save copy of the work
-you are doing, to a file named with hash signs: &#35;cars.txt&#35;. This backup
-is deleted when you save the file with <keycap>C</keycap>-x <keycap>C</keycap>-s.
-</para>
-
-<para>
-When you are done editing a file, you can kill the buffer that holds it
-by typing <keycap>C</keycap>-x k
-</para>
-
-<para>
-<application>Emacs</application> will then ask you which buffer you want to kill, with the current
-buffer as default, which you can select by hitting <keycap>ENTER</keycap>. If you
-haven&#39;t saved your file yet, <application>emacs</application> will ask you if you really want to
-kill the buffer.
-</para>
-
-<para>
-  If you&#39;d prefer to save the file with a new name so that you
-  don&#39;t overwrite the original version, use <keycap>C</keycap>-x
-  <keycap>C</keycap>-w instead. You may then give a new name for the
-  file, and the buffer will be updated to reflect the contents of this
-  new file, leaving the old file unchanged.
-</para>
-
-</section>
-
-<section id="emacs_quitting-emacs">
-<title>Quitting Emacs</title>
-
-<para>
-When you are done with <application>emacs</application> altogether,
-you can type <keycap>C</keycap>-x <keycap>C</keycap>-c
-</para>
-
-<para>
-This quits <application>emacs</application>. If you have any unsaved files, <application>emacs</application> will tell you
-so, and ask if you want to save them each in turn. If you answer no to
-any of these, <application>emacs</application> will ask for one final confirmation and then quit.
-</para>
-
-</section> <!-- closing QUIT section -->
-
+    <table pgwide="0">
+      <title>Emacs Cheat Sheet</title>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry>Command</entry>
+            <entry>Result</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>C-f</entry>
+            <entry>Move the cursor one character to the right (forward)</entry>
+          </row>
+          <row>
+            <entry>C-b</entry>
+            <entry>Move the cursor one character to the left (backward)</entry>
+          </row>
+          <row>
+            <entry>C-n</entry>
+            <entry>Move the cursor one line down (next)</entry>
+          </row>
+          <row>
+            <entry>C-p</entry>
+            <entry>Move the cursor one line up (previous)</entry>
+          </row>
+          <row>
+            <entry>C-h f FUNCTION-NAME Enter</entry>
+            <entry>Show documentation for function FUNCTION-NAME</entry>
+          </row>
+          <row>
+            <entry>C-h k C-x C-c</entry>
+            <entry>Show documentation for the function bound to the keys <keycap>C-x C-c</keycap></entry>
+          </row>
+          <row>
+            <entry>C-h t</entry>
+            <entry>Show the Emacs tutorial</entry>
+          </row>
+          <row>
+            <entry>C-h ?</entry>
+            <entry>Show all help-related functions</entry>
+          </row>
+          <row>
+            <entry>M-`</entry>
+            <entry>Access the Menu Bar</entry>
+          </row>
+          <row>
+            <entry>C-g</entry>
+            <entry>Cancel the current operation.  This is most useful when in the minibuffer.</entry>
+          </row>
+          <row>
+            <entry>M-x FUNCTION-NAME Enter</entry>
+            <entry>Call the interactive function FUNCTION-NAME</entry>
+          </row>
+          <row>
+            <entry>M-1 M-0 C-n</entry>
+            <entry>Move the cursor ten lines down</entry>
+          </row>
+          <row>
+            <entry>C-u 10 C-n</entry>
+            <entry>Move the cursor ten lines down (same as above)</entry>
+          </row>
+          <row>
+            <entry>M-x beginning-of-line</entry>
+            <entry>Move the cursor to the beginning of the current line</entry>
+          </row>
+          <row>
+            <entry>M-x end-of-line</entry>
+            <entry>Move the cursor to the end of the current line</entry>
+          </row>
+          <row>
+            <entry>M-&gt;</entry>
+            <entry>Move the cursor to the end of the buffer</entry>
+          </row>
+          <row>
+            <entry>M-&lt;</entry>
+            <entry>Move the cursor to the beginning of the buffer</entry>
+          </row>
+          <row>
+            <entry>C-k</entry>
+            <entry>Remove text from the cursor to the end of the line and
+            place it into the kill ring </entry>
+          </row>
+          <row>
+            <entry>C-space</entry>
+            <entry>Enter selection mode (use normal motion keys to move around).  Press <keycap>C-space</keycap> again to leave it.</entry>
+          </row>
+          <row>
+            <entry>C-w</entry>
+            <entry>While in selection mode, delete the selected region, and store the result into the kill ring</entry>
+          </row>
+          <row>
+            <entry>M-w</entry>
+            <entry>While in selection mode, store the selected region into the kill ring.</entry>
+          </row>
+          <row>
+            <entry>C-y</entry>
+            <entry>"Yanks" the contents of the kill ring and places them at the cursor's location</entry>
+          </row>
+          <!-- <row>
+               <entry>M-y</entry>
+               <entry>Replace the current contents of the kill ring with the item last yanked from it.  Useful for cycling between the key-ring </entry>
+               </row> -->
+          <row>
+            <entry>C-/</entry>
+            <entry>Undo the previous action.  Unlike most other editors, this includes previous undo actions.</entry>
+          </row>
+          <row>
+            <entry>insert</entry>
+            <entry>Enable or disable overwriting characters</entry>
+          </row>
+          <row>
+            <entry>C-s asdf Enter</entry>
+            <entry>Forward incremental search for the string "asdf".  Repeat <keycap>C-s</keycap> as needed to search for future items, or <keycap>C-r</keycap> (below) to search backwards.</entry>
+          </row>
+          <row>
+            <entry>C-r asdf Enter</entry>
+            <entry>Backward incremental search for the string "asdf".  Repeat <keycap>C-r</keycap> as needed to search for future items, or <keycap>C-s</keycap> (above) to search forwards.</entry>
+          </row>
+          <row>
+            <entry>M-% old Enter new Enter</entry>
+            <entry>Search for each instance of "old" and prompt you to replace it with "new".  You can force replacement of all items by typing "!" at the replacement prompt.  </entry>
+          </row>
+          <row>
+            <entry>C-x C-c</entry>
+            <entry>Exit <application>Emacs</application>, prompting you to save each unsaved buffer before doing so</entry>
+          </row>
+          <row>
+            <entry>C-x C-s</entry>
+            <entry>Save the currrent buffer to its file</entry>
+          </row>
+          <row>
+            <entry>C-x C-w new-file.txt Enter</entry>
+            <entry>Save the current buffer to a file "new-file.txt"</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </section>
 </chapter>
