@@ -179,7 +179,7 @@ firefox, konqueror, or links and go to
 </para>
     
 <screen>
-  <prompt>darkstar:~&#35; </prompt><command>lpinfo -m | grep 1060</command>
+  <prompt>darkstar:~&#35; </prompt><userinput>lpinfo -m | grep 1060</userinput>
 </screen>
 
 <para>
@@ -285,7 +285,7 @@ firefox, konqueror, or links and go to
   </para>
 
   <screen>
-    <prompt>&#35; </prompt><command>lpadmin -d r1060</command>
+    <prompt>&#35; </prompt><userinput>lpadmin -d r1060</userinput>
   </screen>
 
   <para>
@@ -303,8 +303,8 @@ firefox, konqueror, or links and go to
   </para>
 
   <screen>
-    <prompt>&#36; </prompt><command>PRINTER=r1060</command>
-    <prompt>&#36; </prompt><command>export PRINTER</command>
+    <prompt>&#36; </prompt><userinput>PRINTER=r1060</userinput>
+    <prompt>&#36; </prompt><userinput>export PRINTER</userinput>
   </screen>
 </note>
 
@@ -313,7 +313,7 @@ firefox, konqueror, or links and go to
   </para>
 
   <screen>
-    <prompt>&#36; </prompt><command>lpr foo.txt</command>
+    <prompt>&#36; </prompt><userinput>lpr foo.txt</userinput>
   </screen>
 
   <section id="print_lpr_pr">
@@ -340,7 +340,7 @@ firefox, konqueror, or links and go to
   </para>
 
   <screen>
-    <prompt>darkstar:~&#36; </prompt><command>pr foo.txt | lpr</command>
+    <prompt>darkstar:~&#36; </prompt><userinput>pr foo.txt | lpr</userinput>
   </screen>
 
   <para>
