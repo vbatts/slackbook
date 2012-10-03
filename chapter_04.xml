@@ -681,16 +681,16 @@ text will scroll until it finds the next match.
 </para>
 
 <para>
-  Also as with <application>more</application>, files maybe opened
+  Also as with <application>more</application>, files may be opened
   directly in <application>less</application> or piped to it:
 </para>
 
 <screen>
-  <prompt>darkstar:~$ </prompt> <command>less
-  &#47;usr&#47;doc&#47;less-&#42;&#47;README</command>
-  <prompt>darkstar:~$ </prompt> <command>cat
+  <prompt>darkstar:~$ </prompt> <userinput>less
+  &#47;usr&#47;doc&#47;less-&#42;&#47;README</userinput>
+  <prompt>darkstar:~$ </prompt> <userinput>cat
   &#47;usr&#47;doc&#47;less&#42;&#47;README
-  &#47;usr&#47;doc&#47;util-linux&#42;&#47;README | less</command>
+  &#47;usr&#47;doc&#47;util-linux&#42;&#47;README | less</userinput>
 </screen>
 
 <para>
